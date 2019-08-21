@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { userActions } from '../../actions';
-import _ from  'lodash';
+//import { userActions } from '../../actions';
 
 class Navbar extends React.Component{
 

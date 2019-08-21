@@ -20,7 +20,7 @@ class Input extends React.Component{
 						placeholder={placeholder}
 						type={type}
 						value={value}
-						onChange={(event) => onInputChange(this.props.name, event.target.value)} />
+						onChange={(event) => onInputChange(name, event.target.value)} />
 	      </div>
 			</div>
 		)
