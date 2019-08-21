@@ -1,0 +1,651 @@
+@import 'variables';
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  CARD DESIGN */
+
+.card {
+  background-color: $card-background;
+}
+
+.card-header {
+  background-color: $card-background;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  AVATAR DESIGN */
+
+.ant-avatar {
+  width: 48px;
+  height: 48px;
+  margin-top: 10px;
+  border-radius: 48px;
+  border: 5px solid $secondary-color;
+}
+
+.avatar-dropdown {
+}
+
+.ant-dropdown-menu {
+  background-color: $card-background;
+  border-radius: 24px;
+  border: 5px solid $secondary-color;
+  padding: 0px 0;
+}
+
+.ant-dropdown-menu-item {
+  color: $white;
+
+  &:hover, &:active, &:focus {
+    background-color: $body-background !important;
+  }
+
+  &:first-child {
+    border-radius: 24px 24px 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 24px 24px;
+  }
+
+  a {
+    color: $primary-color;
+    font-weight: bold;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  BUTTON DESIGN */
+
+.ant-btn {
+  color: #000000;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 24px;
+  height: 48px;
+  font-size: 24px;
+
+  &:hover, &:active, &:focus {
+    color: #000000;
+  }
+}
+
+.ant-btn-small {
+  color: #000000;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 12px;
+  height: 24px;
+  font-size: 12px;
+
+  &:hover, &:active, &:focus {
+    color: #000000;
+  }
+}
+
+.ant-btn-medium {
+  color: #000000;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 18px;
+  height: 36px;
+  font-size: 18px;
+
+  &:hover, &:active, &:focus {
+    color: #000000;
+  }
+}
+
+.btn-is-favourite {
+  background-color: $green-color;
+  color: $white;
+  border: none;
+  border-radius: 50%;
+
+  &:hover, &:active, &:focus {
+    background-color: $green-color-darken;
+    color: $white;
+    border: none;
+    border-radius: 50%;
+  }
+}
+
+.btn-is-not-favourite {
+  background-color: $red-color;
+  color: $white;
+  border: none;
+  border-radius: 50%;
+
+  &:hover, &:active, &:focus {
+    background-color: $red-color-darken;
+    color: $white;
+    border: none;
+    border-radius: 50%;
+  }
+}
+
+.btn-watched {
+  background-color: $green-color;
+  border: none;
+
+  &:hover, &:active, &:focus {
+    background-color: $green-color-darken;
+    border: none;
+  }
+}
+
+.btn-not-watched {
+  background-color: $blue-color;
+  border: none;
+
+  &:hover, &:active, &:focus {
+    background-color: $blue-color-darken;
+    border: none;
+  }
+}
+
+.btn-add-to-wishlist {
+  border: none;
+}
+
+.btn-first-tv-show {
+  border-color: $primary-color;
+  color: $primary-color;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  INPUT DESIGN */
+
+.ant-input-prefix {
+  color: $white !important;
+  font-size: 29px;
+  left: 18px !important;
+}
+
+.ant-input {
+  background-color: $secondary-color !important;
+  border: 5px solid $primary-color !important;
+  border-radius: 24px !important;
+  color: $white !important;
+  height: 48px !important;
+  font-size: 29px !important;
+
+  &:hover, &:active, &:focus {
+    border-color: $primary-color-darken !important;
+  }
+}
+
+.ant-input:not(:first-child) {
+  padding-left:52px !important;
+}
+
+.ant-input-affix-wrapper {
+  &:hover {
+    border-right-width: 5px !important;
+  }
+}
+
+.has-error .ant-input {
+  border-color: $danger !important;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  SELECT DESIGN */
+
+.ant-select-selection {
+  background: transparent;
+  border-radius: 24px;
+  cursor: default;
+}
+
+.ant-select-dropdown {
+  border: 5px solid $secondary-color !important;
+  background-color: $card-background;
+  overflow: hidden;
+  -moz-border-radius: 24px;
+  -khtml-border-radius: 24px;
+  -webkit-border-radius: 24px;
+  border-radius: 24px;
+
+
+}
+
+.ant-select-dropdown-menu-item {
+  background-color: $card-background;
+
+  &:hover {
+    background-color: $body-background;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  FORM DESIGN */
+
+.ant-form {
+  color: $white;
+}
+
+.ant-form-item {
+  font-size: 16px;
+}
+
+.form-actions {
+  border-top: 0px solid $primary-color;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  NOTIFICATION DESIGN */
+
+.ant-notification-notice {
+  background: $card-background;
+  border-radius: 24px;
+}
+
+.ant-notification-notice-description {
+  color: $white;
+}
+
+.ant-notification-notice-message {
+  color: $white;
+}
+
+.ant-notification-notice-close {
+  color: $white;
+}
+
+.error {
+  border: 5px solid $danger;
+}
+
+.success {
+  border: 5px solid $success;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  TEXT DESIGN */
+
+strong {
+  color: $primary-color;
+}
+
+label {
+  color: $primary-color !important;
+  font-size: 18px !important;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  LIST DESIGN */
+
+.ant-list-item-content {
+  color: $primary-color;
+}
+
+.ant-list-split .ant-list-item {
+  border-bottom-color: $primary-color !important;
+}
+
+.ant-list-item-action {
+  margin-left: auto;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  MOVIE & TV SERIES DESIGN */
+
+.movie-poster {
+  width: 223px;
+  height: 335px;
+  border: 5px solid $primary-color;
+}
+
+.movie-title-row {
+  display: flex;
+  align-items: center;
+}
+
+.movie-title {
+  font-size: 50px;
+  font-weight: bold;
+  color: $primary-color;
+  font-family: 'Roboto', sans-serif;
+}
+
+.movie-year {
+  background-color: $primary-color;
+  color: #000000;
+  font-size: 40px;
+  font-family: "Nunito Sans", sans-serif;
+  border-radius: 24px;
+  margin:0 10px 0 10px;
+  padding: 0 10px 0 10px;
+}
+
+.movie-tags-section {
+  margin-top: 2.3rem;
+}
+
+.movie-tags-paragraph {
+  font-size: 40px;
+  font-weight: bold;
+  color: $primary-color;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  LAYOUT DESIGN */
+
+body {
+  background: $body-background;
+}
+
+.align-end {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ant-layout-header {
+  height: 100px;
+}
+
+::-webkit-scrollbar {
+  width: 26px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: $card-background;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 24px;
+  background: $secondary-color;
+}
+
+
+
+.login-main-logo {
+	max-width:400px;
+}
+
+.align-right {
+	float:right;
+}
+
+.utils-link-color-main {
+	a {color:rgb(22,51,117) !important;}
+}
+
+.main-login__block {
+	padding: 0 !important;
+}
+
+.main-register__block {
+  padding: 0 !important;
+}
+
+.main-forgot__block {
+  padding: 0 !important;
+}
+
+.main-login__block__promo {
+  padding: 0 0 1.5rem !important
+}
+
+.p-top-5 {
+	padding-top: 5rem !important;
+}
+
+.space-above {
+  margin-top: 24px;
+  padding-top: 8px;
+}
+
+.centered-slim-card {
+  margin: auto;
+}
+
+.ant-form-item-control-wrapper {
+  margin: 1px;
+}
+
+.coaches-input {
+  margin-bottom: 10px;
+}
+
+.edit-profile-block {
+	padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid $gray-border;
+}
+
+.custom-filter-dropdown {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 6px;
+  background: #fff;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+}
+
+.custom-filter-dropdown input {
+  margin-right: 8px;
+}
+
+.range-picker-filter {
+  margin: 25px;
+  width: 300px;
+}
+
+.country-picker-container {
+  height: 170px;
+}
+
+.ant-time-picker {
+  margin-right: 8px;
+}
+
+form-input {
+  margin-right: 10px !important;
+}
+
+.country-picker-filter {
+  height: 100%;
+  overflow-y: auto;
+  margin-right: 10px;
+}
+
+.checkbox-group-filter input{
+  margin: 5px;
+  padding: 5px;
+}
+
+.ant-calendar-picker {
+  margin-right: 8px;
+}
+
+.custom-filter-dropdown button {
+  margin-right: 8px;
+}
+
+.table-flag {
+  margin-right: 5px;
+  vertical-align: baseline !important;
+}
+
+.highlight {
+  color: #f50;
+}
+
+.center {
+  float: none;
+  margin: 0 auto;
+}
+
+.ant-notification {
+  z-index: 99999999999;
+}
+
+.table-text {
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  display:block;
+  text-transform:capitalize;
+}
+
+.table-tags {
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+  display:grid;
+}
+
+table {
+  table-layout: fixed;
+}
+
+.livesearch__wrapper {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.block-centered {
+  margin: 0 auto;
+}
+
+.ant-dropdown-menu-item:hover {
+  background-color: $gray-lighten;
+}
+
+.anticon {
+  vertical-align: .1em;
+}
+
+.block {
+  display: inline-block;
+}
+
+.sponsors-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.sponsors-logo {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 35px;
+  max-height: 50px;
+}
+
+.documents-tag {
+  font-size: 17px;
+  color: rgba(0, 0, 0, 0.65);
+  box-sizing: border-box;
+  margin: 0;
+  list-style: none;
+  display: inline-block;
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+  border: 1px solid #e4e9f0;
+  background: #f2f4f8;
+  -webkit-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  -o-transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+  opacity: 1;
+  margin-right: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ant-card-head-title {
+  width: 60%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+.container-scrollable {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.ant-checkbox-wrapper {
+  display: block;
+}
+
+@media (min-width: 992px) {
+  .livesearch-results-col {
+    max-width: 20%;
+  }
+
+  .ant-card-body {
+    height: 180px;
+    overflow: hidden;
+  }
+}
+
+.action-button {
+  margin: 5px;
+}
+
+.page-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-avatar {
+  max-width: 150px;
+}
+
+.report-status {
+  background-color: #f2f4f8;
+  border-radius: 5px;
+  padding: 3px;
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  font-weight: bold;
+}
+
+.capitalize {
+  text-transform:capitalize;
+}
+
+.report-status-draft {
+  color: black;
+}
+
+.report-status-rejected {
+  background-color: #FB434A;
+  color: white;
+}
+
+.report-status-published {
+  background-color: #28a745;
+  color: white;
+}
+
+.ml-5px {
+  margin-left: 5px;
+}
+
+.dynamic-delete-button {
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  font-size: 24px;
+  color: #999;
+  transition: all .3s;
+}
+.dynamic-delete-button:hover {
+  color: #777;
+}
+.dynamic-delete-button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
