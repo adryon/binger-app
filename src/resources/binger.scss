@@ -12,6 +12,11 @@
   background-color: $card-background;
 }
 
+.card-title {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /*  AVATAR DESIGN */
 
@@ -156,37 +161,46 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 /*  INPUT DESIGN */
 
-.ant-input-prefix {
-  color: $white !important;
-  font-size: 29px;
-  left: 18px !important;
+.has-error .ant-input {
+  border-color: $danger !important;
 }
 
-.ant-input {
+
+.main-area {
+  position: relative;
+}
+
+.main-label {
+  display: block;
+}
+
+.main-icon {
+  font-size: $input-icon-size;
+  color: $white;
+  display: block;
+  position: absolute;
+  left: 20px;
+}
+
+.main-input {
   background-color: $secondary-color !important;
   border: 5px solid $primary-color !important;
   border-radius: 24px !important;
   color: $white !important;
+  display: block;
   height: 48px !important;
+  width: 100%;
   font-size: 29px !important;
+  padding-left: 52px;
+  -webkit-transition: border-color 0.2s ease-in;
+  -moz-transition: border-color 0.2s ease-in;
+  -o-transition: border-color 0.2s ease-in;
+  transition: border-color 0.2s ease-in;
 
   &:hover, &:active, &:focus {
-    border-color: $primary-color-darken !important;
+    outline: none;
+    border-color: $primary-color-darken !important
   }
-}
-
-.ant-input:not(:first-child) {
-  padding-left:52px !important;
-}
-
-.ant-input-affix-wrapper {
-  &:hover {
-    border-right-width: 5px !important;
-  }
-}
-
-.has-error .ant-input {
-  border-color: $danger !important;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -268,6 +282,10 @@ strong {
   color: $primary-color;
 }
 
+h3 {
+  color: $primary-color;
+}
+
 label {
   color: $primary-color !important;
   font-size: 18px !important;
@@ -334,6 +352,40 @@ label {
 
 body {
   background: $body-background;
+}
+
+.main-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  z-index: 20000;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.main-logo {
+  margin: 20px 20px 20px 20px;
+}
+
+.main-card {
+  position: relative;
+  padding: 60px 60px 60px 60px;
+}
+
+.main-card-title {
+  padding: 10px 10px 10px 10px;
+}
+
+.main-card-body {
+  position: relative;
+  padding: 10px 10px 10px 10px;
 }
 
 .align-end {
