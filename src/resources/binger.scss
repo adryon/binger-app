@@ -62,16 +62,51 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 /*  BUTTON DESIGN */
 
-.ant-btn {
+.binger-btn {
+  background-color: $primary-color;
   color: #000000;
   font-weight: bold;
   text-transform: uppercase;
+  border: none;
   border-radius: 24px;
   height: 48px;
   font-size: 24px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  -webkit-transition: background-color 0.2s ease-in;
+  -moz-transition: background-color 0.2s ease-in;
+  -o-transition: background-color 0.2s ease-in;
+  transition: background-color 0.2s ease-in;
 
   &:hover, &:active, &:focus {
-    color: #000000;
+    outline: none;
+    background-color: $primary-color-darken !important
+  }
+
+  .binger-btn-icon {
+    font-size: $input-icon-size;
+    color: $white;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .binger-btn-text {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.binger-btn-link {
+  color: $primary-color;
+  -webkit-transition: color 0.2s ease-in;
+  -moz-transition: color 0.2s ease-in;
+  -o-transition: color 0.2s ease-in;
+  transition: color 0.2s ease-in;
+
+  &:hover, &:active, &:focus {
+    outline: none;
+    color: $primary-color-darken !important
   }
 }
 
@@ -161,20 +196,19 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 /*  INPUT DESIGN */
 
-.has-error .ant-input {
+.has-error {
   border-color: $danger !important;
 }
 
-
-.main-area {
+.binger-input {
   position: relative;
 }
 
-.main-label {
+.binger-input-label {
   display: block;
 }
 
-.main-icon {
+.binger-input-icon {
   font-size: $input-icon-size;
   color: $white;
   display: block;
@@ -182,7 +216,7 @@
   left: 20px;
 }
 
-.main-input {
+.binger-input-textbox {
   background-color: $secondary-color !important;
   border: 5px solid $primary-color !important;
   border-radius: 24px !important;
@@ -412,6 +446,16 @@ body {
 ::-webkit-scrollbar-thumb {
   border-radius: 24px;
   background: $secondary-color;
+}
+
+.binger-flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.binger-flex-baseline {
+  display: flex;
+  align-items: baseline;
 }
 
 

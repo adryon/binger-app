@@ -10,13 +10,13 @@ class Input extends React.Component{
 
 		return (
 			<div className="form-group">
-	      <div className="main-area">
-					<label className="main-label">{label}</label>
-					<span className="main-icon">
+	      <div className="binger-input">
+					<label className="binger-input-label">{label}</label>
+					<span className="binger-input-icon">
 						<i className={`fas fa-${icon}`}></i>
 					</span>
 	        <input
-						className="main-input"
+						className="binger-input-textbox"
 						placeholder={placeholder}
 						type={type}
 						value={value}

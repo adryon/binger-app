@@ -1,6 +1,7 @@
 import React from 'react';
 //import _ from  'lodash';
-import Input from 'components/LayoutComponents/Input.js';
+import Input from 'components/LayoutComponents/Input';
+import Button from 'components/LayoutComponents/Button';
 /*import { connect } from 'react-redux'
 import { userActions } from '../../actions';*/
 
@@ -36,7 +37,7 @@ class LoginPage extends React.Component{
 						src="/images/mediatec-inverse.png"
 	          alt="Binger Logo"/>
 				</div>
-				<div className="main-card card col-lg-6 col-md-10">
+				<div className="main-card card col-xl-5 col-lg-6 col-md-8">
 					<div className="main-card-title card-title">
 						<h3>Please Log In</h3>
 					</div>
@@ -58,20 +59,22 @@ class LoginPage extends React.Component{
 								onInputChange={this.handleChange} />
 
 							<div className="form-group">
-		            <button
-		              type="primary"
-		              className="btn btn-primary mr-4"
-		              htmlType="submit"
-		            >
-		              Sign in
-		            </button>
-
-		            <span>
-		              <a onClick={this.props.goToRegister} href="javascript: void(0);" className="utils__link--blue utils__link--underlined">
-		                Register
-		              </a>
-		              {' '}if you don't have an account!
-		            </span>
+								<div className="binger-flex-center">
+									<Button
+										text="Sign in"
+										type="submit"
+										onButtonClick={this.handleClick} />
+									<div className="m-2 binger-flex-baseline">
+										<button
+											className="btn btn-link binger-btn-link"
+											onClick={this.props.goToRegister}>
+											Register
+										</button>
+										<span className="text-white">
+			              	{' '}if you don't have an account!
+										</span>
+									</div>
+								</div>
 		          </div>
 						</form>
 				  </div>
