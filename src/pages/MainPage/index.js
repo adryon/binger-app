@@ -6,15 +6,13 @@ import { userActions } from 'actions';
 import Input from 'components/LayoutComponents/Input';
 import Button from 'components/LayoutComponents/Button';
 
-class RegisterPage extends React.Component{
+class MainPage extends React.Component{
 
 	constructor(props) {
     super(props);
     this.state = {
-			name: '',
-    	email: '',
-    	password: '',
-			confirmPassword: '',
+    	username: '',
+    	password: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -27,8 +25,8 @@ class RegisterPage extends React.Component{
 
   handleSubmit(event) {
     event.preventDefault();
-    const payload = _.pick(this.state, ['email', 'password', 'name']);
-    this.props.register(payload, this.props.history);
+  	const payload = _.pick(this.state, ['username', 'password']);
+    this.props.login(payload);
   }
 
 	render() {
@@ -41,23 +39,16 @@ class RegisterPage extends React.Component{
 				</div>
 				<div className="main-card card col-xl-5 col-lg-6 col-md-8">
 					<div className="main-card-title card-title">
-						<h3>Please Register</h3>
+						<h3>Main Page</h3>
 					</div>
 				  <div className="main-card-body card-body">
 				    <form onSubmit={this.handleSubmit}>
 							<Input
-								label="Name"
-								name="name"
-								value={this.state.name}
+								label="Username"
+								name="username"
+								value={this.state.username}
 								icon="user"
 								type="text"
-								onInputChange={this.handleChange} />
-							<Input
-								label="Email"
-								name="email"
-								value={this.state.email}
-								icon="envelope"
-								type="email"
 								onInputChange={this.handleChange} />
 							<Input
 								label="Password"
@@ -66,27 +57,20 @@ class RegisterPage extends React.Component{
 								icon="lock"
 								type="password"
 								onInputChange={this.handleChange} />
-							<Input
-								label="Confirm Password"
-								name="confirmPassword"
-								value={this.state.confirmPassword}
-								icon="lock"
-								type="password"
-								onInputChange={this.handleChange} />
 
 							<div className="form-group">
 								<div className="binger-flex-center">
 									<Button
-										text="Register"
+										text="Sign in"
 										type="submit"/>
 									<div className="m-2 binger-flex-baseline">
 										<button
 											className="btn btn-link binger-btn-link"
 											onClick={this.props.goToRegister}>
-											Log In
+											Register
 										</button>
 										<span className="text-white">
-			              	{' '}if you already have an account!
+			              	{' '}if you don't have an account!
 										</span>
 									</div>
 								</div>
@@ -100,7 +84,8 @@ class RegisterPage extends React.Component{
 }
 
 const mapDispatchToProps = {
-  register: userActions.register,
+  login: userActions.login,
+	goToRegister: () => dispatch => dispatch(push('/register'))
 };
 
-export default connect(null, mapDispatchToProps)(RegisterPage);
+export default connect(null, mapDispatchToProps)(MainPage);

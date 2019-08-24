@@ -12,6 +12,11 @@
   background-color: $card-background;
 }
 
+.card-title {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////
 /*  AVATAR DESIGN */
 
@@ -57,16 +62,51 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 /*  BUTTON DESIGN */
 
-.ant-btn {
+.binger-btn {
+  background-color: $primary-color;
   color: #000000;
   font-weight: bold;
   text-transform: uppercase;
+  border: none;
   border-radius: 24px;
   height: 48px;
   font-size: 24px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  -webkit-transition: background-color 0.2s ease-in;
+  -moz-transition: background-color 0.2s ease-in;
+  -o-transition: background-color 0.2s ease-in;
+  transition: background-color 0.2s ease-in;
 
   &:hover, &:active, &:focus {
-    color: #000000;
+    outline: none;
+    background-color: $primary-color-darken !important
+  }
+
+  .binger-btn-icon {
+    font-size: $input-icon-size;
+    color: $white;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .binger-btn-text {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.binger-btn-link {
+  color: $primary-color;
+  -webkit-transition: color 0.2s ease-in;
+  -moz-transition: color 0.2s ease-in;
+  -o-transition: color 0.2s ease-in;
+  transition: color 0.2s ease-in;
+
+  &:hover, &:active, &:focus {
+    outline: none;
+    color: $primary-color-darken !important
   }
 }
 
@@ -156,37 +196,45 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 /*  INPUT DESIGN */
 
-.ant-input-prefix {
-  color: $white !important;
-  font-size: 29px;
-  left: 18px !important;
+.has-error {
+  border-color: $danger !important;
 }
 
-.ant-input {
+.binger-input {
+  position: relative;
+}
+
+.binger-input-label {
+  display: block;
+}
+
+.binger-input-icon {
+  font-size: $input-icon-size;
+  color: $white;
+  display: block;
+  position: absolute;
+  left: 20px;
+}
+
+.binger-input-field {
   background-color: $secondary-color !important;
   border: 5px solid $primary-color !important;
   border-radius: 24px !important;
   color: $white !important;
+  display: block;
   height: 48px !important;
+  width: 100%;
   font-size: 29px !important;
+  padding-left: 52px;
+  -webkit-transition: border-color 0.2s ease-in;
+  -moz-transition: border-color 0.2s ease-in;
+  -o-transition: border-color 0.2s ease-in;
+  transition: border-color 0.2s ease-in;
 
   &:hover, &:active, &:focus {
-    border-color: $primary-color-darken !important;
+    outline: none;
+    border-color: $primary-color-darken !important
   }
-}
-
-.ant-input:not(:first-child) {
-  padding-left:52px !important;
-}
-
-.ant-input-affix-wrapper {
-  &:hover {
-    border-right-width: 5px !important;
-  }
-}
-
-.has-error .ant-input {
-  border-color: $danger !important;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -268,6 +316,10 @@ strong {
   color: $primary-color;
 }
 
+h3 {
+  color: $primary-color;
+}
+
 label {
   color: $primary-color !important;
   font-size: 18px !important;
@@ -336,6 +388,40 @@ body {
   background: $body-background;
 }
 
+.main-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: fixed;
+  z-index: 20000;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.main-logo {
+  margin: 20px 20px 20px 20px;
+}
+
+.main-card {
+  position: relative;
+  padding: 60px 60px 60px 60px;
+}
+
+.main-card-title {
+  padding: 10px 10px 10px 10px;
+}
+
+.main-card-body {
+  position: relative;
+  padding: 10px 10px 10px 10px;
+}
+
 .align-end {
   display: flex;
   justify-content: flex-end;
@@ -360,6 +446,16 @@ body {
 ::-webkit-scrollbar-thumb {
   border-radius: 24px;
   background: $secondary-color;
+}
+
+.binger-flex-center {
+  display: flex;
+  align-items: center;
+}
+
+.binger-flex-baseline {
+  display: flex;
+  align-items: baseline;
 }
 
 

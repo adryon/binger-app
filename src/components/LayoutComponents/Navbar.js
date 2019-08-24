@@ -1,8 +1,6 @@
 import React from 'react';
-import '../../App.css';
 import { connect } from 'react-redux'
-import { userActions } from '../../actions';
-import _ from  'lodash';
+//import { userActions } from '../../actions';
 
 class Navbar extends React.Component{
 
@@ -19,7 +17,7 @@ class Navbar extends React.Component{
     	showSelectedUser: false,
     	usersList: []
     };
- 
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAssignedSearch = this.handleAssignedSearch.bind(this);
@@ -86,9 +84,9 @@ class Navbar extends React.Component{
 			return (<li key={index} className="list-group-item">{user.name}<button type="button" className="btn btn-primary float-right" onClick={() => this.onUserClick(user)}>Select</button></li>)
 		})*/
 
-		return (
-			<nav className="navbar navbar-expand-lg navbar-light bg-light">
-			  {/*<a className="navbar-brand" href="/dashboard">Tasker</a>
+		return (<div>
+			{/*<nav className="navbar navbar-expand-lg navbar-light bg-light">
+			  <a className="navbar-brand" href="/dashboard">Tasker</a>
 			  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			    <span className="navbar-toggler-icon"></span>
 			  </button>
@@ -115,36 +113,36 @@ class Navbar extends React.Component{
 					        <form onSubmit={this.handleSubmit}>
 							    	<div className="form-group">
 									    <label>Title</label>
-									    <input 
-									    	type="text" 
-									    	className="form-control" 
-									    	placeholder="Enter a title" 
-									    	name="title" 
+									    <input
+									    	type="text"
+									    	className="form-control"
+									    	placeholder="Enter a title"
+									    	name="title"
 									    	required
-									    	value={this.state.title} 
+									    	value={this.state.title}
 									    	onChange={this.handleChange}
 									    />
 									  </div>
 									  <div className="form-group">
 									    <label>Description</label>
-									    <textarea 
-									    	type="text" 
-									    	className="form-control" 
-									    	placeholder="Enter a description" 
-									    	name="description" 
+									    <textarea
+									    	type="text"
+									    	className="form-control"
+									    	placeholder="Enter a description"
+									    	name="description"
 									    	required
-									    	value={this.state.description} 
+									    	value={this.state.description}
 									    	onChange={this.handleChange}
 									    />
 									  </div>
 									  <div className="form-group">
 									    <label>Assign to...</label>
-									    <input 
-									    	type="text" 
-									    	className="form-control" 
-									    	placeholder="Search ..." 
-									    	name="assignedSearch" 
-									    	value={this.state.assignedSearchInput} 
+									    <input
+									    	type="text"
+									    	className="form-control"
+									    	placeholder="Search ..."
+									    	name="assignedSearch"
+									    	value={this.state.assignedSearchInput}
 									    	onChange={this.handleAssignedSearch}
 									    />
 									  </div>
@@ -193,11 +191,12 @@ class Navbar extends React.Component{
 				      </div>
 				    </li>
           </ul>
-			  </div>*/}
-			</nav>
+			  </div>
+			</nav>*/}
+      </div>
 		)
 	}
-}  
+}
 
 /*const mapDispatchToProps = {
 	logOut: userActions.logOut,

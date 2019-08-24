@@ -1,12 +1,14 @@
 import React from 'react';
-//import '../App.css';
-/*import _ from  'lodash';
+import _ from  'lodash';
+import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
-import { userActions } from '../../actions';*/
+import { userActions } from 'actions';
+import Input from 'components/LayoutComponents/Input';
+import Button from 'components/LayoutComponents/Button';
 
 class LoginPage extends React.Component{
 
-	/*constructor(props) {
+	constructor(props) {
     super(props);
     this.state = {
     	email: '',
@@ -17,83 +19,73 @@ class LoginPage extends React.Component{
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({[event.target.name]: event.target.value});
+  handleChange(name, value) {
+    this.setState({[name]: value});
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const payload = _.pick(this.state, ['email', 'password']);
-    this.props.login(payload, this.props.history);
-  }*/
+  	const payload = _.pick(this.state, ['email', 'password']);
+    this.props.login(payload);
+  }
 
 	render() {
 		return (
-			<div>
-				<p>Tudor</p>
-				{/*<div className="App-header">
-				<strong className="mb-3 text-white">Login</strong>
-				<div className="col-lg-4">
-					<div className="card">
-					  <div className="card-body">
-					  	<div className="container">
-						    <form onSubmit={this.handleSubmit}>
-								  <div className="form-group">
-								    <label>Email address</label>
-								    <input 
-								    	type="email" 
-								    	className="form-control" 
-								    	placeholder="Enter email" 
-								    	name="email" 
-								    	required
-								    	value={this.state.email} 
-								    	onChange={this.handleChange}
-								    />
-								  </div>
-								  <div className="form-group">
-								    <label>Password</label>
-								    <input 
-								    	type="password" 
-								    	className="form-control" 
-								    	placeholder="Password" 
-								    	name="password"
-								    	required 
-								    	value={this.state.password} 
-								    	onChange={this.handleChange}
-								    />
-								  </div>
-								  <div className="form-group">
-									  <span className="paragraph">
-				              <a href="/register">
-				                Register
-				              </a>
-				              {' '}if you don't have an account!
-				            </span>
-				          </div>
-				          <div className="form-group">
-								  	<button type="submit" className="btn btn-primary" value="Submit">Login</button>
-								  </div>
-								</form>
-							</div>
-					  </div>
-					</div>
+			<div className="main-page">
+				<div className="main-logo">
+					<img
+						src="/images/mediatec-inverse.png"
+	          alt="Binger Logo"/>
 				</div>
-			</div>*/}
+				<div className="main-card card col-xl-5 col-lg-6 col-md-8">
+					<div className="main-card-title card-title">
+						<h3>Please Log In</h3>
+					</div>
+				  <div className="main-card-body card-body">
+				    <form onSubmit={this.handleSubmit}>
+							<Input
+								label="Email"
+								name="email"
+								value={this.state.email}
+								icon="user"
+								type="text"
+								onInputChange={this.handleChange} />
+							<Input
+								label="Password"
+								name="password"
+								value={this.state.password}
+								icon="lock"
+								type="password"
+								onInputChange={this.handleChange} />
+
+							<div className="form-group">
+								<div className="binger-flex-center">
+									<Button
+										text="Sign in"
+										type="submit"/>
+									<div className="m-2 binger-flex-baseline">
+										<button
+											className="btn btn-link binger-btn-link"
+											onClick={this.props.goToRegister}>
+											Register
+										</button>
+										<span className="text-white">
+			              	{' '}if you don't have an account!
+										</span>
+									</div>
+								</div>
+		          </div>
+						</form>
+				  </div>
+				</div>
 			</div>
 		)
 	}
-}  
+}
 
-/*const mapDispatchToProps = {
+const mapDispatchToProps = {
   login: userActions.login,
-};*/
+	goToRegister: () => dispatch => dispatch(push('/register'))
+};
 
-/*function mapStateToProps(state) {
-  return {
-  	user: state.user,
-  }
-}*/
-
-export default LoginPage;
-
-//export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(LoginPage);

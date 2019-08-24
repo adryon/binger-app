@@ -1,37 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import Navbar from './components/LayoutComponents/Navbar';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
-import reducer from './reducers'
-import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk';
 import 'resources/binger.scss'
+import config from 'lib/config';
+import configureStore, { history } from './configureStore'
+import { ConnectedRouter } from 'connected-react-router'
+import routes from './routes'
 
 import firebase from 'firebase'
 var firebaseConfig = {
-  apiKey: "AIzaSyDCk5ieuOM8utCxZ-uJ7gXGQ0STLUXYazk",
-	authDomain: "master-app-b42ec.firebaseapp.com",
-	databaseURL: "https://master-app-b42ec.firebaseio.com",
-	projectId: "master-app-b42ec",
-	storageBucket: "master-app-b42ec.appspot.com",
-	messagingSenderId: "786912433403",
-	appId: "1:786912433403:web:613faa298e70cf00"
+  apiKey: config.FIREBASE_API_KEY,
+  authDomain: "binger-e4fea.firebaseapp.com",
+  databaseURL: "https://binger-e4fea.firebaseio.com",
+  projectId: "binger-e4fea",
+  storageBucket: "binger-e4fea.appspot.com",
+  messagingSenderId: "100930507189"
 };
 firebase.initializeApp(firebaseConfig);
 export const provider = new firebase.auth.GoogleAuthProvider();
 export const auth = firebase.auth();
 
-const store = createStore(reducer, applyMiddleware(thunk))
-
+const store = configureStore();
 ReactDOM.render(
-	<Provider store={store}>
-    <Navbar />
-    <App />
-  </Provider>, document.getElementById('root')
-);
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      { routes }
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById('root')
+)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
