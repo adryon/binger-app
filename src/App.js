@@ -1,21 +1,18 @@
-import React from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
-import { PrivateRoute } from './PrivateRoute';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-//import './App.css';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { ConnectedRouter } from 'connected-react-router'
+import routes from './routes'
 
-function App() {
+const App = ({ history }) => {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path='/' component={LoginPage} />
-        <Route exact path='/login' component={LoginPage} />
-        <Route exact path='/register' component={RegisterPage} />
-        {/*<PrivateRoute exact path='/dashboard' component={DashboardPage} />*/}
-      </Switch>
-    </BrowserRouter>
-  );
+    <ConnectedRouter history={history}>
+      { routes }
+    </ConnectedRouter>
+  )
 }
 
-export default App;
+App.propTypes = {
+  history: PropTypes.object,
+}
+
+export default App

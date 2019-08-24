@@ -1,9 +1,10 @@
 import React from 'react';
-//import _ from  'lodash';
+import _ from  'lodash';
+import { push } from 'react-router-redux'
+import { connect } from 'react-redux'
+import { userActions } from 'actions';
 import Input from 'components/LayoutComponents/Input';
 import Button from 'components/LayoutComponents/Button';
-/*import { connect } from 'react-redux'
-import { userActions } from '../../actions';*/
 
 class LoginPage extends React.Component{
 
@@ -23,10 +24,9 @@ class LoginPage extends React.Component{
   }
 
   handleSubmit(event) {
-		console.log(event);
     event.preventDefault();
-    // const payload = _.pick(this.state, ['email', 'password']);
-    // this.props.login(payload, this.props.history);
+  	const payload = _.pick(this.state, ['username', 'password']);
+    this.props.login(payload, this.props.history);
   }
 
 	render() {
@@ -62,8 +62,7 @@ class LoginPage extends React.Component{
 								<div className="binger-flex-center">
 									<Button
 										text="Sign in"
-										type="submit"
-										onButtonClick={this.handleClick} />
+										type="submit"/>
 									<div className="m-2 binger-flex-baseline">
 										<button
 											className="btn btn-link binger-btn-link"
@@ -84,16 +83,15 @@ class LoginPage extends React.Component{
 	}
 }
 
-// const mapDispatchToProps = {
-//   login: userActions.login,
-// };
-//
-// function mapStateToProps(state) {
-//   return {
-//   	user: state.user,
-//   }
-// }
+const mapDispatchToProps = {
+  login: userActions.login,
+	goToRegister: () => dispatch => dispatch(push('/register'))
+};
 
-export default LoginPage;
+function mapStateToProps(state) {
+  return {
+  	user: state.user,
+  }
+}
 
-//export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
