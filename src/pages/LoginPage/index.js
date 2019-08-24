@@ -11,7 +11,7 @@ class LoginPage extends React.Component{
 	constructor(props) {
     super(props);
     this.state = {
-    	username: '',
+    	email: '',
     	password: ''
     };
 
@@ -25,8 +25,8 @@ class LoginPage extends React.Component{
 
   handleSubmit(event) {
     event.preventDefault();
-  	const payload = _.pick(this.state, ['username', 'password']);
-    this.props.login(payload, this.props.history);
+  	const payload = _.pick(this.state, ['email', 'password']);
+    this.props.login(payload);
   }
 
 	render() {
@@ -44,9 +44,9 @@ class LoginPage extends React.Component{
 				  <div className="main-card-body card-body">
 				    <form onSubmit={this.handleSubmit}>
 							<Input
-								label="Username"
-								name="username"
-								value={this.state.username}
+								label="Email"
+								name="email"
+								value={this.state.email}
 								icon="user"
 								type="text"
 								onInputChange={this.handleChange} />
@@ -88,10 +88,4 @@ const mapDispatchToProps = {
 	goToRegister: () => dispatch => dispatch(push('/register'))
 };
 
-function mapStateToProps(state) {
-  return {
-  	user: state.user,
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(LoginPage);

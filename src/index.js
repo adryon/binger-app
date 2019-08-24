@@ -1,20 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
 import 'resources/binger.scss'
+import config from 'lib/config';
 import configureStore, { history } from './configureStore'
+import { ConnectedRouter } from 'connected-react-router'
+import routes from './routes'
 
 import firebase from 'firebase'
 var firebaseConfig = {
-  apiKey: "AIzaSyDCk5ieuOM8utCxZ-uJ7gXGQ0STLUXYazk",
-	authDomain: "master-app-b42ec.firebaseapp.com",
-	databaseURL: "https://master-app-b42ec.firebaseio.com",
-	projectId: "master-app-b42ec",
-	storageBucket: "master-app-b42ec.appspot.com",
-	messagingSenderId: "786912433403",
-	appId: "1:786912433403:web:613faa298e70cf00"
+  apiKey: config.FIREBASE_API_KEY,
+  authDomain: "binger-e4fea.firebaseapp.com",
+  databaseURL: "https://binger-e4fea.firebaseio.com",
+  projectId: "binger-e4fea",
+  storageBucket: "binger-e4fea.appspot.com",
+  messagingSenderId: "100930507189"
 };
 firebase.initializeApp(firebaseConfig);
 export const provider = new firebase.auth.GoogleAuthProvider();
@@ -23,7 +24,9 @@ export const auth = firebase.auth();
 const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
-    <App history={history} />
+    <ConnectedRouter history={history}>
+      { routes }
+    </ConnectedRouter>
   </Provider>,
   document.getElementById('root')
 )

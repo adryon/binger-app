@@ -16,7 +16,7 @@ class Input extends React.Component{
 						<i className={`fas fa-${icon}`}></i>
 					</span>
 	        <input
-						className="binger-input-textbox"
+						className="binger-input-field"
 						placeholder={placeholder}
 						type={type}
 						value={value}

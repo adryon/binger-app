@@ -27,53 +27,53 @@ export function logOutSuccess() {
   return {type: USER_LOG_OUT_SUCCESS};
 }
 
-// export function register(payload) {
-//   return function (dispatch) {
-//     firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then(result => {
-//       firebase.database().ref(`users/${result.user.uid}`).set({
-//         name: payload.name,
-//         email: payload.email,
-//         avatar: 'gs://binger-e4fea.appspot.com/Avengers-Thor-icon.png',
-//       });
-//       notification.open({
-//         type: 'success',
-//         className: 'success',
-//         message: 'Account created!',
-//         description: 'You have successfully created a new account!',
-//       })
-//       dispatch(push('/login'));
-//     })
-//     .catch(error => {
-//       notification.open({
-//         type: 'error',
-//         className: 'error',
-//         message: 'Register failed!',
-//         description: error.message,
-//       })
-//     });
-//   }
-// }
+export function register(payload) {
+  return function (dispatch) {
+    firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then(result => {
+      firebase.database().ref(`users/${result.user.uid}`).set({
+        name: payload.name,
+        email: payload.email,
+        avatar: 'gs://binger-e4fea.appspot.com/Avengers-Thor-icon.png',
+      });
+      // notification.open({
+      //   type: 'success',
+      //   className: 'success',
+      //   message: 'Account created!',
+      //   description: 'You have successfully created a new account!',
+      // })
+      dispatch(push('/login'));
+    })
+    .catch(error => {
+      // notification.open({
+      //   type: 'error',
+      //   className: 'error',
+      //   message: 'Register failed!',
+      //   description: error.message,
+      // })
+    });
+  }
+}
 
 export function login(payload) {
   return function (dispatch) {
-    dispatch(push('/register'));
-    // firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then(result => {
-    //   dispatch(loginSuccess(result.user));
-    //   notification.open({
-    //     type: 'success',
-    //     className: 'success',
-    //     message: 'You have successfully logged in!',
-    //   })
-    //   dispatch(push('/dashboard'));
-    // })
-    // .catch(error => {
-    //   notification.open({
-    //     type: 'error',
-    //     className: 'error',
-    //     message: 'Login failed!',
-    //     description: error.message,
-    //   })
-    // });
+    console.log(payload);
+    firebase.auth().signInWithEmailAndPassword(payload.email, payload.password).then(result => {
+      dispatch(loginSuccess(result.user));
+      // notification.open({
+      //   type: 'success',
+      //   className: 'success',
+      //   message: 'You have successfully logged in!',
+      // })
+      dispatch(push('/main'));
+    })
+    .catch(error => {
+      // notification.open({
+      //   type: 'error',
+      //   className: 'error',
+      //   message: 'Login failed!',
+      //   description: error.message,
+      // })
+    });
   }
 }
 
