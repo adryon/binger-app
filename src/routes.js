@@ -5,10 +5,12 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import MainPage from './pages/MainPage';
 import Navbar from './components/LayoutComponents/Navbar';
+import Notification from './components/LayoutComponents/Notification';
 
 const routes = (
   <div>
     <Navbar />
+    <Notification />
     <Switch>
       <Route exact path="/" component={LoginPage} />
       <Route path="/login" component={LoginPage} />

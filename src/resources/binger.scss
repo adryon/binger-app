@@ -196,10 +196,6 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 /*  INPUT DESIGN */
 
-.has-error {
-  border-color: $danger !important;
-}
-
 .binger-input {
   position: relative;
 }
@@ -284,6 +280,54 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 /*  NOTIFICATION DESIGN */
 
+.binger-notification {
+  display: flex;
+  background-color: $card-background;
+  color: $white;
+  border-radius: 24px;
+  padding: 16px;
+  position: absolute;
+  right: 16px;
+  z-index: 999;
+  transition: top 0.5s ease;
+
+  &.success {
+    border: 5px solid $success;
+  }
+
+  &.error {
+    border: 5px solid $error;
+  }
+
+  &.info {
+    border: 5px solid $info;
+  }
+
+  &.warning {
+    border: 5px solid $warning;
+  }
+
+  .binger-notification-icon {
+    font-size: $notification-icon-size;
+    margin: 5px;
+  }
+
+  .binger-notification-text-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5px;
+  }
+
+  .binger-notification-title {
+    font-size: $notification-title-size;
+  }
+
+  .binger-notification-description {
+    font-size: $notification-description-size;
+  }
+}
+
 .ant-notification-notice {
   background: $card-background;
   border-radius: 24px;
@@ -299,14 +343,6 @@
 
 .ant-notification-notice-close {
   color: $white;
-}
-
-.error {
-  border: 5px solid $danger;
-}
-
-.success {
-  border: 5px solid $success;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
