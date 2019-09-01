@@ -82,7 +82,7 @@ class RegisterPage extends React.Component{
 									<div className="m-2 binger-flex-baseline">
 										<button
 											className="btn btn-link binger-btn-link"
-											onClick={this.props.goToRegister}>
+											onClick={this.props.goToLogin}>
 											Log In
 										</button>
 										<span className="text-white">
@@ -101,6 +101,7 @@ class RegisterPage extends React.Component{
 
 const mapDispatchToProps = {
   register: userActions.register,
+	goToLogin: () => dispatch => dispatch(push('/login'))
 };
 
 export default connect(null, mapDispatchToProps)(RegisterPage);
