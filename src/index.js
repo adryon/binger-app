@@ -6,7 +6,7 @@ import 'resources/binger.scss'
 import config from 'lib/config';
 import configureStore, { history } from './configureStore'
 import { ConnectedRouter } from 'connected-react-router'
-import routes from './routes'
+import routes from 'routes/routes';
 
 import firebase from 'firebase'
 var firebaseConfig = {
