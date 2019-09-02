@@ -1,6 +1,5 @@
 import lockr from 'lockr';
 import config from 'lib/config';
-import {Map, List} from 'immutable';
 
 lockr.prefix = config.LOCKR_PREFIX;
 

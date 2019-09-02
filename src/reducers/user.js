@@ -1,7 +1,5 @@
 import defaultState from './default-state';
 import {
-  USER_LOG_IN,
-  USER_LOG_IN_FAIL,
   USER_LOG_IN_SUCCESS,
   USER_LOG_OUT_SUCCESS,
 } from './../actions/actions-types';

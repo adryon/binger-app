@@ -1,27 +1,13 @@
 import {
-  USER_LOG_IN,
-  USER_LOG_IN_FAIL,
   USER_LOG_IN_SUCCESS,
-  USER_LOG_OUT_FAIL,
   USER_LOG_OUT_SUCCESS,
 } from './actions-types';
-import http from 'lib/axios-wrapper';
-//import {notification} from 'antd';
 import {notification} from 'components/LayoutComponents/Notification';
 import {push} from 'react-router-redux';
 import firebase from 'firebase';
-import _ from 'lodash';
 
 export function loginSuccess(data) {
   return {type: USER_LOG_IN_SUCCESS, data};
-}
-
-export function loginFailed() {
-  return {type: USER_LOG_IN_FAIL};
-}
-
-export function logOutFailed() {
-  return {type: USER_LOG_OUT_FAIL};
 }
 
 export function logOutSuccess() {
