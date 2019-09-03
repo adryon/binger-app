@@ -2,6 +2,7 @@ import defaultState from './default-state';
 import {
   USER_LOG_IN_SUCCESS,
   USER_LOG_OUT_SUCCESS,
+  USER_SET_CURRENT_USER,
 } from './../actions/actions-types';
 
 import config from './../lib/config';
@@ -27,11 +28,11 @@ export default function userState(state = defaultState.user, action) {
         authenticated: false
       });
 
-    // case USER_SET_CURRENT_USER:
-    //   return Object.assign({}, state, {
-    //     data: action.data,
-    //     authenticated: true,
-    //   });
+    case USER_SET_CURRENT_USER:
+      return Object.assign({}, state, {
+        data: action.data,
+        authenticated: true,
+      });
     //
     // case USER_LOAD_TV_SERIES_WISHLIST:
     //   return Object.assign({}, state, {

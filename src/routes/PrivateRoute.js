@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route} from 'react-router-dom';
+import Navbar from 'components/LayoutComponents/Navbar';
 import lockr from 'lockr';
 import config from 'lib/config';
 lockr.prefix = config.LOCKR_PREFIX;
@@ -9,12 +10,17 @@ export const PrivateRoute = ({ component: Component, ...rest}) => (
 		{...rest}
 
 		render = {props =>
-			lockr.get('Authorization') ?
-			(<Component {...props} />) :
-			(<Redirect to={{
-				pathname: '/login',
-				state: {from: props.location}
-			}} />)
+			lockr.get('Authorization') ? (
+				<React.Fragment>
+					<Navbar />
+					<Component {...props} />
+				</React.Fragment>
+			) : (
+				<Redirect to={{
+					pathname: '/login',
+					state: {from: props.location}
+				}} />
+			)
 		}
 	/>
 );

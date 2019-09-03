@@ -18,31 +18,68 @@
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
+/*  NAVBAR DESIGN */
+
+.binger-navbar {
+  min-height: 70px;
+  z-index: 2000;
+  background-color: $card-background;
+  border-bottom: 5px solid $primary-color;
+}
+
+.nav-link {
+  color: $primary-color !important;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
 /*  AVATAR DESIGN */
 
-.ant-avatar {
+.binger-avatar {
   width: 48px;
   height: 48px;
-  margin-top: 10px;
-  border-radius: 48px;
+  border-radius: 50%;
+  background-color: transparent !important;
+  margin-left: 20px;
+}
+
+.binger-avatar img {
+  border-radius: inherit;
+  width: inherit;
+  height: inherit;
+  display: block;
+  position: relative;
   border: 5px solid $secondary-color;
+  -webkit-transition: border 0.2s ease-in;
+  -moz-transition: border 0.2s ease-in;
+  -o-transition: border 0.2s ease-in;
+  transition: border 0.2s ease-in;
+
+  &:hover, &:active, &:focus {
+    border: 5px solid $secondary-color-darken;
+  }
 }
 
-.avatar-dropdown {
-}
-
-.ant-dropdown-menu {
+.dropdown-menu {
   background-color: $card-background;
   border-radius: 24px;
   border: 5px solid $secondary-color;
   padding: 0px 0;
 }
 
-.ant-dropdown-menu-item {
-  color: $white;
+.dropdown-header {
+  color: $primary-color;
+}
+
+.dropdown-item {
+  color: $primary-color;
+  -webkit-transition: background-color 0.2s ease-in, color 0.2s ease-in;
+  -moz-transition: background-color 0.2s ease-in, color 0.2s ease-in;
+  -o-transition: background-color 0.2s ease-in, color 0.2s ease-in;
+  transition: background-color 0.2s ease-in, color 0.2s ease-in;
 
   &:hover, &:active, &:focus {
     background-color: $body-background !important;
+    color: $primary-color-darken !important;
   }
 
   &:first-child {
@@ -51,11 +88,6 @@
 
   &:last-child {
     border-radius: 0 0 24px 24px;
-  }
-
-  a {
-    color: $primary-color;
-    font-weight: bold;
   }
 }
 
@@ -234,50 +266,6 @@
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-/*  SELECT DESIGN */
-
-.ant-select-selection {
-  background: transparent;
-  border-radius: 24px;
-  cursor: default;
-}
-
-.ant-select-dropdown {
-  border: 5px solid $secondary-color !important;
-  background-color: $card-background;
-  overflow: hidden;
-  -moz-border-radius: 24px;
-  -khtml-border-radius: 24px;
-  -webkit-border-radius: 24px;
-  border-radius: 24px;
-
-
-}
-
-.ant-select-dropdown-menu-item {
-  background-color: $card-background;
-
-  &:hover {
-    background-color: $body-background;
-  }
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
-/*  FORM DESIGN */
-
-.ant-form {
-  color: $white;
-}
-
-.ant-form-item {
-  font-size: 16px;
-}
-
-.form-actions {
-  border-top: 0px solid $primary-color;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
 /*  NOTIFICATION DESIGN */
 
 .binger-notification {
@@ -328,21 +316,46 @@
   }
 }
 
-.ant-notification-notice {
-  background: $card-background;
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  SELECT DESIGN */
+
+.ant-select-selection {
+  background: transparent;
+  border-radius: 24px;
+  cursor: default;
+}
+
+.ant-select-dropdown {
+  border: 5px solid $secondary-color !important;
+  background-color: $card-background;
+  overflow: hidden;
+  -moz-border-radius: 24px;
+  -khtml-border-radius: 24px;
+  -webkit-border-radius: 24px;
   border-radius: 24px;
 }
 
-.ant-notification-notice-description {
+.ant-select-dropdown-menu-item {
+  background-color: $card-background;
+
+  &:hover {
+    background-color: $body-background;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  FORM DESIGN */
+
+.ant-form {
   color: $white;
 }
 
-.ant-notification-notice-message {
-  color: $white;
+.ant-form-item {
+  font-size: 16px;
 }
 
-.ant-notification-notice-close {
-  color: $white;
+.form-actions {
+  border-top: 0px solid $primary-color;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -426,12 +439,12 @@ body {
 
 .main-page {
   min-height: 100vh;
+  padding-top: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   position: fixed;
-  z-index: 20000;
   top: 0;
   left: 0;
   height: 100%;
@@ -465,6 +478,18 @@ body {
 
 .ant-layout-header {
   height: 100px;
+}
+
+.link-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline;
+
+  &:hover, &:focus {
+    text-decoration: none;
+    outline: 0;
+  }
 }
 
 ::-webkit-scrollbar {
@@ -732,34 +757,6 @@ table {
 
 .upload-avatar {
   max-width: 150px;
-}
-
-.report-status {
-  background-color: #f2f4f8;
-  border-radius: 5px;
-  padding: 3px;
-  width: 80%;
-  margin: 0 auto;
-  text-align: center;
-  font-weight: bold;
-}
-
-.capitalize {
-  text-transform:capitalize;
-}
-
-.report-status-draft {
-  color: black;
-}
-
-.report-status-rejected {
-  background-color: #FB434A;
-  color: white;
-}
-
-.report-status-published {
-  background-color: #28a745;
-  color: white;
 }
 
 .ml-5px {
