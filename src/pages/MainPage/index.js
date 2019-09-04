@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { userActions } from 'actions';
 import Input from 'components/LayoutComponents/Input';
 import Button from 'components/LayoutComponents/Button';
+import Form from 'components/LayoutComponents/Form';
 
 class MainPage extends React.Component{
 
@@ -25,8 +26,9 @@ class MainPage extends React.Component{
 
   handleSubmit(event) {
     event.preventDefault();
-  	const payload = _.pick(this.state, ['username', 'password']);
-    this.props.login(payload);
+		console.log(this);
+  	// const payload = _.pick(this.state, ['username', 'password']);
+    // this.props.login(payload);
   }
 
 	render() {
@@ -43,7 +45,9 @@ class MainPage extends React.Component{
 					</div>
 				  <div className="main-card-body card-body">
 				    <form onSubmit={this.handleSubmit}>
+							<Form onSubmit={this.handleSubmit}>
 							<Input
+								required
 								label="Username"
 								name="username"
 								value={this.state.username}
@@ -51,6 +55,7 @@ class MainPage extends React.Component{
 								type="text"
 								onInputChange={this.handleChange} />
 							<Input
+								required
 								label="Password"
 								name="password"
 								value={this.state.password}
@@ -75,6 +80,7 @@ class MainPage extends React.Component{
 									</div>
 								</div>
 		          </div>
+							</Form>
 						</form>
 				  </div>
 				</div>

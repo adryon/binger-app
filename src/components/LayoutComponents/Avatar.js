@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { userActions } from 'actions';
-import _ from  'lodash';
 
 class Avatar extends React.Component{
 
@@ -37,7 +36,6 @@ const mapDispatchToProps = {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    users: state.users,
   }
 }
 

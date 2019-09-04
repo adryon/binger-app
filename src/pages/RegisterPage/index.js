@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { userActions } from 'actions';
 import Input from 'components/LayoutComponents/Input';
 import Button from 'components/LayoutComponents/Button';
+import Form from 'components/LayoutComponents/Form';
 
 class RegisterPage extends React.Component{
 
@@ -46,6 +47,7 @@ class RegisterPage extends React.Component{
 				  <div className="main-card-body card-body">
 				    <form onSubmit={this.handleSubmit}>
 							<Input
+								required
 								label="Name"
 								name="name"
 								value={this.state.name}
@@ -53,6 +55,7 @@ class RegisterPage extends React.Component{
 								type="text"
 								onInputChange={this.handleChange} />
 							<Input
+								required
 								label="Email"
 								name="email"
 								value={this.state.email}
