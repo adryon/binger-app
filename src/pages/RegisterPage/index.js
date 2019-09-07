@@ -9,28 +9,17 @@ import Form from 'components/LayoutComponents/Form';
 
 class RegisterPage extends React.Component{
 
-	constructor(props) {
-    super(props);
-    this.state = {
-			name: '',
-    	email: '',
-    	password: '',
-			confirmPassword: '',
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(name, value) {
-    this.setState({[name]: value});
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    const payload = _.pick(this.state, ['email', 'password', 'name']);
-    this.props.register(payload, this.props.history);
-  }
+	handleSubmit = (event) => {
+		event.preventDefault();
+		this.form.validateForm()
+		.then(values => {
+			const payload = _.pick(values, ['email', 'password', 'name']);
+	    this.props.register(payload);
+		})
+		.catch(error => {
+			console.log(error);
+		})
+	}
 
 	render() {
 		return (
@@ -45,37 +34,29 @@ class RegisterPage extends React.Component{
 						<h3>Please Register</h3>
 					</div>
 				  <div className="main-card-body card-body">
-				    <form onSubmit={this.handleSubmit}>
+						<Form
+							onSubmit={this.handleSubmit}
+							ref={c => {this.form = c}}>
 							<Input
-								required
 								label="Name"
 								name="name"
-								value={this.state.name}
 								icon="user"
-								type="text"
-								onInputChange={this.handleChange} />
+								type="text" />
 							<Input
-								required
 								label="Email"
 								name="email"
-								value={this.state.email}
 								icon="envelope"
-								type="email"
-								onInputChange={this.handleChange} />
+								type="email" />
 							<Input
 								label="Password"
 								name="password"
-								value={this.state.password}
 								icon="lock"
-								type="password"
-								onInputChange={this.handleChange} />
+								type="password" />
 							<Input
 								label="Confirm Password"
 								name="confirmPassword"
-								value={this.state.confirmPassword}
 								icon="lock"
-								type="password"
-								onInputChange={this.handleChange} />
+								type="password" />
 
 							<div className="form-group">
 								<div className="binger-flex-center">
@@ -94,7 +75,7 @@ class RegisterPage extends React.Component{
 									</div>
 								</div>
 		          </div>
-						</form>
+						</Form>
 				  </div>
 				</div>
 			</div>

@@ -246,7 +246,7 @@
 
 .binger-input-field {
   background-color: $secondary-color !important;
-  border: 5px solid $primary-color !important;
+  border: 5px solid $primary-color;
   border-radius: 24px !important;
   color: $white !important;
   display: block;
@@ -261,8 +261,12 @@
 
   &:hover, &:active, &:focus {
     outline: none;
-    border-color: $primary-color-darken !important
+    border-color: $primary-color-darken
   }
+}
+
+.binger-input-not-valid {
+  border-color: $error;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////

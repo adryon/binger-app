@@ -4,7 +4,7 @@ class Input extends React.Component{
 
 	render() {
 
-		const {label, icon, placeholder, name, value} = this.props;
+		const {label, icon, placeholder, name, value, isValid} = this.props;
 		const type = this.props.type || 'text';
 		const onInputChange = this.props.onInputChange || (() => {});
 
@@ -16,7 +16,7 @@ class Input extends React.Component{
 						<i className={`fas fa-${icon}`}></i>
 					</span>
 	        <input
-						className="binger-input-field"
+						className={`binger-input-field ${!isValid ? 'binger-input-not-valid' : null}`}
 						placeholder={placeholder}
 						type={type}
 						value={value}
