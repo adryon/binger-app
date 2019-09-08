@@ -97,13 +97,11 @@
 .binger-btn {
   background-color: $primary-color;
   color: #000000;
+  border: none;
   font-weight: bold;
   text-transform: uppercase;
-  border: none;
-  border-radius: 24px;
   height: 48px;
   font-size: 24px;
-  display: flex;
   align-items: center;
   white-space: nowrap;
   -webkit-transition: background-color 0.2s ease-in;
@@ -116,16 +114,29 @@
     background-color: $primary-color-darken !important
   }
 
-  .binger-btn-icon {
-    font-size: $input-icon-size;
-    color: $white;
-    padding-right: 10px;
-    padding-left: 10px;
+  &.binger-btn-normal {
+    border-radius: 24px;
+    display: flex;
+
+    .binger-btn-icon {
+      font-size: $input-icon-size;
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+
+    .binger-btn-text {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
   }
 
-  .binger-btn-text {
-    padding-left: 10px;
-    padding-right: 10px;
+  &.binger-btn-circle {
+    border-radius: 50%;
+    width: 48px;
+
+    .binger-btn-icon {
+      font-size: $input-icon-size;
+    }
   }
 }
 

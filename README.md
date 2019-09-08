@@ -83,7 +83,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ### methods
 
-`onButtonClick`: Handler for the click event (Required: true, Default: none);
+`onButtonClick`: Handler for the click event (Required: false, Default: none);
 
 
 
