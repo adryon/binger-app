@@ -67,6 +67,27 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
+# `Binger Components Guide`
+
+## Button
+
+### Props
+
+icon: Icon of the button (Required: false, Default: none);
+text: Text of the button (Required: false, Default: none);
+type: Type of the button (Required: false, Default: `button`)
+    Options: `submit`
+             `button`
+
+
+
+
+
+
+
+
+
+
 # Learn more
 
 # `Learn more`
