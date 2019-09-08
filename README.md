@@ -83,10 +83,30 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 ### methods
 
-`onButtonClick`: Handler for the click event (Required: false, Default: none);
+`onButtonClick`: Handler for the click event
 
 
+## Input
 
+### Props
+
+`label`: Label above the input (Required: false, Default: none);
+
+`icon`: Icon of the input (Required: false, Default: none);
+
+`placeholder`: Placeholder of the input (Required: false, Default: none);
+
+`name`: Unique identifier (Required: if input is part of a form, Default: none);
+
+`value`: The value of the input (Required: if input is not part of a form, to be able to retrieve the value of the input, Default: none);
+
+`isValid`: Flag that changes the display of the input border if not valid (Required: false, Default: false);
+
+`type`: Input type (Required: true, Default: `text`);
+
+### methods
+
+`onInputChange`: Handler for the input change event;
 
 
 
