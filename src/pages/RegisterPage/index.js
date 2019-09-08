@@ -3,9 +3,7 @@ import _ from  'lodash';
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { userActions } from 'actions';
-import Input from 'components/LayoutComponents/Input';
-import Button from 'components/LayoutComponents/Button';
-import Form from 'components/LayoutComponents/Form';
+import { Input, Button, Form} from 'components/LayoutComponents';
 
 class RegisterPage extends React.Component{
 
@@ -38,21 +36,25 @@ class RegisterPage extends React.Component{
 							onSubmit={this.handleSubmit}
 							ref={c => {this.form = c}}>
 							<Input
+								required
 								label="Name"
 								name="name"
 								icon="user"
 								type="text" />
 							<Input
+								required
 								label="Email"
 								name="email"
 								icon="envelope"
 								type="email" />
 							<Input
+								required
 								label="Password"
 								name="password"
 								icon="lock"
 								type="password" />
 							<Input
+								required
 								label="Confirm Password"
 								name="confirmPassword"
 								icon="lock"
@@ -70,7 +72,7 @@ class RegisterPage extends React.Component{
 											Log In
 										</button>
 										<span className="text-white">
-			              	{' '}if you already have an account!
+			              	{' if you already have an account!'}
 										</span>
 									</div>
 								</div>

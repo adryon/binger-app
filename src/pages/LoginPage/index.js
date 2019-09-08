@@ -1,33 +1,18 @@
 import React from 'react';
-import _ from  'lodash';
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { userActions } from 'actions';
-import Input from 'components/LayoutComponents/Input';
-import Button from 'components/LayoutComponents/Button';
+import { Input, Button, Form} from 'components/LayoutComponents';
 
 class LoginPage extends React.Component{
 
-	constructor(props) {
-    super(props);
-    this.state = {
-    	email: '',
-    	password: ''
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(name, value) {
-    this.setState({[name]: value});
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-  	const payload = _.pick(this.state, ['email', 'password']);
-    this.props.login(payload);
-  }
+	handleSubmit = (event) => {
+		event.preventDefault();
+		this.form.validateForm()
+		.then(payload => {
+	    this.props.login(payload);
+		})
+	}
 
 	render() {
 		return (
@@ -42,21 +27,21 @@ class LoginPage extends React.Component{
 						<h3>Please Log In</h3>
 					</div>
 				  <div className="main-card-body card-body">
-				    <form onSubmit={this.handleSubmit}>
+						<Form
+							onSubmit={this.handleSubmit}
+							ref={c => {this.form = c}}>
 							<Input
+								required
 								label="Email"
 								name="email"
-								value={this.state.email}
 								icon="user"
-								type="text"
-								onInputChange={this.handleChange} />
+								type="text" />
 							<Input
+								required
 								label="Password"
 								name="password"
-								value={this.state.password}
 								icon="lock"
-								type="password"
-								onInputChange={this.handleChange} />
+								type="password" />
 
 							<div className="form-group">
 								<div className="binger-flex-center">
@@ -70,12 +55,12 @@ class LoginPage extends React.Component{
 											Register
 										</button>
 										<span className="text-white">
-			              	{' '}if you don't have an account!
+			              	{' if you do not have an account!'}
 										</span>
 									</div>
 								</div>
 		          </div>
-						</form>
+						</Form>
 				  </div>
 				</div>
 			</div>

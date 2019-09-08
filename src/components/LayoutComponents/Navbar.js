@@ -1,8 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux'
 import Avatar from 'components/LayoutComponents/Avatar';
 
-class Navbar extends React.Component{
+export default class Navbar extends React.Component{
 
 	constructor(props) {
     super(props);
@@ -43,5 +42,3 @@ class Navbar extends React.Component{
 		)
 	}
 }
-
-export default connect(null, null)(Navbar);

@@ -1,7 +1,7 @@
 import React from 'react';
 import Input from 'components/LayoutComponents/Input';
 
-class Form extends React.Component {
+export default class Form extends React.Component {
 
   state = {}
 
@@ -13,11 +13,10 @@ class Form extends React.Component {
         this.state[item.props.name] = {
           value: '',
           isValid: true,
+          isRequired: item.props.required ? true : false,
         }
       }
     })
-
-    this.handleChange = this.handleChange.bind(this);
   }
 
   validateForm = () => {
@@ -26,7 +25,7 @@ class Form extends React.Component {
       var values = {};
       var isValidForm = true;
       Object.keys(inputArray).map(item => {
-        if (inputArray[item].value === '') {
+        if (inputArray[item].value === '' && inputArray[item].isRequired) {
           inputArray[item].isValid = false;
           isValidForm = false;
         } else {
@@ -39,7 +38,7 @@ class Form extends React.Component {
     })
   }
 
-  handleChange(name, value) {
+  handleChange = (name, value) => {
     var inputArray = this.state;
     inputArray[name].value = value;
     this.setState(inputArray);
@@ -62,5 +61,3 @@ class Form extends React.Component {
     )
 	}
 }
-
-export default Form;

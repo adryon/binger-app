@@ -3,9 +3,7 @@ import _ from  'lodash';
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { userActions } from 'actions';
-import Input from 'components/LayoutComponents/Input';
-import Button from 'components/LayoutComponents/Button';
-import Form from 'components/LayoutComponents/Form';
+import { Input, Button, Form} from 'components/LayoutComponents';
 
 class MainPage extends React.Component{
 

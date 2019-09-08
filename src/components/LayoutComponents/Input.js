@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Input extends React.Component{
+export default class Input extends React.Component{
 
 	render() {
 
@@ -26,5 +26,3 @@ class Input extends React.Component{
 		)
 	}
 }
-
-export default Input;
