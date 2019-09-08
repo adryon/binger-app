@@ -74,7 +74,9 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 ### Props
 
 icon: Icon of the button (Required: false, Default: none);
+
 text: Text of the button (Required: false, Default: none);
+
 type: Type of the button (Required: false, Default: `button`)
     Options: `submit`
              `button`
