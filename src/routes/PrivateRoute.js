@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect, Route} from 'react-router-dom';
-import Navbar from 'components/LayoutComponents/Navbar';
+import Navbar from 'components/BingerComponents/Navbar';
 import lockr from 'lockr';
 import config from 'lib/config';
 lockr.prefix = config.LOCKR_PREFIX;

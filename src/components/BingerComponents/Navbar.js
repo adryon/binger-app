@@ -1,21 +1,7 @@
 import React from 'react';
-import Avatar from 'components/LayoutComponents/Avatar';
+import Avatar from './Avatar';
 
 export default class Navbar extends React.Component{
-
-	constructor(props) {
-    super(props);
-    this.state = {
-    	title: '',
-    	description: '',
-    	priority: '',
-    	assignedSearchInput: '',
-    	assignedUser: {},
-    	showUsersList: false,
-    	showSelectedUser: false,
-    	usersList: []
-    };
-  }
 
 	render() {
 

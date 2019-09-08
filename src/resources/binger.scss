@@ -141,13 +141,18 @@
 }
 
 .binger-btn-link {
+  background-color: transparent;
   color: $primary-color;
+  border: none;
+  cursor: pointer;
+  display: inline;
   -webkit-transition: color 0.2s ease-in;
   -moz-transition: color 0.2s ease-in;
   -o-transition: color 0.2s ease-in;
   transition: color 0.2s ease-in;
 
-  &:hover, &:active, &:focus {
+  &:hover, &:focus {
+    text-decoration: none;
     outline: none;
     color: $primary-color-darken !important
   }

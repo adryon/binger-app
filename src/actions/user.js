@@ -3,7 +3,7 @@ import {
   USER_LOG_OUT_SUCCESS,
   USER_SET_CURRENT_USER,
 } from './actions-types';
-import {notification} from 'components/LayoutComponents/Notification';
+import {notification} from 'components/LayoutComponents';
 import {push} from 'react-router-redux';
 import lockr from 'lockr';
 import firebase from 'firebase';

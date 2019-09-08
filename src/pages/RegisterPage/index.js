@@ -65,12 +65,12 @@ class RegisterPage extends React.Component{
 									<Button
 										text="Register"
 										type="submit"/>
-									<div className="m-2 binger-flex-baseline">
-										<button
-											className="btn btn-link binger-btn-link"
+									<div className="m-2">
+										<span
+											className="binger-btn-link"
 											onClick={this.props.goToLogin}>
-											Log In
-										</button>
+											Log in
+										</span>
 										<span className="text-white">
 			              	{' if you already have an account!'}
 										</span>
