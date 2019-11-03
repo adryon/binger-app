@@ -92,6 +92,35 @@
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
+/*  ACTORS CARD DESIGN */
+
+.binger-actors-card {
+  margin: 20px;
+}
+
+.binger-actors-item {
+  max-width: 100%;
+}
+
+.binger-actors-name {
+  color: $primary-color;
+  font-weight: bold;
+  display: flex;
+  padding-top: 5px;
+  justify-content: center;
+  text-align: center;
+}
+
+.binger-actors-character {
+  color: $secondary-color;
+  font-style: italic;
+  display: flex;
+  padding-top: 5px;
+  justify-content: center;
+  text-align: center;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
 /*  BUTTON DESIGN */
 
 .binger-btn {
@@ -111,7 +140,7 @@
 
   &:hover, &:active, &:focus {
     outline: none;
-    background-color: $primary-color-darken !important
+    background-color: $primary-color-darken !important;
   }
 
   &.binger-btn-normal {
@@ -119,7 +148,7 @@
     display: flex;
 
     .binger-btn-icon {
-      font-size: $input-icon-size;
+      font-size: $button-icon-size;
       padding-right: 5px;
       padding-left: 5px;
     }
@@ -127,6 +156,16 @@
     .binger-btn-text {
       padding-left: 5px;
       padding-right: 5px;
+    }
+
+    .binger-btn-text-expandable {
+      max-width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      -webkit-transition: all 0.4s ease-in;
+      -moz-transition: all 0.4s ease-in;
+      -o-transition: all 0.4s ease-in;
+      transition: all 0.4s ease-in;
     }
   }
 
@@ -138,6 +177,11 @@
       font-size: $input-icon-size;
     }
   }
+}
+
+.binger-btn:hover .binger-btn-text-expandable {
+  padding-right: 5px;
+  max-width: 17rem;
 }
 
 .binger-btn-link {
@@ -158,19 +202,6 @@
   }
 }
 
-.ant-btn-small {
-  color: #000000;
-  font-weight: bold;
-  text-transform: uppercase;
-  border-radius: 12px;
-  height: 24px;
-  font-size: 12px;
-
-  &:hover, &:active, &:focus {
-    color: #000000;
-  }
-}
-
 .ant-btn-medium {
   color: #000000;
   font-weight: bold;
@@ -184,61 +215,106 @@
   }
 }
 
-.btn-is-favourite {
+.binger-btn-green {
   background-color: $green-color;
-  color: $white;
-  border: none;
-  border-radius: 50%;
+  color: $white !important;
 
   &:hover, &:active, &:focus {
-    background-color: $green-color-darken;
-    color: $white;
-    border: none;
-    border-radius: 50%;
+    background-color: $green-color-darken !important;
   }
 }
 
-.btn-is-not-favourite {
-  background-color: $red-color;
-  color: $white;
-  border: none;
-  border-radius: 50%;
+.binger-btn-red {
+  background-color: $red-color !important;
+  color: $white !important;
 
   &:hover, &:active, &:focus {
-    background-color: $red-color-darken;
-    color: $white;
-    border: none;
-    border-radius: 50%;
+    background-color: $red-color-darken !important;
   }
 }
 
-.btn-watched {
-  background-color: $green-color;
-  border: none;
-
-  &:hover, &:active, &:focus {
-    background-color: $green-color-darken;
-    border: none;
-  }
-}
-
-.btn-not-watched {
+.binger-btn-blue {
   background-color: $blue-color;
-  border: none;
+  color: $white !important;
 
   &:hover, &:active, &:focus {
-    background-color: $blue-color-darken;
-    border: none;
+    background-color: $blue-color-darken !important;
   }
 }
 
-.btn-add-to-wishlist {
-  border: none;
-}
+/////////////////////////////////////////////////////////////////////////////////////////
+/*  TAG DESIGN */
 
-.btn-first-tv-show {
-  border-color: $primary-color;
-  color: $primary-color;
+.binger-tag {
+  background-color: $primary-color;
+  color: #FFFFFF;
+  border: none;
+  font-weight: bold;
+  height: 36px;
+  font-size: 18px;
+  border-radius: 12px;
+  margin: 10px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+
+  .binger-tag-icon {
+    font-size: $tag-icon-size;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  .binger-tag-text {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .binger-tag-close-icon {
+    color: #FFFFFF;
+    padding-left: 5px;
+    padding-right: 5px;
+    -webkit-transition: color 0.2s ease-in;
+    -moz-transition: color 0.2s ease-in;
+    -o-transition: color 0.2s ease-in;
+    transition: color 0.2s ease-in;
+
+    &:hover, &:active, &:focus {
+      color: #E0E0E0 !important;
+    }
+  }
+
+  .binger-tag-add {
+    color: #FFFFFF;
+    padding-left: 5px;
+    padding-right: 5px;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+
+    &:hover, &:active, &:focus {
+      color: #E0E0E0 !important;
+    }
+  }
+
+  .binger-tag-input {
+    background-color: $primary-color !important;
+    color: $white !important;
+    border: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-weight: bold;
+    display: block;
+    height: 36px !important;
+    //width: 100%;
+    border-radius: 12px;
+    font-size: 18px !important;
+
+    &:hover, &:active, &:focus {
+      outline: none;
+    }
+  }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -364,22 +440,27 @@
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-/*  FORM DESIGN */
-
-.ant-form {
-  color: $white;
-}
-
-.ant-form-item {
-  font-size: 16px;
-}
-
-.form-actions {
-  border-top: 0px solid $primary-color;
-}
-
-/////////////////////////////////////////////////////////////////////////////////////////
 /*  TEXT DESIGN */
+
+.binger-text {
+  color: $primary-color;
+}
+
+.binger-text-strong {
+  color: $primary-color;
+  font-size: 40px;
+  padding-right: 5px;
+  padding-left: 5px;
+  font-weight: bold;
+}
+
+.binger-blue {
+  color: $blue-color;
+}
+
+.binger-lime {
+  color: $lime-color;
+}
 
 strong {
   color: $primary-color;
@@ -395,18 +476,43 @@ label {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
-/*  LIST DESIGN */
+/*  Search DESIGN */
 
-.ant-list-item-content {
-  color: $primary-color;
+.binger-search {
+  display: inline;
 }
 
-.ant-list-split .ant-list-item {
-  border-bottom-color: $primary-color !important;
-}
+.binger-search-list {
+  width: 100%;
+  max-height: 375px;
+  border-radius: 24px;
+  border: 5px solid $secondary-color !important;
+  margin-bottom: 0;
+  padding-left: 0;
+  overflow: auto;
+  outline: none;
+  position: absolute;
+  background-color: $card-background !important;
 
-.ant-list-item-action {
-  margin-left: auto;
+  .binger-search-list-item {
+    color: $primary-color;
+    overflow: hidden;
+    font-weight: bold;
+    padding: 5px 12px;
+    -webkit-transition: background-color 0.2s ease-in, color 0.2s ease-in;
+    -moz-transition: background-color 0.2s ease-in, color 0.2s ease-in;
+    -o-transition: background-color 0.2s ease-in, color 0.2s ease-in;
+    transition: background-color 0.2s ease-in, color 0.2s ease-in;
+
+    &:hover, &:active, &:focus {
+      background-color: $body-background;
+      cursor: pointer;
+    }
+
+    .binger-search-list-item-type {
+      text-transform: uppercase;
+    }
+  }
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -431,7 +537,7 @@ label {
 }
 
 .movie-year {
-  background-color: $primary-color;
+  background-color: $secondary-color;
   color: #000000;
   font-size: 40px;
   font-family: "Nunito Sans", sans-serif;
@@ -496,6 +602,14 @@ body {
   justify-content: flex-end;
 }
 
+.binger-title-row {
+  padding: 10px;
+}
+
+.content {
+  padding: 2.3rem;
+}
+
 .ant-layout-header {
   height: 100px;
 }
@@ -520,6 +634,7 @@ body {
 ::-webkit-scrollbar-track {
   border-top-right-radius: 24px;
   border-bottom-right-radius: 24px;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
   background-color: $card-background;
 }
@@ -703,20 +818,6 @@ table {
   display: inline-block;
 }
 
-.sponsors-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.sponsors-logo {
-  margin-left: 15px;
-  margin-right: 15px;
-  margin-top: 35px;
-  max-height: 50px;
-}
-
 .documents-tag {
   font-size: 17px;
   color: rgba(0, 0, 0, 0.65);
@@ -752,21 +853,6 @@ table {
 
 .ant-checkbox-wrapper {
   display: block;
-}
-
-@media (min-width: 992px) {
-  .livesearch-results-col {
-    max-width: 20%;
-  }
-
-  .ant-card-body {
-    height: 180px;
-    overflow: hidden;
-  }
-}
-
-.action-button {
-  margin: 5px;
 }
 
 .page-loading {

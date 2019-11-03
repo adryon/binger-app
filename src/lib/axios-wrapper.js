@@ -1,9 +1,8 @@
 import axios from 'axios';
-import lockr from 'lockr';
 import config from './config';
 
 function requestHeaders() {
-  const movieToken = config.THE_MOVIE_DB_TOKEN;
+  //const movieToken = config.THE_MOVIE_DB_TOKEN;
   const defaultHeaders = {
     'Content-Type': 'application/json',
   };

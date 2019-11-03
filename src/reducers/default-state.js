@@ -14,11 +14,15 @@ export default {
     tvSeriesWishlist: [],
     moviesWishlist: [],
   },
-  tvSeries: {
-    searchData: {}
+  tvseries: {
+    searchData: [],
   },
   movies: {
-    searchData: {},
-    viewMovie: null,
+    searchData: [],
+    viewMovieDetails: null,
+    viewMovieCast: null,
+  },
+  app: {
+    searchData: [],
   }
 };

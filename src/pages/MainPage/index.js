@@ -1,94 +1,38 @@
 import React from 'react';
-import _ from  'lodash';
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
-import { userActions } from 'actions';
-import { Input, Button, Form} from 'components/LayoutComponents';
+import CurrentlyWatching from 'components/BingerComponents/CurrentlyWatching';
 
 class MainPage extends React.Component{
 
-	constructor(props) {
-    super(props);
-    this.state = {
-    	username: '',
-    	password: ''
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(name, value) {
-    this.setState({[name]: value});
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-		console.log(this);
-  	// const payload = _.pick(this.state, ['username', 'password']);
-    // this.props.login(payload);
-  }
-
-	render() {
-		return (
-			<div className="main-page">
-				<div className="main-logo">
-					<img
-						src="/images/mediatec-inverse.png"
-	          alt="Binger Logo"/>
-				</div>
-				<div className="main-card card col-xl-5 col-lg-6 col-md-8">
-					<div className="main-card-title card-title">
-						<h3>Main Page</h3>
+  render() {
+    return (
+			<div className="container">
+	      <div className="row">
+					<div className="col-lg-12">
+						<span className="binger-text-strong">
+							Page under construction. Please use the search box above.
+						</span>
 					</div>
-				  <div className="main-card-body card-body">
-				    <form onSubmit={this.handleSubmit}>
-							<Form onSubmit={this.handleSubmit}>
-							<Input
-								required
-								label="Username"
-								name="username"
-								value={this.state.username}
-								icon="user"
-								type="text"
-								onInputChange={this.handleChange} />
-							<Input
-								required
-								label="Password"
-								name="password"
-								value={this.state.password}
-								icon="lock"
-								type="password"
-								onInputChange={this.handleChange} />
-
-							<div className="form-group">
-								<div className="binger-flex-center">
-									<Button
-										text="Sign in"
-										type="submit"/>
-									<div className="m-2 binger-flex-baseline">
-										<button
-											className="btn btn-link binger-btn-link"
-											onClick={this.props.goToRegister}>
-											Register
-										</button>
-										<span className="text-white">
-			              	{' '}if you don't have an account!
-										</span>
-									</div>
-								</div>
-		          </div>
-							</Form>
-						</form>
-				  </div>
-				</div>
+	        {/* <div className="col-md-6 col-sm-12">
+	          <CurrentlyWatching />
+	        </div>
+	        <div className="col-md-6 col-sm-12">
+	          <CurrentlyWatching />
+	        </div>
+	        <div className="col-md-6 col-sm-12">
+	          <CurrentlyWatching />
+	        </div>
+	        <div className="col-md-6 col-sm-12">
+	          <CurrentlyWatching />
+	        </div> */}
+	      </div>
 			</div>
-		)
-	}
+    )
+  }
 }
 
 const mapDispatchToProps = {
-  login: userActions.login,
 	goToRegister: () => dispatch => dispatch(push('/register'))
 };
 

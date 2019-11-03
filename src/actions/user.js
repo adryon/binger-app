@@ -7,6 +7,7 @@ import {notification} from 'components/LayoutComponents';
 import {push} from 'react-router-redux';
 import lockr from 'lockr';
 import firebase from 'firebase';
+import config from '../lib/config';
 
 export function loginSuccess(data) {
   return {type: USER_LOG_IN_SUCCESS, data};
@@ -20,30 +21,28 @@ export function setCurrentUser(data) {
   return {type: USER_SET_CURRENT_USER, data};
 }
 
-export function register(payload) {
-  return function (dispatch) {
-    firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then(result => {
-      firebase.database().ref(`users/${result.user.uid}`).set({
-        name: payload.name,
-        email: payload.email,
-        avatar: 'gs://binger-e4fea.appspot.com/Avengers-Thor-icon.png',
-      });
-      notification({
-        type: 'success',
-        title: 'Account created!',
-        description: 'You have successfully created a new account!',
-      })
-      dispatch(push('/login'));
-    })
-    .catch(error => {
-      notification({
-        type: 'error',
-        icon: 'exclamation-circle',
-        title: 'Register failed!',
-        description: error.message,
-      })
+export const reguster = (payload) => (dispatch) => {
+  firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then(result => {
+    firebase.database().ref(`users/${result.user.uid}`).set({
+      name: payload.name,
+      email: payload.email,
+      avatar: 'gs://binger-e4fea.appspot.com/Avengers-Thor-icon.png',
     });
-  }
+    notification({
+      type: 'success',
+      title: 'Account created!',
+      description: 'You have successfully created a new account!',
+    })
+    dispatch(push('/login'));
+  })
+  .catch(error => {
+    notification({
+      type: 'error',
+      icon: 'exclamation-circle',
+      title: 'Register failed!',
+      description: error.message,
+    })
+  });
 }
 
 export const login = (payload) => (dispatch) => {
@@ -95,3 +94,56 @@ export const getCurrentUser = () => (dispatch) => {
     return Promise.reject();
   }
 };
+
+export const addTagToMovie = (tag, movieId, userId) => (dispatch) => {
+  firebase.database().ref(`users/${userId}/movies/${movieId}`).push({
+    text: tag,
+    color: config.colors[Math.floor(Math.random() * config.colors.length)],
+  });
+  notification({
+    type: 'success',
+    title: 'Tag added!',
+  })
+}
+
+export const deleteTagFromMovie = (tag, movieId, userId) => (dispatch) => {
+  firebase.database().ref(`users/${userId}/movies/${movieId}/${tag.uid}`).remove();
+  notification({
+    type: 'success',
+    title: 'Tag removed!',
+  })
+}
+
+export const watchMovie = (movieId, userId) => (dispatch) => {
+  firebase.database().ref(`users/${userId}/moviesWatched/${movieId}/`).set({
+    timestamp: Date()
+  });
+  notification({
+    type: 'success',
+    title: 'Movie added to your watch list!',
+  })
+}
+
+export const unWatchMovie = (movieId, userId) => (dispatch) => {
+  firebase.database().ref(`users/${userId}/moviesWatched/${movieId}/`).remove();
+  notification({
+    type: 'success',
+    title: 'Movie removed from your watch list!',
+  })
+}
+
+export const addToWishlist = (movie, movieId, userId) => (dispatch) => {
+  firebase.database().ref(`users/${userId}/moviesWishlist/${movieId}/`).set(movie);
+  notification({
+    type: 'success',
+    title: 'Movie added to your wishlist!',
+  })
+}
+
+export const removeFromWishlist = (movieId, userId) => (dispatch) => {
+  firebase.database().ref(`users/${userId}/moviesWishlist/${movieId}/`).remove();
+  notification({
+    type: 'success',
+    title: 'Movie removed from your wishlist!',
+  })
+}

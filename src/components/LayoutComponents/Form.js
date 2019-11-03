@@ -1,5 +1,5 @@
 import React from 'react';
-import Input from 'components/LayoutComponents/Input';
+import { Input } from 'components/LayoutComponents';
 
 export default class Form extends React.Component {
 

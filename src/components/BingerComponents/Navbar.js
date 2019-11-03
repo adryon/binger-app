@@ -1,5 +1,6 @@
 import React from 'react';
 import Avatar from './Avatar';
+import SearchBar from './SearchBar';
 
 export default class Navbar extends React.Component{
 
@@ -15,14 +16,13 @@ export default class Navbar extends React.Component{
 			  <div className="collapse navbar-collapse" id="navbarSupportedContent">
 			    <ul className="navbar-nav mr-auto">
 			      <li className="nav-item">
-			        <a className="nav-link" href="#">Link</a>
+			        <a className="nav-link">Link</a>
 			      </li>
 			    </ul>
-			    <form className="form-inline my-2 my-lg-0">
-			      <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-			    </form>
-
+					
+					<SearchBar />
 					<Avatar />
+
 			  </div>
 			</nav>
 		)

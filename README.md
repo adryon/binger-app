@@ -37,12 +37,6 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
 ### Code Splitting
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
@@ -50,10 +44,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/co
 ### Analyzing the Bundle Size
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
 
 ### Advanced Configuration
 
@@ -63,9 +53,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/ad
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
 
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
 # `Binger Components Guide`
 
@@ -81,7 +68,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 `shape`: Shape of the button (Required: false, Default: `normal`, Options: `normal`, `circle`);
 
-### methods
+### Methods
 
 `onButtonClick`: Handler for the click event
 
@@ -104,24 +91,35 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 `type`: Input type (Required: true, Default: `text`);
 
-### methods
+### Methods
 
 `onInputChange`: Handler for the input change event;
 
 
+## Notification
 
+### Props
 
+`options`: Options for each notification. (Required: true, Default: none);
 
+options object can have the following properties:
 
+`icon`: Icon of the notification (Required: false, Default: none);
 
-# Learn more
+`type`: Type of the notification that affects the border color (Required: None, Default: `info`, Opions: `info`, `error`, `success`, 'warning');
 
-# `Learn more`
+`duration`: Timer for notification display (Required: false, Default: 3000);
 
-## Learn more
+`title`: Text to be displayed in the upper part of the notification (Required: none, Default: none);
 
-## `Learn more`
+`title`: Smaller text to be displayed in the lower part of the notification (Required: none, Default: none);
 
-### Learn More
+### Methods
 
-### `Learn More`
+`notification`: Method to invoke a notification display (arguments: `options` object);
+
+## Form
+
+### Methods
+
+`onSubmit`: Method to handle the submitting process of the form;

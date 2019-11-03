@@ -3,8 +3,8 @@ import React from 'react';
 export default class Input extends React.Component{
 
 	render() {
-
-		const {label, icon, placeholder, name, value, isValid} = this.props;
+		const {label, icon, placeholder, name, value } = this.props;
+		const isValid = this.props.isValid !== undefined ? this.props.isValid : true;
 		const type = this.props.type || 'text';
 		const onInputChange = this.props.onInputChange || (() => {});
 

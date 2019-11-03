@@ -1,5 +1,9 @@
 import * as user from './user';
-/*import * as app from './app';*/
+import * as movies from './movies';
+import * as tvseries from './tvseries';
+import * as app from './app';
 
 export const userActions = user;
-/*export const appActions = app;*/
+export const moviesActions = movies;
+export const tvseriesActions = tvseries;
+export const appActions = app;
