@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f465acbd985729865eeb520e31fda492",
+    "revision": "8000af55d8cec68bc80695494a0ecfde",
     "url": "https://adryon.github.io/binger-app/index.html"
   },
   {
-    "revision": "35d95e07d49629634c84",
+    "revision": "397730ff48006d4ee7ee",
     "url": "https://adryon.github.io/binger-app/static/css/main.4226809a.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "https://adryon.github.io/binger-app/static/js/2.3e348c92.chunk.js"
   },
   {
-    "revision": "35d95e07d49629634c84",
-    "url": "https://adryon.github.io/binger-app/static/js/main.6bfb443a.chunk.js"
+    "revision": "397730ff48006d4ee7ee",
+    "url": "https://adryon.github.io/binger-app/static/js/main.53246140.chunk.js"
   },
   {
     "revision": "95ea1497f6a3e71fb3ab",
