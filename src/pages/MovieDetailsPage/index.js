@@ -1,0 +1,206 @@
+import React from 'react';
+//import { push } from 'react-router-redux'
+import { connect } from 'react-redux'
+import moment from 'moment';
+import { Button, Tag } from 'components/LayoutComponents';
+import { moviesActions, userActions } from 'actions'
+
+class MovieDetailsPage extends React.Component{
+
+  componentDidMount() {
+    this.props.getMovieDetails(this.props.match.params.id);
+    this.props.getMovieCast(this.props.match.params.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.id !== this.props.match.params.id) {
+      this.props.getMovieDetails(this.props.match.params.id);
+      this.props.getMovieCast(this.props.match.params.id);
+    }
+  }
+
+  componentWillUnmount() {
+    this.props.movieDetailsClear();
+  }
+
+  onTagSubmit = (tag) => {
+    this.props.addTagToMovie(tag, this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  onTagClose = (tag) => {
+    this.props.deleteTagFromMovie(tag, this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  watchMovie = () => {
+    this.props.watchMovie(this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  unWatchMovie = () => {
+    this.props.unWatchMovie(this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  addToWishlist = () => {
+    const payload = {
+      backdrop_path: this.props.movies.viewMovieDetails.backdrop_path,
+      id: this.props.movies.viewMovieDetails.id,
+      title: this.props.movies.viewMovieDetails.title,
+    }
+    this.props.addToWishlist(payload, this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  removeFromWishlist = () => {
+    this.props.removeFromWishlist(this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  render() {
+    const { viewMovieDetails, viewMovieCast } = this.props.movies;
+    return ( viewMovieDetails &&
+      <div className="content container">
+        <div className="row">
+          <div className="col-lg-3">
+            <div className="align-end">
+              <img className="movie-poster" src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${viewMovieDetails.poster_path}`} alt=""/>
+            </div>
+          </div>
+          <div className="col-lg-9">
+            <div className="row binger-title-row">
+              <div className="movie-title">
+                {viewMovieDetails.original_title}
+                <span className="movie-year">
+                  {moment(viewMovieDetails.release_date).format('YYYY')}
+                </span>
+              </div>
+            </div>
+            <div className="row binger-title-row">
+              {viewMovieDetails.userData.watched &&
+                <Button 
+                  className="mr-4 binger-btn-green"
+                  onButtonClick={this.unWatchMovie}
+                  expandTextOnHover={true}
+                  icon="eye"
+                  text="Watched" /> ||
+                <Button 
+                  className="mr-4 binger-btn-blue"
+                  onButtonClick={this.watchMovie}
+                  expandTextOnHover={true}
+                  icon="eye-slash"
+                  text="Not watched" />
+              }
+              {viewMovieDetails.isFavourite &&
+                <Button 
+                  className="mr-4 binger-btn-green"
+                  expandTextOnHover={true}
+                  icon="heart"
+                  text="Added to Favorite" /> ||
+                <Button 
+                  className="mr-4 binger-btn-blue"
+                  expandTextOnHover={true}
+                  icon="heart"
+                  text="Add to Favorite" />
+              }
+              {viewMovieDetails.userData.wishlist &&
+                <Button 
+                  className="mr-4 binger-btn-green"
+                  onButtonClick={this.removeFromWishlist}
+                  expandTextOnHover={true}
+                  icon="star"
+                  text="In Wishlist" /> ||
+                <Button
+                  className="mr-4 binger-btn-blue"
+                  onButtonClick={this.addToWishlist}
+                  expandTextOnHover={true}
+                  icon="star"
+                  text="Add to Wishlist" />
+              }
+              { viewMovieDetails.userData.watched &&
+                <div className="binger-flex-center">
+                  <span className="binger-text"> You have watched this movie on {moment(viewMovieDetails.userData.watched.timestamp).format('DD/MM/YYYY')}</span>
+                </div>
+              }
+            </div>
+            <div className="row binger-title-row">
+              <div className="card">
+                <div className="card-body">
+                  <div className="row binger-flex-center">
+                    <span className="binger-text-strong">Tags</span>
+                    { viewMovieDetails.userData && viewMovieDetails.userData.tags && viewMovieDetails.userData.tags.map(tag => (
+                      <Tag
+                        text={tag.text}
+                        key={tag.uid}
+                        uid={tag.uid}
+                        closable={true}
+                        onTagClose={this.onTagClose}
+                        color={tag.color} />
+                      ))
+                    }
+                    <Tag 
+                      type="add"
+                      onTagSubmit={this.onTagSubmit}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="card binger-actors-card">
+              <div className="card-body">
+                <div className="row binger-flex-baseline">
+
+                  {viewMovieCast && viewMovieCast.cast.slice(0,6).map((actor, index) => (
+                    <div key={index} className={`col-12 col-sm-6 col-md-4 col-lg-2 binger-actors-item`}>
+                        <img className="binger-actors-image" src={`https://image.tmdb.org/t/p/w138_and_h175_face${actor.profile_path}`} alt=""/>
+
+                        <span className="binger-actors-name">{actor.name}</span>
+                        <span className="binger-actors-character">{actor.character}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
+
+const mapDispatchToProps = {
+  getMovieDetails: moviesActions.getMovieDetails,
+  getMovieCast: moviesActions.getMovieCast,
+  addTagToMovie: userActions.addTagToMovie,
+  deleteTagFromMovie: userActions.deleteTagFromMovie,
+  watchMovie: userActions.watchMovie,
+  unWatchMovie: userActions.unWatchMovie,
+  addToWishlist: userActions.addToWishlist,
+  removeFromWishlist: userActions.removeFromWishlist,
+  movieDetailsClear: moviesActions.movieDetailsClear,
+};
+
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+    movies: state.movies,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieDetailsPage);
+
+
+{/* <Tag 
+                      text="Animation"
+                      color="#1B5E20"
+                      closable={true}
+                    />
+                    <Tag 
+                      text="Disney"
+                      color="#0D47A1"
+                      closable={true}
+                    />
+                    <Tag 
+                      text="Remake"
+                      color="#B71C1C"
+                      closable={true}
+                    /> */}
