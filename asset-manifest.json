@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "http://adryon.github.io/binger-app/static/css/main.4226809a.chunk.css",
-    "main.js": "http://adryon.github.io/binger-app/static/js/main.b17284a8.chunk.js",
-    "main.js.map": "http://adryon.github.io/binger-app/static/js/main.b17284a8.chunk.js.map",
-    "runtime~main.js": "http://adryon.github.io/binger-app/static/js/runtime~main.3f9eece0.js",
-    "runtime~main.js.map": "http://adryon.github.io/binger-app/static/js/runtime~main.3f9eece0.js.map",
-    "static/js/2.55ed22c8.chunk.js": "http://adryon.github.io/binger-app/static/js/2.55ed22c8.chunk.js",
-    "static/js/2.55ed22c8.chunk.js.map": "http://adryon.github.io/binger-app/static/js/2.55ed22c8.chunk.js.map",
-    "index.html": "http://adryon.github.io/binger-app/index.html",
-    "precache-manifest.89e13bc351b038c7982baffbd063894b.js": "http://adryon.github.io/binger-app/precache-manifest.89e13bc351b038c7982baffbd063894b.js",
-    "service-worker.js": "http://adryon.github.io/binger-app/service-worker.js",
-    "static/css/main.4226809a.chunk.css.map": "http://adryon.github.io/binger-app/static/css/main.4226809a.chunk.css.map"
+    "main.css": "https://adryon.github.io/binger-app/static/css/main.4226809a.chunk.css",
+    "main.js": "https://adryon.github.io/binger-app/static/js/main.6ae567e9.chunk.js",
+    "main.js.map": "https://adryon.github.io/binger-app/static/js/main.6ae567e9.chunk.js.map",
+    "runtime~main.js": "https://adryon.github.io/binger-app/static/js/runtime~main.6633c668.js",
+    "runtime~main.js.map": "https://adryon.github.io/binger-app/static/js/runtime~main.6633c668.js.map",
+    "static/js/2.3e348c92.chunk.js": "https://adryon.github.io/binger-app/static/js/2.3e348c92.chunk.js",
+    "static/js/2.3e348c92.chunk.js.map": "https://adryon.github.io/binger-app/static/js/2.3e348c92.chunk.js.map",
+    "index.html": "https://adryon.github.io/binger-app/index.html",
+    "precache-manifest.dc21bd6b4d1df7fb3db786ba0fbab47e.js": "https://adryon.github.io/binger-app/precache-manifest.dc21bd6b4d1df7fb3db786ba0fbab47e.js",
+    "service-worker.js": "https://adryon.github.io/binger-app/service-worker.js",
+    "static/css/main.4226809a.chunk.css.map": "https://adryon.github.io/binger-app/static/css/main.4226809a.chunk.css.map"
   }
 }
