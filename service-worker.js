@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "https://adryon.github.io/binger-app/precache-manifest.dc21bd6b4d1df7fb3db786ba0fbab47e.js"
+  "https://adryon.github.io/binger-app/precache-manifest.b1edf8d20222e1c39d2166c1e031d47f.js"
 );
 
 self.addEventListener('message', (event) => {
