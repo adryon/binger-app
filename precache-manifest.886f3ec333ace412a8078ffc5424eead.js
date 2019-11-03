@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "dc52eebcf583ba1438d4b9cf126e6ad1",
+    "revision": "d28bd2a04cd87954f7a2995b615d5500",
     "url": "/binger-app/index.html"
   },
   {
-    "revision": "d9926085443e105dc71d",
+    "revision": "7810aad28fc4dad4eab7",
     "url": "/binger-app/static/css/main.4226809a.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/binger-app/static/js/2.f4657189.chunk.js"
   },
   {
-    "revision": "d9926085443e105dc71d",
-    "url": "/binger-app/static/js/main.7fe40c22.chunk.js"
+    "revision": "7810aad28fc4dad4eab7",
+    "url": "/binger-app/static/js/main.74bc4b92.chunk.js"
   },
   {
     "revision": "dc2e82d1061a47ebaaa6",
