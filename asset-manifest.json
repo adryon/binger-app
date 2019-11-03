@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/binger-app/static/css/main.4226809a.chunk.css",
-    "main.js": "/binger-app/static/js/main.6784afa1.chunk.js",
-    "main.js.map": "/binger-app/static/js/main.6784afa1.chunk.js.map",
+    "main.js": "/binger-app/static/js/main.d7570a2c.chunk.js",
+    "main.js.map": "/binger-app/static/js/main.d7570a2c.chunk.js.map",
     "runtime~main.js": "/binger-app/static/js/runtime~main.f89f87ff.js",
     "runtime~main.js.map": "/binger-app/static/js/runtime~main.f89f87ff.js.map",
-    "static/js/2.85dbd5a5.chunk.js": "/binger-app/static/js/2.85dbd5a5.chunk.js",
-    "static/js/2.85dbd5a5.chunk.js.map": "/binger-app/static/js/2.85dbd5a5.chunk.js.map",
+    "static/js/2.f4657189.chunk.js": "/binger-app/static/js/2.f4657189.chunk.js",
+    "static/js/2.f4657189.chunk.js.map": "/binger-app/static/js/2.f4657189.chunk.js.map",
     "index.html": "/binger-app/index.html",
-    "precache-manifest.5efc687859d9f198b7437b25fb115106.js": "/binger-app/precache-manifest.5efc687859d9f198b7437b25fb115106.js",
+    "precache-manifest.081f80b55b414e589f894f3533624e6c.js": "/binger-app/precache-manifest.081f80b55b414e589f894f3533624e6c.js",
     "service-worker.js": "/binger-app/service-worker.js",
     "static/css/main.4226809a.chunk.css.map": "/binger-app/static/css/main.4226809a.chunk.css.map"
   }

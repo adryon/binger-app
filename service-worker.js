@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/binger-app/precache-manifest.5efc687859d9f198b7437b25fb115106.js"
+  "/binger-app/precache-manifest.081f80b55b414e589f894f3533624e6c.js"
 );
 
 self.addEventListener('message', (event) => {
