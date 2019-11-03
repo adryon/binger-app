@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "https://adryon.github.io/binger-app/static/css/main.4226809a.chunk.css",
-    "main.js": "https://adryon.github.io/binger-app/static/js/main.53246140.chunk.js",
-    "main.js.map": "https://adryon.github.io/binger-app/static/js/main.53246140.chunk.js.map",
-    "runtime~main.js": "https://adryon.github.io/binger-app/static/js/runtime~main.6633c668.js",
-    "runtime~main.js.map": "https://adryon.github.io/binger-app/static/js/runtime~main.6633c668.js.map",
-    "static/js/2.3e348c92.chunk.js": "https://adryon.github.io/binger-app/static/js/2.3e348c92.chunk.js",
-    "static/js/2.3e348c92.chunk.js.map": "https://adryon.github.io/binger-app/static/js/2.3e348c92.chunk.js.map",
-    "index.html": "https://adryon.github.io/binger-app/index.html",
-    "precache-manifest.c93290d5069cd2f37a717c55e1aaf3c7.js": "https://adryon.github.io/binger-app/precache-manifest.c93290d5069cd2f37a717c55e1aaf3c7.js",
-    "service-worker.js": "https://adryon.github.io/binger-app/service-worker.js",
-    "static/css/main.4226809a.chunk.css.map": "https://adryon.github.io/binger-app/static/css/main.4226809a.chunk.css.map"
+    "main.css": "/binger-app/static/css/main.4226809a.chunk.css",
+    "main.js": "/binger-app/static/js/main.7fe40c22.chunk.js",
+    "main.js.map": "/binger-app/static/js/main.7fe40c22.chunk.js.map",
+    "runtime~main.js": "/binger-app/static/js/runtime~main.f89f87ff.js",
+    "runtime~main.js.map": "/binger-app/static/js/runtime~main.f89f87ff.js.map",
+    "static/js/2.f4657189.chunk.js": "/binger-app/static/js/2.f4657189.chunk.js",
+    "static/js/2.f4657189.chunk.js.map": "/binger-app/static/js/2.f4657189.chunk.js.map",
+    "index.html": "/binger-app/index.html",
+    "precache-manifest.5b76eede139c60767ba53802d2ea6e0c.js": "/binger-app/precache-manifest.5b76eede139c60767ba53802d2ea6e0c.js",
+    "service-worker.js": "/binger-app/service-worker.js",
+    "static/css/main.4226809a.chunk.css.map": "/binger-app/static/css/main.4226809a.chunk.css.map"
   }
 }
