@@ -1,5 +1,7 @@
 import defaultState from './default-state';
 import {
+  TVSERIES_GET_DETAILS_SUCCESS,
+  TVSERIES_GET_CAST_SUCCESS,
   TVSERIES_SEARCH_SUCCESS,
   TVSERIES_SEARCH_CLEAR,
   TVSERIES_DETAILS_CLEAR
@@ -14,15 +16,15 @@ export default function userState(state = defaultState.tvseries, action) {
 
   switch (action.type) {
 
-    // case MOVIES_GET_DETAILS_SUCCESS:
-    //   return Object.assign({}, state, {
-    //     viewMovieDetails: action.data
-    //   })
+    case TVSERIES_GET_DETAILS_SUCCESS:
+      return Object.assign({}, state, {
+        viewTVSeriesDetails: action.data
+      })
 
-    // case MOVIES_GET_CAST_SUCCESS:
-    //   return Object.assign({}, state, {
-    //     viewMovieCast: action.data
-    //   })
+    case TVSERIES_GET_CAST_SUCCESS:
+      return Object.assign({}, state, {
+        viewTVSeriesCast: action.data
+      })
 
     case TVSERIES_SEARCH_SUCCESS:
       return Object.assign({}, state, {
@@ -36,8 +38,8 @@ export default function userState(state = defaultState.tvseries, action) {
     
     case TVSERIES_DETAILS_CLEAR: 
       return Object.assign({}, state, {
-        viewMovieDetails: null,
-        viewMovieCast: null,
+        viewTVSeriesDetails: null,
+        viewTVSeriesCast: null,
       })
 
     default:

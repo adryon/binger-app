@@ -24,7 +24,7 @@ class RegisterPage extends React.Component{
 			<div className="main-page">
 				<div className="main-logo">
 					<img
-						src="/images/mediatec-inverse.png"
+						src={process.env.PUBLIC_URL + "/images/mediatec-inverse.png"}
 	          alt="Binger Logo"/>
 				</div>
 				<div className="main-card card col-xl-5 col-lg-6 col-md-8">

@@ -21,7 +21,7 @@ export function setCurrentUser(data) {
   return {type: USER_SET_CURRENT_USER, data};
 }
 
-export const reguster = (payload) => (dispatch) => {
+export const register = (payload) => (dispatch) => {
   firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password).then(result => {
     firebase.database().ref(`users/${result.user.uid}`).set({
       name: payload.name,
@@ -106,8 +106,27 @@ export const addTagToMovie = (tag, movieId, userId) => (dispatch) => {
   })
 }
 
+export const addTagToTVSeries = (tag, tvId, userId) => (dispatch) => {
+  firebase.database().ref(`users/${userId}/tvSeries/${tvId}`).push({
+    text: tag,
+    color: config.colors[Math.floor(Math.random() * config.colors.length)],
+  });
+  notification({
+    type: 'success',
+    title: 'Tag added!',
+  })
+}
+
 export const deleteTagFromMovie = (tag, movieId, userId) => (dispatch) => {
   firebase.database().ref(`users/${userId}/movies/${movieId}/${tag.uid}`).remove();
+  notification({
+    type: 'success',
+    title: 'Tag removed!',
+  })
+}
+
+export const deleteTagFromTVSeries = (tag, tvId, userId) => (dispatch) => {
+  firebase.database().ref(`users/${userId}/tvSeries/${tvId}/${tag.uid}`).remove();
   notification({
     type: 'success',
     title: 'Tag removed!',
@@ -132,7 +151,7 @@ export const unWatchMovie = (movieId, userId) => (dispatch) => {
   })
 }
 
-export const addToWishlist = (movie, movieId, userId) => (dispatch) => {
+export const addMovieToWishlist = (movie, movieId, userId) => (dispatch) => {
   firebase.database().ref(`users/${userId}/moviesWishlist/${movieId}/`).set(movie);
   notification({
     type: 'success',
@@ -140,10 +159,26 @@ export const addToWishlist = (movie, movieId, userId) => (dispatch) => {
   })
 }
 
-export const removeFromWishlist = (movieId, userId) => (dispatch) => {
+export const addTVSeriesToWishlist = (tv, tvId, userId) => (dispatch) => {
+  firebase.database().ref(`users/${userId}/tvSeriesWishlist/${tvId}/`).set(tv);
+  notification({
+    type: 'success',
+    title: 'TV series added to your wishlist!',
+  })
+}
+
+export const removeMovieFromWishlist = (movieId, userId) => (dispatch) => {
   firebase.database().ref(`users/${userId}/moviesWishlist/${movieId}/`).remove();
   notification({
     type: 'success',
     title: 'Movie removed from your wishlist!',
+  })
+}
+
+export const removeTVSeriesFromWishlist = (tvId, userId) => (dispatch) => {
+  firebase.database().ref(`users/${userId}/tvSeriesWishlist/${tvId}/`).remove();
+  notification({
+    type: 'success',
+    title: 'TV Series removed from your wishlist!',
   })
 }

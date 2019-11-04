@@ -1,4 +1,7 @@
 import {
+  TVSERIES_GET_DETAILS_SUCCESS,
+  TVSERIES_GET_CAST_SUCCESS,
+  TVSERIES_DETAILS_CLEAR,
   TVSERIES_SEARCH_SUCCESS
 } from './actions-types';
 import http from './../lib/axios-wrapper';
@@ -8,13 +11,13 @@ import lockr from 'lockr';
 import _ from 'lodash';
 import config from '../lib/config';
 
-// export function getMovieDetailsSuccess(data) {
-//   return {type: MOVIE_GET_DETAILS_SUCCESS, data};
-// }
+export function getTVSeriesDetailsSuccess(data) {
+  return {type: TVSERIES_GET_DETAILS_SUCCESS, data};
+}
 
-// export function getMovieCastSuccess(data) {
-//   return {type: MOVIE_GET_CAST_SUCCESS, data};
-// }
+export function getTVSeriesCastSuccess(data) {
+  return {type: TVSERIES_GET_CAST_SUCCESS, data};
+}
 
 export function searchTVSeriesSuccess(data) {
   return {type: TVSERIES_SEARCH_SUCCESS, data};
@@ -24,69 +27,69 @@ export function searchTVSeriesSuccess(data) {
 //   return {type: MOVIE_SEARCH_CLEAR};
 // }
 
-// export function movieDetailsClear() {
-//   return {type: MOVIE_DETAILS_CLEAR}
-// }
+export function tvseriesDetailsClear() {
+  return {type: TVSERIES_DETAILS_CLEAR};
+}
 
-// export const getMovieDetails = (movie_id) => (dispatch) => {
-//   const payload = {
-//     api_key: config.THE_MOVIE_DB_TOKEN,
-//     language: 'en-US',
-//   }
+export const getTVSeriesDetails = (tv_id) => (dispatch) => {
+  const payload = {
+    api_key: config.THE_MOVIE_DB_TOKEN,
+    language: 'en-US',
+  }
 
-//   return http.get(`movie/${movie_id}`, payload)
-//     .then(result => {
-//       firebase.database().ref(`users/${lockr.get('Authorization')}/movies/${movie_id}`).on('value', movieSnapshot => {
-//         firebase.database().ref(`users/${lockr.get('Authorization')}/moviesWatched/${movie_id}`).on('value', watchedSnapshot => {
-//           firebase.database().ref(`users/${lockr.get('Authorization')}/moviesWishlist/${movie_id}`).on('value', wishlistSnapshot => {
-//             let tags = [];
-//             let movieSnap = movieSnapshot.val();
-//             let watchedSnap = watchedSnapshot.val();
-//             let wishlistSnap = wishlistSnapshot.val();
-//             _.keys(movieSnap).map(item => {
-//               movieSnap[item].uid = item;
-//               tags.push(movieSnap[item]);
-//             });
+  return http.get(`tv/${tv_id}`, payload)
+    .then(result => {
+      firebase.database().ref(`users/${lockr.get('Authorization')}/tvSeries/${tv_id}`).on('value', tvSeriesSnapshot => {
+        firebase.database().ref(`users/${lockr.get('Authorization')}/tvSeriesWatched/${tv_id}`).on('value', watchedSnapshot => {
+          firebase.database().ref(`users/${lockr.get('Authorization')}/tvSeriesWishlist/${tv_id}`).on('value', wishlistSnapshot => {
+            let tags = [];
+            let tvSeriesSnap = tvSeriesSnapshot.val();
+            let watchedSnap = watchedSnapshot.val();
+            let wishlistSnap = wishlistSnapshot.val();
+            _.keys(tvSeriesSnap).map(item => {
+              tvSeriesSnap[item].uid = item;
+              tags.push(tvSeriesSnap[item]);
+            });
 
-//             const userData = {
-//               tags: tags,
-//               watched: watchedSnap,
-//               wishlist: wishlistSnap,
-//             }
+            const userData = {
+              tags: tags,
+              watched: watchedSnap,
+              wishlist: wishlistSnap,
+            }
 
-//             const movieData = Object.assign({}, {userData}, result);
-//             dispatch(getMovieDetailsSuccess(movieData));
-//           });
-//         });
-//       });
-//     })
-//     .catch(error => {
-//       notification({
-//         type: 'error',
-//         icon: 'exclamation-circle',
-//         title: 'Cannot get movie data!',
-//       })
-//     });
-// }
+            const tvSeriesData = Object.assign({}, {userData}, result);
+            dispatch(getTVSeriesDetailsSuccess(tvSeriesData));
+          });
+        });
+      });
+    })
+    .catch(error => {
+      notification({
+        type: 'error',
+        icon: 'exclamation-circle',
+        title: 'Cannot get tv series data!',
+      })
+    });
+}
 
-// export const getMovieCast = (movie_id) => (dispatch) => {
-//   const payload = {
-//     api_key: config.THE_MOVIE_DB_TOKEN,
-//     language: 'en-US',
-//   }
+export const getTVSeriesCast = (tv_id) => (dispatch) => {
+  const payload = {
+    api_key: config.THE_MOVIE_DB_TOKEN,
+    language: 'en-US',
+  }
 
-//   return http.get(`movie/${movie_id}/credits`, payload)
-//     .then(result => {
-//       dispatch(getMovieCastSuccess(result));
-//     })
-//     .catch(error => {
-//       notification({
-//         type: 'error',
-//         icon: 'exclamation-circle',
-//         title: 'Cannot get movie data!',
-//       })
-//     });
-// }
+  return http.get(`tv/${tv_id}/credits`, payload)
+    .then(result => {
+      dispatch(getTVSeriesCastSuccess(result));
+    })
+    .catch(error => {
+      notification({
+        type: 'error',
+        icon: 'exclamation-circle',
+        title: 'Cannot get tv series data!',
+      })
+    });
+}
 
 export const searchTVSeries = (tvseriesTitle) => (dispatch) => {
   const payload = {

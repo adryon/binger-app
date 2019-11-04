@@ -10,6 +10,7 @@ class App extends React.Component{
     super(props);
 
     this.props.getCurrentUser();
+    console.log("0.1.14");
   }
 
   render() {

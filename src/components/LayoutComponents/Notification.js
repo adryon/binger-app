@@ -40,7 +40,7 @@ export default class Notification extends React.Component {
 
   showNotification = (options) => {
     this.setState({
-      top: 86,
+      top: 100,
       options: {
         type: options.type || 'info',
         duration: options.duration || 3000,

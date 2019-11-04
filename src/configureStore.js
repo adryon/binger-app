@@ -5,7 +5,7 @@ import { routerMiddleware } from 'connected-react-router'
 import thunk from 'redux-thunk';
 import createRootReducer from './reducers'
 
-export const history = createBrowserHistory()
+export const history = createBrowserHistory({ basename: process.env.PUBLIC_URL})
 
 export default function configureStore() {
   const store = createStore(

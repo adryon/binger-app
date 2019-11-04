@@ -45,11 +45,11 @@ class MovieDetailsPage extends React.Component{
       id: this.props.movies.viewMovieDetails.id,
       title: this.props.movies.viewMovieDetails.title,
     }
-    this.props.addToWishlist(payload, this.props.match.params.id, this.props.user.data.uid);
+    this.props.addMovieToWishlist(payload, this.props.match.params.id, this.props.user.data.uid);
   }
 
   removeFromWishlist = () => {
-    this.props.removeFromWishlist(this.props.match.params.id, this.props.user.data.uid);
+    this.props.removeMovieFromWishlist(this.props.match.params.id, this.props.user.data.uid);
   }
 
   render() {
@@ -174,8 +174,8 @@ const mapDispatchToProps = {
   deleteTagFromMovie: userActions.deleteTagFromMovie,
   watchMovie: userActions.watchMovie,
   unWatchMovie: userActions.unWatchMovie,
-  addToWishlist: userActions.addToWishlist,
-  removeFromWishlist: userActions.removeFromWishlist,
+  addMovieToWishlist: userActions.addMovieToWishlist,
+  removeMovieFromWishlist: userActions.removeMovieFromWishlist,
   movieDetailsClear: moviesActions.movieDetailsClear,
 };
 
@@ -187,20 +187,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MovieDetailsPage);
-
-
-{/* <Tag 
-                      text="Animation"
-                      color="#1B5E20"
-                      closable={true}
-                    />
-                    <Tag 
-                      text="Disney"
-                      color="#0D47A1"
-                      closable={true}
-                    />
-                    <Tag 
-                      text="Remake"
-                      color="#B71C1C"
-                      closable={true}
-                    /> */}

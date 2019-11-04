@@ -243,6 +243,25 @@
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
+/*  PROGRESS BAR DESIGN */
+
+.binger-progress-bar {
+  height:10px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.binger-progress-bar-completed {
+  height: 10px;
+  border-radius: 5px;
+  -webkit-transition: width 0.4s ease-in-out;
+  -moz-transition: width 0.4s ease-in-out;
+  -o-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
 /*  TAG DESIGN */
 
 .binger-tag {
@@ -372,7 +391,7 @@
   padding: 16px;
   position: absolute;
   right: 16px;
-  z-index: 999;
+  z-index: 3000;
   transition: top 0.5s ease;
 
   &.success {

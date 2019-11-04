@@ -21,7 +21,7 @@ class SearchBar extends React.Component{
 		if (media.media_type === 'movie') {
 			this.props.goToMoviePage(media.id);
 		} else if (media.media_type === 'tv') {
-			//this.props.goToTVSeriesPage(media.id);
+			this.props.goToTVSeriesPage(media.id);
 		}
 		this.props.mediaSearchClear();
 	}

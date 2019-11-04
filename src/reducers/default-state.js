@@ -16,6 +16,8 @@ export default {
   },
   tvseries: {
     searchData: [],
+    viewTVSeriesDetails: null,
+    viewTVSeriesCast: null,
   },
   movies: {
     searchData: [],
