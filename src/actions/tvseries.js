@@ -31,6 +31,23 @@ export function tvseriesDetailsClear() {
   return {type: TVSERIES_DETAILS_CLEAR};
 }
 
+export const getTVSeriesSeasonDetails = (tv_id, season_number) => {
+  return new Promise((resolve, reject) => {
+    const payload = {
+      api_key: config.THE_MOVIE_DB_TOKEN,
+      language: 'en-US',
+    }
+
+    http.get(`tv/${tv_id}/season/${season_number}`, payload)
+      .then(result => {
+        resolve(result);
+      })
+      .catch(error => {
+        reject(error);
+      })
+  })
+}
+
 export const getTVSeriesDetails = (tv_id) => (dispatch) => {
   const payload = {
     api_key: config.THE_MOVIE_DB_TOKEN,
@@ -51,14 +68,19 @@ export const getTVSeriesDetails = (tv_id) => (dispatch) => {
               tags.push(tvSeriesSnap[item]);
             });
 
-            const userData = {
-              tags: tags,
-              watched: watchedSnap,
-              wishlist: wishlistSnap,
-            }
+            Promise.all(result.seasons.map(season => getTVSeriesSeasonDetails(tv_id, season.season_number)))
+            .then(seasonsResult => {
+              result.seasons = seasonsResult;
 
-            const tvSeriesData = Object.assign({}, {userData}, result);
-            dispatch(getTVSeriesDetailsSuccess(tvSeriesData));
+              const userData = {
+                tags: tags,
+                watched: watchedSnap,
+                wishlist: wishlistSnap,
+              }
+  
+              const tvSeriesData = Object.assign({}, {userData}, result);
+              dispatch(getTVSeriesDetailsSuccess(tvSeriesData));
+            })
           });
         });
       });

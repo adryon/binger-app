@@ -61,8 +61,8 @@ class MainPage extends React.Component{
 										<h1><strong>TV Series Details Page</strong></h1>
 									</div>
 									<div className="col-lg-5">
-										<h3><strong>0%</strong></h3>
-										<ProgressBar color="red" value={0} />
+										<h3><strong>60%</strong></h3>
+										<ProgressBar color="lime" value={60} />
 									</div>
 								</div>
 

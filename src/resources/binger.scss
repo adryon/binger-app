@@ -381,6 +381,63 @@
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
+/*  INPUT DESIGN */
+
+// .binger-checkbox {
+//   width: 50px;
+//   height: 50px;
+//   border: 7px solid $primary-color;
+//   border-radius: 7px;
+// }
+
+.binger-checkbox-is-checked {
+  color: $primary-color;
+  font-size: 50px;
+}
+
+.binger-checkbox-is-not-checked {
+  color: $primary-color;
+  font-size: 50px;
+}
+
+input#check {
+	position: absolute;
+	opacity: 0;
+	
+	&:checked + label svg path {
+		stroke-dashoffset: 0;
+	}
+	
+	&:focus + label {
+		transform: scale(1.03);
+	}
+}
+
+#check + label {
+	display: block;
+	border: 7px solid $primary-color;
+  width: 50px; 
+  height: 50px;
+	border-radius: 7px;
+	cursor: pointer;
+	transition: all .2s ease;
+	
+	svg {
+		pointer-events: none;
+		path {			
+			fill: none;			
+			stroke: $primary-color;
+			stroke-width: 4px;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+			stroke-dasharray: 100;
+			stroke-dashoffset: 101;
+			transition: all 350ms cubic-bezier(1,0,.37,.91);
+		}
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
 /*  NOTIFICATION DESIGN */
 
 .binger-notification {
@@ -432,6 +489,65 @@
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
+/*  TABS DESIGN */
+
+.binger-tabs {
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  border: 0;
+
+  .binger-tabs-list {
+    display: flex;
+
+    .binger-tabs-list-item {
+      padding: .5rem 1rem;
+      color: $primary-color;
+      border-top: 3px solid transparent;
+
+      &:hover {
+        color: $primary-color-darken;
+        cursor: pointer;
+      }
+    }
+
+    .binger-tabs-active-tab {
+      border-top: 3px solid $primary-color !important;
+    }
+  }
+
+  .binger-tabs-content {
+    width: 100%;
+  }
+}
+
+.nav-tabs {
+  border: 0;
+}
+
+.nav-link {
+
+  background-color: transparent !important;
+  border: 0 !important;
+  border-radius: 0px !important;
+  border-top: 3px solid transparent !important;
+
+  &:hover {
+    color: $primary-color-darken !important;
+  }
+}
+
+.nav-link.active {
+  background-color: transparent !important;
+  border: 0 !important;
+  border-radius: 0px !important;
+  border-top: 3px solid $primary-color !important;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
 /*  SELECT DESIGN */
 
 .ant-select-selection {
@@ -479,6 +595,10 @@
 
 .binger-lime {
   color: $lime-color;
+}
+
+.binger-green {
+  color: $green-color;
 }
 
 strong {

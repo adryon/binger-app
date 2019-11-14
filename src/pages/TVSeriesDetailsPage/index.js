@@ -2,10 +2,14 @@ import React from 'react';
 //import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import moment from 'moment';
-import { Button, Tag } from 'components/LayoutComponents';
+import { Button, Tag, Checkbox, Tabs, Tab } from 'components/LayoutComponents';
 import { userActions, tvseriesActions } from 'actions'
 
 class TVSeriesDetailsPage extends React.Component{
+
+  state = {
+    checked: SVGComponentTransferFunctionElement,
+  }
 
   componentDidMount() {
     this.props.getTVSeriesDetails(this.props.match.params.id);
@@ -50,6 +54,10 @@ class TVSeriesDetailsPage extends React.Component{
 
   removeFromWishlist = () => {
     this.props.removeTVSeriesFromWishlist(this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  viewEpisode = (name, status) => {
+    this.setState({checked: !this.state.checked});
   }
 
   render() {
@@ -163,6 +171,39 @@ class TVSeriesDetailsPage extends React.Component{
             </div>
           </div>
         </div>
+
+        <div className="row">
+          <div className="col-lg-12">
+            <div className="card binger-actors-card">
+              <div className="card-body">
+                <Tabs
+                  defaultActiveTab={1}
+                >
+                  {viewTVSeriesDetails && viewTVSeriesDetails.seasons && viewTVSeriesDetails.seasons.map(season => (
+                    <Tab label={season.name}>
+                      {season.episodes.map(episode => (
+                        <div>
+                          <Checkbox
+                            onCheckboxChange={this.viewEpisode}
+                            name="tudor"
+                            checked={this.state.checked}
+                          />
+                          {episode.name}
+                        </div>
+                      ))}
+                    </Tab>
+                  ))}
+                </Tabs>
+
+                <Checkbox
+                  onCheckboxChange={this.viewEpisode}
+                  name="tudor"
+                  checked={this.state.checked}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -176,10 +217,6 @@ const mapDispatchToProps = {
   addTVSeriesToWishlist: userActions.addTVSeriesToWishlist,
   removeTVSeriesFromWishlist: userActions.removeTVSeriesFromWishlist,
   tvseriesDetailsClear: tvseriesActions.tvseriesDetailsClear,
-
-
-  // watchMovie: userActions.watchMovie,
-  // unWatchMovie: userActions.unWatchMovie,
 };
 
 function mapStateToProps(state) {
