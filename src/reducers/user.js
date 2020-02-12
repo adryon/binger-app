@@ -3,6 +3,8 @@ import {
   USER_LOG_IN_SUCCESS,
   USER_LOG_OUT_SUCCESS,
   USER_SET_CURRENT_USER,
+  USER_SET_TV_SERIES_WISHLIST,
+  USER_SET_MOVIES_WISHLIST
 } from './../actions/actions-types';
 
 import config from './../lib/config';
@@ -33,16 +35,16 @@ export default function userState(state = defaultState.user, action) {
         data: action.data,
         authenticated: true,
       });
-    //
-    // case USER_LOAD_TV_SERIES_WISHLIST:
-    //   return Object.assign({}, state, {
-    //     tvSeriesWishlist: action.data,
-    //   });
-    //
-    // case USER_LOAD_MOVIES_WISHLIST:
-    //   return Object.assign({}, state, {
-    //     moviesWishlist: action.data,
-    //   });
+
+    case USER_SET_TV_SERIES_WISHLIST:
+      return Object.assign({}, state, {
+        tvSeriesWishlist: action.data,
+      });
+
+    case USER_SET_MOVIES_WISHLIST:
+      return Object.assign({}, state, {
+        moviesWishlist: action.data,
+      });
 
     default:
       return state;

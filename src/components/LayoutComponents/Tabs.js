@@ -1,14 +1,9 @@
 import React from 'react';
-import { Input } from 'components/LayoutComponents';
 
 export default class Tabs extends React.Component {
 
   state = {
     activeTab: this.props.defaultActiveTab - 1 || 0,
-  }
-
-  constructor(props) {
-    super(props);
   }
 
   handleTabChange = (index) => {
@@ -35,10 +30,7 @@ export default class Tabs extends React.Component {
           )) }
         </div>
         <div className="binger-tabs-content">
-          { children && children.map((tab, index) => {
-            return index === activeTab ? tab : null
-          })
-          }
+          {children[activeTab]}
         </div>
       </div>
     )

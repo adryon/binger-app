@@ -10,7 +10,6 @@ export default {
     authenticated: !!hasToken,
     data: {},
     rolesConstants: {},
-    isFetching: false,
     tvSeriesWishlist: [],
     moviesWishlist: [],
   },
@@ -25,6 +24,7 @@ export default {
     viewMovieCast: null,
   },
   app: {
+    isFetching: false,
     searchData: [],
   }
 };

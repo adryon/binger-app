@@ -4,7 +4,7 @@ export default class ProgressBar extends React.Component{
 
 	render() {
 
-    const {value} = this.props;
+    const value = this.props.value || 0;
     const color = this.props.color || 'green';
     const colors = {
       'green': {

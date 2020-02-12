@@ -7,16 +7,16 @@ export default class Input extends React.Component{
   }
 
 	render() {
-    const {label } = this.props;
+    const { color } = this.props;
     const checked = this.props.checked || false;
 
 		return (
 			<div>
         {checked ? 
-          <span onClick={this.onCheckboxChange} className="binger-checkbox-is-not-checked">
+          <span onClick={this.onCheckboxChange} className={`binger-checkbox-is-not-checked binger-checkbox-${color}`}>
             <i className="far fa-check-square"></i>
           </span> :
-          <span onClick={this.onCheckboxChange} className="binger-checkbox-is-checked">
+          <span onClick={this.onCheckboxChange} className={`binger-checkbox-is-not-checked binger-checkbox-${color}`}>
             <i className="far fa-square"></i>
           </span>
         }

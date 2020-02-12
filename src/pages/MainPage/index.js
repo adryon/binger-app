@@ -1,16 +1,20 @@
 import React from 'react';
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
-import { ProgressBar, Button} from 'components/LayoutComponents';
-import CurrentlyWatching from 'components/BingerComponents/CurrentlyWatching';
+import { ProgressBar} from 'components/LayoutComponents';
+//import CurrentlyWatching from 'components/BingerComponents/CurrentlyWatching';
+import Wishlist from 'components/BingerComponents/Wishlist';
 
 class MainPage extends React.Component{
 
   render() {
     return (
-			<div className="container">
+			<div className="container binger-main-container">
 	      <div className="row">
-					<div className="col-lg-12">
+					<div className="col-lg-4">
+						<Wishlist />
+					</div>					
+					<div className="col-lg-8">
 						<span className="binger-text-strong">
 							Page under construction. Please use the search box above.
 						</span>
@@ -109,16 +113,6 @@ class MainPage extends React.Component{
 								<div className="row">
 									<div className="col-lg-5">
 										<h1><strong>Watched Widget</strong></h1>
-									</div>
-									<div className="col-lg-5">
-										<h3><strong>0%</strong></h3>
-										<ProgressBar color="blue" value={0} />
-									</div>
-								</div>
-
-								<div className="row">
-									<div className="col-lg-5">
-										<h1><strong>Activity Widget</strong></h1>
 									</div>
 									<div className="col-lg-5">
 										<h3><strong>0%</strong></h3>

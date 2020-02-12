@@ -34,6 +34,7 @@ class SearchBar extends React.Component{
       <div className="binger-search col-lg-3">
 				<Input 
 					onInputChange={this.search}
+					placeholder="tudor"
 					name="searchBar"
 					icon="search"
 					type="text"

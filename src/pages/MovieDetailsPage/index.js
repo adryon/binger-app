@@ -32,18 +32,36 @@ class MovieDetailsPage extends React.Component{
   }
 
   watchMovie = () => {
-    this.props.watchMovie(this.props.match.params.id, this.props.user.data.uid);
+    const payload = {
+      timestamp: Date(),
+      poster_path: this.props.movies.viewMovieDetails.poster_path,
+      title: this.props.movies.viewMovieDetails.original_title,
+    }
+    this.props.watchMovie(payload, this.props.match.params.id, this.props.user.data.uid);
   }
 
   unWatchMovie = () => {
     this.props.unWatchMovie(this.props.match.params.id, this.props.user.data.uid);
   }
 
+  addToFavorite = () => {
+    const payload = {
+      poster_path: this.props.movies.viewMovieDetails.poster_path,
+      title: this.props.movies.viewMovieDetails.title,
+    }
+    this.props.addMovieToFavorite(payload, this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  removeFromFavorite = () => {
+    this.props.removeMovieFromFavorite(this.props.match.params.id, this.props.user.data.uid);
+  }
+
   addToWishlist = () => {
     const payload = {
-      backdrop_path: this.props.movies.viewMovieDetails.backdrop_path,
+      poster_path: this.props.movies.viewMovieDetails.poster_path,
       id: this.props.movies.viewMovieDetails.id,
       title: this.props.movies.viewMovieDetails.title,
+      date: Date()
     }
     this.props.addMovieToWishlist(payload, this.props.match.params.id, this.props.user.data.uid);
   }
@@ -86,14 +104,16 @@ class MovieDetailsPage extends React.Component{
                   icon="eye-slash"
                   text="Not watched" />
               }
-              {viewMovieDetails.isFavourite &&
+              {viewMovieDetails.userData.favorite &&
                 <Button 
                   className="mr-4 binger-btn-green"
+                  onButtonClick={this.removeFromFavorite}
                   expandTextOnHover={true}
                   icon="heart"
                   text="Added to Favorite" /> ||
                 <Button 
                   className="mr-4 binger-btn-blue"
+                  onButtonClick={this.addToFavorite}
                   expandTextOnHover={true}
                   icon="heart"
                   text="Add to Favorite" />
@@ -174,12 +194,15 @@ const mapDispatchToProps = {
   deleteTagFromMovie: userActions.deleteTagFromMovie,
   watchMovie: userActions.watchMovie,
   unWatchMovie: userActions.unWatchMovie,
+  addMovieToFavorite: userActions.addMovieToFavorite,
+  removeMovieFromFavorite: userActions.removeMovieFromFavorite,
   addMovieToWishlist: userActions.addMovieToWishlist,
   removeMovieFromWishlist: userActions.removeMovieFromWishlist,
   movieDetailsClear: moviesActions.movieDetailsClear,
 };
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
     user: state.user,
     movies: state.movies,

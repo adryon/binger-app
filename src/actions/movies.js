@@ -40,26 +40,32 @@ export const getMovieDetails = (movie_id) => (dispatch) => {
 
   return http.get(`movie/${movie_id}`, payload)
     .then(result => {
-      firebase.database().ref(`users/${lockr.get('Authorization')}/movies/${movie_id}`).on('value', movieSnapshot => {
+      firebase.database().ref(`users/${lockr.get('Authorization')}/moviesTags/${movie_id}`).on('value', tagsSnapshot => {
         firebase.database().ref(`users/${lockr.get('Authorization')}/moviesWatched/${movie_id}`).on('value', watchedSnapshot => {
           firebase.database().ref(`users/${lockr.get('Authorization')}/moviesWishlist/${movie_id}`).on('value', wishlistSnapshot => {
-            let tags = [];
-            let movieSnap = movieSnapshot.val();
-            let watchedSnap = watchedSnapshot.val();
-            let wishlistSnap = wishlistSnapshot.val();
-            _.keys(movieSnap).map(item => {
-              movieSnap[item].uid = item;
-              tags.push(movieSnap[item]);
+            firebase.database().ref(`users/${lockr.get('Authorization')}/moviesFavorite/${movie_id}`).on('value', favoriteSnapshot => {
+              let tags = [];
+              let tagsSnap = tagsSnapshot.val();
+              let watchedSnap = watchedSnapshot.val();
+              let wishlistSnap = wishlistSnapshot.val();
+              let favoriteSnap = favoriteSnapshot.val();
+              if (tagsSnap !== null) {
+                _.keys(tagsSnap).map(item => {
+                  tagsSnap[item].uid = item;
+                  tags.push(tagsSnap[item]);
+                });
+              }
+
+              const userData = {
+                tags: tags,
+                watched: watchedSnap,
+                wishlist: wishlistSnap,
+                favorite: favoriteSnap,
+              }
+
+              const movieData = Object.assign({}, {userData}, result);
+              dispatch(getMovieDetailsSuccess(movieData));
             });
-
-            const userData = {
-              tags: tags,
-              watched: watchedSnap,
-              wishlist: wishlistSnap,
-            }
-
-            const movieData = Object.assign({}, {userData}, result);
-            dispatch(getMovieDetailsSuccess(movieData));
           });
         });
       });

@@ -4,8 +4,6 @@ import {
 } from './actions-types';
 import http from './../lib/axios-wrapper';
 import {notification} from 'components/LayoutComponents';
-import firebase from 'firebase';
-import lockr from 'lockr';
 import _ from 'lodash';
 import config from '../lib/config';
 

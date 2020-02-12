@@ -56,17 +56,19 @@ export const getTVSeriesDetails = (tv_id) => (dispatch) => {
 
   return http.get(`tv/${tv_id}`, payload)
     .then(result => {
-      firebase.database().ref(`users/${lockr.get('Authorization')}/tvSeries/${tv_id}`).on('value', tvSeriesSnapshot => {
+      firebase.database().ref(`users/${lockr.get('Authorization')}/tvSeriesTags/${tv_id}`).on('value', tagsSnapshot => {
         firebase.database().ref(`users/${lockr.get('Authorization')}/tvSeriesWatched/${tv_id}`).on('value', watchedSnapshot => {
           firebase.database().ref(`users/${lockr.get('Authorization')}/tvSeriesWishlist/${tv_id}`).on('value', wishlistSnapshot => {
             let tags = [];
-            let tvSeriesSnap = tvSeriesSnapshot.val();
+            let tagsSnap = tagsSnapshot.val();
             let watchedSnap = watchedSnapshot.val();
             let wishlistSnap = wishlistSnapshot.val();
-            _.keys(tvSeriesSnap).map(item => {
-              tvSeriesSnap[item].uid = item;
-              tags.push(tvSeriesSnap[item]);
-            });
+            if (tagsSnap != null) {
+              _.keys(tagsSnap).map(item => {
+                tagsSnap[item].uid = item;
+                tags.push(tagsSnap[item]);
+              });
+            }
 
             Promise.all(result.seasons.map(season => getTVSeriesSeasonDetails(tv_id, season.season_number)))
             .then(seasonsResult => {
@@ -74,7 +76,7 @@ export const getTVSeriesDetails = (tv_id) => (dispatch) => {
 
               const userData = {
                 tags: tags,
-                watched: watchedSnap,
+                watched: watchedSnap || [],
                 wishlist: wishlistSnap,
               }
   

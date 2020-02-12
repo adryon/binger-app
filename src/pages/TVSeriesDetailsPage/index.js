@@ -2,13 +2,14 @@ import React from 'react';
 //import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import moment from 'moment';
-import { Button, Tag, Checkbox, Tabs, Tab } from 'components/LayoutComponents';
+import _ from 'lodash';
+import { Button, Tag, Checkbox, Tabs, Tab, ProgressCircle } from 'components/LayoutComponents';
 import { userActions, tvseriesActions } from 'actions'
 
 class TVSeriesDetailsPage extends React.Component{
 
   state = {
-    checked: SVGComponentTransferFunctionElement,
+    checked: false,
   }
 
   componentDidMount() {
@@ -35,19 +36,12 @@ class TVSeriesDetailsPage extends React.Component{
     this.props.deleteTagFromTVSeries(tag, this.props.match.params.id, this.props.user.data.uid);
   }
 
-  watchMovie = () => {
-    this.props.watchMovie(this.props.match.params.id, this.props.user.data.uid);
-  }
-
-  unWatchMovie = () => {
-    this.props.unWatchMovie(this.props.match.params.id, this.props.user.data.uid);
-  }
-
   addToWishlist = () => {
     const payload = {
       backdrop_path: this.props.tvseries.viewTVSeriesDetails.backdrop_path,
       id: this.props.tvseries.viewTVSeriesDetails.id,
       title: this.props.tvseries.viewTVSeriesDetails.name,
+      date: Date(),
     }
     this.props.addTVSeriesToWishlist(payload, this.props.match.params.id, this.props.user.data.uid);
   }
@@ -56,13 +50,38 @@ class TVSeriesDetailsPage extends React.Component{
     this.props.removeTVSeriesFromWishlist(this.props.match.params.id, this.props.user.data.uid);
   }
 
-  viewEpisode = (name, status) => {
-    this.setState({checked: !this.state.checked});
+  handleEpisodeCheckbox = (id, status) => {
+    let slug = id.split('-');
+    const payload = {
+      poster_path: this.props.tvseries.viewTVSeriesDetails.poster_path,
+      name: this.props.tvseries.viewTVSeriesDetails.original_name,
+      user_id: this.props.user.data.uid,
+      tv_id: this.props.tvseries.viewTVSeriesDetails.id,
+      season_id: slug[0],
+      episode_id: slug[1],
+    }
+
+    status === true ? this.props.watchEpisode(payload) : this.props.unWatchEpisode(payload);
+  }
+
+  handleSeasonCheckbox = (id, status) => {
+    this.props.tvseries.viewTVSeriesDetails.seasons.map(season => {
+      if (season.id === id) {
+        const payload = {
+          poster_path: this.props.tvseries.viewTVSeriesDetails.poster_path,
+          name: this.props.tvseries.viewTVSeriesDetails.original_name,
+          user_id: this.props.user.data.uid,
+          tv_id: this.props.tvseries.viewTVSeriesDetails.id,
+          season_id: season.id,
+          episodes: season.episodes,
+        }
+        status === true ? this.props.watchSeason(payload) : this.props.unWatchSeason(payload);
+      }
+    })
   }
 
   render() {
     const { viewTVSeriesDetails, viewTVSeriesCast } = this.props.tvseries;
-    console.log(viewTVSeriesDetails);
     return ( viewTVSeriesDetails &&
       <div className="content container">
         <div className="row">
@@ -80,21 +99,7 @@ class TVSeriesDetailsPage extends React.Component{
                 </span>
               </div>
             </div>
-            <div className="row binger-title-row">
-              {viewTVSeriesDetails.userData.watched &&
-                <Button 
-                  className="mr-4 binger-btn-green"
-                  onButtonClick={this.unWatchMovie}
-                  expandTextOnHover={true}
-                  icon="eye"
-                  text="Watched" /> ||
-                <Button 
-                  className="mr-4 binger-btn-blue"
-                  onButtonClick={this.watchMovie}
-                  expandTextOnHover={true}
-                  icon="eye-slash"
-                  text="Not watched" />
-              }
+            <div className="row binger-title-row binger-flex-center">
               {viewTVSeriesDetails.isFavourite &&
                 <Button 
                   className="mr-4 binger-btn-green"
@@ -121,11 +126,9 @@ class TVSeriesDetailsPage extends React.Component{
                   icon="star"
                   text="Add to Wishlist" />
               }
-              { viewTVSeriesDetails.userData.watched &&
-                <div className="binger-flex-center">
-                  <span className="binger-text"> You have watched this tv series on {moment(viewTVSeriesDetails.userData.watched.timestamp).format('DD/MM/YYYY')}</span>
-                </div>
-              }
+              <ProgressCircle
+                strokeWidth="10"
+                percentage={80}/>
             </div>
             <div className="row binger-title-row">
               <div className="card">
@@ -180,26 +183,42 @@ class TVSeriesDetailsPage extends React.Component{
                   defaultActiveTab={1}
                 >
                   {viewTVSeriesDetails && viewTVSeriesDetails.seasons && viewTVSeriesDetails.seasons.map(season => (
-                    <Tab label={season.name}>
+                    <Tab label={season.name} key={season.id}>
+                      <div className="binger-flex-center" key={season.id}>
+                        <Checkbox
+                          onCheckboxChange={this.handleSeasonCheckbox}
+                          color="green"
+                          name={season.id}
+                          checked={
+                            season.episodes.length === 
+                            _.keys(viewTVSeriesDetails &&
+                            viewTVSeriesDetails.userData &&
+                            viewTVSeriesDetails.userData.watched &&
+                            viewTVSeriesDetails.userData.watched.content &&
+                            viewTVSeriesDetails.userData.watched.content[season.id]).length}
+                        />
+                        <span className="binger-text-strong binger-green ml-5px">I have seen the whole season!</span>
+                      </div>
                       {season.episodes.map(episode => (
-                        <div>
+                        <div className="binger-flex-center" key={episode.id}>
                           <Checkbox
-                            onCheckboxChange={this.viewEpisode}
-                            name="tudor"
-                            checked={this.state.checked}
+                            color="secondary"
+                            onCheckboxChange={this.handleEpisodeCheckbox}
+                            name={`${season.id}-${episode.id}`}
+                            checked={
+                              viewTVSeriesDetails &&
+                              viewTVSeriesDetails.userData &&
+                              viewTVSeriesDetails.userData.watched &&
+                              viewTVSeriesDetails.userData.watched.content &&
+                              viewTVSeriesDetails.userData.watched.content[season.id] &&
+                              viewTVSeriesDetails.userData.watched.content[season.id][episode.id]}
                           />
-                          {episode.name}
+                          <span className="binger-text-strong ml-5px">{episode.name}</span>
                         </div>
                       ))}
                     </Tab>
                   ))}
                 </Tabs>
-
-                <Checkbox
-                  onCheckboxChange={this.viewEpisode}
-                  name="tudor"
-                  checked={this.state.checked}
-                />
               </div>
             </div>
           </div>
@@ -217,6 +236,10 @@ const mapDispatchToProps = {
   addTVSeriesToWishlist: userActions.addTVSeriesToWishlist,
   removeTVSeriesFromWishlist: userActions.removeTVSeriesFromWishlist,
   tvseriesDetailsClear: tvseriesActions.tvseriesDetailsClear,
+  watchEpisode: userActions.watchEpisode,
+  unWatchEpisode: userActions.unWatchEpisode,
+  watchSeason: userActions.watchSeason,
+  unWatchSeason: userActions.unWatchSeason,
 };
 
 function mapStateToProps(state) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { userActions } from './actions';
+import { userActions, appActions } from './actions';
 import { connect } from 'react-redux';
 import Notification from 'components/LayoutComponents/Notification';
 import routes from 'routes/routes';
@@ -9,22 +9,29 @@ class App extends React.Component{
   constructor(props) {
     super(props);
 
-    this.props.getCurrentUser();
+    this.props.getCurrentUser()
     console.log("0.1.14");
   }
 
   render() {
-    return (
+    return ( !this.props.isFetching ?
       <div>
         <Notification />
         { routes }
-      </div>
+      </div> : null
     );
   }
 }
 
 const mapDispatchToProps = {
   getCurrentUser: userActions.getCurrentUser,
+  setLoadingState: appActions.setLoadingState,
 };
 
-export default connect(null, mapDispatchToProps)(App);
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
