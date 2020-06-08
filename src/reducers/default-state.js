@@ -12,6 +12,9 @@ export default {
     rolesConstants: {},
     tvSeriesWishlist: [],
     moviesWishlist: [],
+    fullWishlist: [],
+    fullFavorites: [],
+    currentlyWatching: [],
   },
   tvseries: {
     searchData: [],

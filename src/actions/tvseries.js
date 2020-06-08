@@ -11,34 +11,14 @@ import lockr from 'lockr';
 import _ from 'lodash';
 import config from '../lib/config';
 
-export function getTVSeriesDetailsSuccess(data) {
-  return {type: TVSERIES_GET_DETAILS_SUCCESS, data};
-}
-
-export function getTVSeriesCastSuccess(data) {
-  return {type: TVSERIES_GET_CAST_SUCCESS, data};
-}
-
-export function searchTVSeriesSuccess(data) {
-  return {type: TVSERIES_SEARCH_SUCCESS, data};
-}
-
-// export function moviesSearchClear() {
-//   return {type: MOVIE_SEARCH_CLEAR};
-// }
-
 export function tvseriesDetailsClear() {
   return {type: TVSERIES_DETAILS_CLEAR};
 }
 
 export const getTVSeriesSeasonDetails = (tv_id, season_number) => {
   return new Promise((resolve, reject) => {
-    const payload = {
-      api_key: config.THE_MOVIE_DB_TOKEN,
-      language: 'en-US',
-    }
 
-    http.get(`tv/${tv_id}/season/${season_number}`, payload)
+    http.get(`tv/${tv_id}/season/${season_number}`, config.MOVIE_DB_PAYLOAD)
       .then(result => {
         resolve(result);
       })
@@ -49,62 +29,60 @@ export const getTVSeriesSeasonDetails = (tv_id, season_number) => {
 }
 
 export const getTVSeriesDetails = (tv_id) => (dispatch) => {
-  const payload = {
-    api_key: config.THE_MOVIE_DB_TOKEN,
-    language: 'en-US',
-  }
 
-  return http.get(`tv/${tv_id}`, payload)
-    .then(result => {
-      firebase.database().ref(`users/${lockr.get('Authorization')}/tvSeriesTags/${tv_id}`).on('value', tagsSnapshot => {
-        firebase.database().ref(`users/${lockr.get('Authorization')}/tvSeriesWatched/${tv_id}`).on('value', watchedSnapshot => {
-          firebase.database().ref(`users/${lockr.get('Authorization')}/tvSeriesWishlist/${tv_id}`).on('value', wishlistSnapshot => {
-            let tags = [];
-            let tagsSnap = tagsSnapshot.val();
-            let watchedSnap = watchedSnapshot.val();
-            let wishlistSnap = wishlistSnapshot.val();
-            if (tagsSnap != null) {
-              _.keys(tagsSnap).map(item => {
-                tagsSnap[item].uid = item;
-                tags.push(tagsSnap[item]);
-              });
-            }
+  return http.get(`tv/${tv_id}`, config.MOVIE_DB_PAYLOAD)
+  .then(result => {
+    firebase.database().ref(`users/${lockr.get('Authorization')}/tv/${tv_id}`).on('value', snapshot => {
+      let userData = snapshot.val();
+      console.log(result);
 
-            Promise.all(result.seasons.map(season => getTVSeriesSeasonDetails(tv_id, season.season_number)))
-            .then(seasonsResult => {
-              result.seasons = seasonsResult;
+      Promise.all(result.seasons.map(season => getTVSeriesSeasonDetails(tv_id, season.season_number)))
+      .then(seasonsResult => {
+        result.seasons = seasonsResult;
 
-              const userData = {
-                tags: tags,
-                watched: watchedSnap || [],
-                wishlist: wishlistSnap,
-              }
-  
-              const tvSeriesData = Object.assign({}, {userData}, result);
-              dispatch(getTVSeriesDetailsSuccess(tvSeriesData));
-            })
+        if (userData) {
+          if (userData && userData.tags) {
+            userData.tags = Object.keys(userData.tags).map(item => ({
+              uid: item,
+              ...userData.tags[item]
+            }));
+          }
+          userData.totalWatched = Math.floor(userData.metadata.episodes_seen/userData.metadata.number_of_episodes * 100) || 0;
+        } else {
+          firebase.database().ref(`users/${lockr.get('Authorization')}/tv/${tv_id}/metadata`).update({
+            id: result.id,
+            poster_path: result.poster_path,
+            title: result.name,
+            number_of_episodes: result.number_of_episodes,
+            episodes_seen: 0
           });
-        });
-      });
-    })
-    .catch(error => {
-      notification({
-        type: 'error',
-        icon: 'exclamation-circle',
-        title: 'Cannot get tv series data!',
+          userData = {
+            is_watched: null,
+            is_favorite: null,
+            is_wishlist: null,
+            totalWatched: 0,
+          }
+        }
+
+        const tvSeriesData = Object.assign({}, {userData}, result);
+        dispatch({type: TVSERIES_GET_DETAILS_SUCCESS, data: tvSeriesData});
       })
-    });
+    })
+  })
+  .catch(error => {
+    notification({
+      type: 'error',
+      icon: 'exclamation-circle',
+      title: 'Cannot get movie data!',
+    })
+  });
 }
 
 export const getTVSeriesCast = (tv_id) => (dispatch) => {
-  const payload = {
-    api_key: config.THE_MOVIE_DB_TOKEN,
-    language: 'en-US',
-  }
 
-  return http.get(`tv/${tv_id}/credits`, payload)
+  return http.get(`tv/${tv_id}/credits`, config.MOVIE_DB_PAYLOAD)
     .then(result => {
-      dispatch(getTVSeriesCastSuccess(result));
+      dispatch({type: TVSERIES_GET_CAST_SUCCESS, data: result});
     })
     .catch(error => {
       notification({
@@ -124,7 +102,7 @@ export const searchTVSeries = (tvseriesTitle) => (dispatch) => {
 
   return http.get(`search/tv`, payload)
     .then(result => {
-      dispatch(searchTVSeriesSuccess(result.results));
+      dispatch({type: TVSERIES_SEARCH_SUCCESS, data: result.results});
     })
     .catch(error => {
       notification({

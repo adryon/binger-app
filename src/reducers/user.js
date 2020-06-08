@@ -4,7 +4,10 @@ import {
   USER_LOG_OUT_SUCCESS,
   USER_SET_CURRENT_USER,
   USER_SET_TV_SERIES_WISHLIST,
-  USER_SET_MOVIES_WISHLIST
+  USER_SET_MOVIES_WISHLIST,
+  USER_SET_CURRENTLY_WATCHING,
+  USER_SET_FULL_WISHLIST,
+  USER_SET_FULL_FAVORITES
 } from './../actions/actions-types';
 
 import config from './../lib/config';
@@ -44,6 +47,21 @@ export default function userState(state = defaultState.user, action) {
     case USER_SET_MOVIES_WISHLIST:
       return Object.assign({}, state, {
         moviesWishlist: action.data,
+      });
+
+    case USER_SET_CURRENTLY_WATCHING:
+      return Object.assign({}, state, {
+        currentlyWatching: action.data,
+      });
+
+    case USER_SET_FULL_WISHLIST:
+      return Object.assign({}, state, {
+        fullWishlist: action.data,
+      });
+
+    case USER_SET_FULL_FAVORITES:
+      return Object.assign({}, state, {
+        fullFavorites: action.data,
       });
 
     default:

@@ -15,8 +15,17 @@ export default class Navbar extends React.Component{
 
 			  <div className="collapse navbar-collapse" id="navbarSupportedContent">
 			    <ul className="navbar-nav mr-auto">
+						<li className="nav-item">
+			        <a className="nav-link" href="/wishlist">Wishlist</a>
+			      </li>
+						<li className="nav-item">
+			        <a className="nav-link" href="/favorites">Favorites</a>
+			      </li>
 			      <li className="nav-item">
-			        <a className="nav-link disabled">Link</a>
+			        <a className="nav-link">Movies</a>
+			      </li>
+						<li className="nav-item">
+			        <a className="nav-link">TV Series</a>
 			      </li>
 						<li className="nav-item">
 			        <a className="nav-link" href="/components">Components API</a>

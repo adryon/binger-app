@@ -8,6 +8,8 @@ import ComponentsPage from 'pages/ComponentsPage'
 import MainPage from 'pages/MainPage'
 import MovieDetailsPage from 'pages/MovieDetailsPage'
 import TVSeriesDetailsPage from 'pages/TVSeriesDetailsPage'
+import WishlistPage from 'pages/WishlistPage'
+import FavoritesPage from 'pages/FavoritesPage'
 
 const routes = (
   <div>
@@ -19,6 +21,8 @@ const routes = (
       <PrivateRoute exact path={'/main'} component={MainPage} />
       <PrivateRoute exact path={'/movie/:id'} component={MovieDetailsPage} />
       <PrivateRoute exact path={'/tv/:id'} component={TVSeriesDetailsPage} />
+      <PrivateRoute exact path={'/wishlist'} component={WishlistPage} />
+      <PrivateRoute exact path={'/favorites'} component={FavoritesPage} />
     </Switch>
   </div>
 )

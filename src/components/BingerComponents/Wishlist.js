@@ -31,6 +31,7 @@ class Wishlist extends React.Component {
   }
 
   render() {
+
     return (
       <div className="card binger-wishlist-card">
         <div className="card-body">
@@ -39,52 +40,61 @@ class Wishlist extends React.Component {
           </span>
           <Tabs defaultActiveTab={1}>
             <Tab label="TV Series">
-              {this.props.user.tvSeriesWishlist.map(item => (
+              {this.props.user.tvSeriesWishlist.slice(0, 5).map(item => (
                 <div 
-                  key={item.id} 
+                  key={item.metadata.id} 
                   className="binger-wishlist-item"
-                  onMouseEnter={() => this.showDeleteButton(item.id)}
-                  onMouseLeave={() => this.hideDeleteButton(item.id)}>
+                  onMouseEnter={() => this.showDeleteButton(item.metadata.id)}
+                  onMouseLeave={() => this.hideDeleteButton(item.metadata.id)}>
                   <div className="row">
                     <div className="col-lg-2">
-                      <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.backdrop_path}`} alt="" height="100" width="67"/>
+                      <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.metadata.poster_path}`} alt="" height="100" width="67"/>
                     </div>
                     <div className="col-lg-8">
-                      <h3><strong>{item.title}</strong></h3>
-                      <p className="binger-lime">Added on {moment(item.date).format("DD/MM/YYYY HH:mm")}</p>
+                      <a onClick={() => this.props.goToTVSeriesPage(item.metadata.id)} className="binger-cursor-pointer"><h3><strong>{item.metadata.title}</strong></h3></a>
+                      {/* <h3><strong>{item.metadata.title}</strong></h3> */}
+                      <p className="binger-lime">Added on {moment(item.wishlist_timestamp).format("DD/MM/YYYY HH:mm")}</p>
                     </div>
                     <div className="col-lg-2 binger-flex-center">
                       <Button 
-                        show={this.state.showButton[item.id] !== undefined ? this.state.showButton[item.id] : false}
-                        onButtonClick={() => this.props.removeTVSeriesFromWishlist(item.id, this.props.user.data.uid)}
-                        ref={`delete-${item.id}`}
+                        show={this.state.showButton[item.metadata.id] !== undefined ? this.state.showButton[item.metadata.id] : false}
+                        onButtonClick={() => this.props.removeTVSeriesFromWishlist(item.metadata.id, this.props.user.data.uid)}
+                        ref={`delete-${item.metadata.id}`}
                         className="mr-4 binger-btn-red"
                         icon="times" />
                     </div>
                   </div>
                 </div>
               ))}
+              <div className="binger-wishlist-item binger-flex-center" style={{flexDirection: 'column'}}>
+                <Button 
+                  show={this.props.user.tvSeriesWishlist.length > 5}
+                  //onButtonClick={() => this.props.removeTVSeriesFromWishlist(item.metadata.id, this.props.user.data.uid)}
+                  //ref={`delete-${item.metadata.id}`}
+                  text="View All"
+                  className="mr-4 binger-btn-blue" />
+              </div>
             </Tab>
             <Tab label="Movies">
               {this.props.user.moviesWishlist.map(item => (
                 <div 
-                  key={item.id} 
+                  key={item.metadata.id} 
                   className="binger-wishlist-item"
-                  onMouseEnter={() => this.showDeleteButton(item.id)}
-                  onMouseLeave={() => this.hideDeleteButton(item.id)}>
+                  onMouseEnter={() => this.showDeleteButton(item.metadata.id)}
+                  onMouseLeave={() => this.hideDeleteButton(item.metadata.id)}>
                   <div className="row">
                     <div className="col-lg-2">
-                      <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.poster_path}`} alt="" height="100" width="67"/>
+                      <img src={`https://image.tmdb.org/t/p/w300_and_h450_bestv2${item.metadata.poster_path}`} alt="" height="100" width="67"/>
                     </div>
                     <div className="col-lg-8">
-                      <h3><strong>{item.title}</strong></h3>
-                      <p className="binger-lime">Added on {moment(item.date).format("DD/MM/YYYY HH:mm")}</p>
+                      <a onClick={() => this.props.goToMoviePage(item.metadata.id)} className="binger-cursor-pointer"><h3><strong>{item.metadata.title}</strong></h3></a>
+                      <p className="binger-lime">Added on {moment(item.wishlist_timestamp).format("DD/MM/YYYY HH:mm")}</p>
                     </div>
                     <div className="col-lg-2 binger-flex-center">
                       <Button 
-                        show={this.state.showButton[item.id] !== undefined ? this.state.showButton[item.id] : false}
-                        onButtonClick={() => this.props.removeMovieFromWishlist(item.id, this.props.user.data.uid)}
-                        ref={`delete-${item.id}`}
+                        show={this.state.showButton[item.metadata.id] !== undefined ? this.state.showButton[item.metadata.id] : false}
+                        onButtonClick={() => this.props.removeMovieFromWishlist(item.metadata.id, this.props.user.data.uid)}
+                        ref={`delete-${item.metadata.id}`}
                         className="mr-4 binger-btn-red"
                         icon="times" />
                     </div>
@@ -109,7 +119,6 @@ const mapDispatchToProps = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     user: state.user,
     tvseries: state.tvseries,

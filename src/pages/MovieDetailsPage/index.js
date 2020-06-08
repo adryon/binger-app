@@ -31,43 +31,28 @@ class MovieDetailsPage extends React.Component{
     this.props.deleteTagFromMovie(tag, this.props.match.params.id, this.props.user.data.uid);
   }
 
-  watchMovie = () => {
-    const payload = {
-      timestamp: Date(),
-      poster_path: this.props.movies.viewMovieDetails.poster_path,
-      title: this.props.movies.viewMovieDetails.original_title,
-    }
-    this.props.watchMovie(payload, this.props.match.params.id, this.props.user.data.uid);
+  addToWishlist = () => {
+    this.props.addMovieToWishlist(this.props.match.params.id, this.props.user.data.uid);
   }
 
-  unWatchMovie = () => {
-    this.props.unWatchMovie(this.props.match.params.id, this.props.user.data.uid);
+  addToWatched = () => {
+    this.props.addToWatched(this.props.match.params.id, this.props.user.data.uid);
   }
 
   addToFavorite = () => {
-    const payload = {
-      poster_path: this.props.movies.viewMovieDetails.poster_path,
-      title: this.props.movies.viewMovieDetails.title,
-    }
-    this.props.addMovieToFavorite(payload, this.props.match.params.id, this.props.user.data.uid);
-  }
-
-  removeFromFavorite = () => {
-    this.props.removeMovieFromFavorite(this.props.match.params.id, this.props.user.data.uid);
-  }
-
-  addToWishlist = () => {
-    const payload = {
-      poster_path: this.props.movies.viewMovieDetails.poster_path,
-      id: this.props.movies.viewMovieDetails.id,
-      title: this.props.movies.viewMovieDetails.title,
-      date: Date()
-    }
-    this.props.addMovieToWishlist(payload, this.props.match.params.id, this.props.user.data.uid);
+    this.props.addMovieToFavorite(this.props.match.params.id, this.props.user.data.uid);
   }
 
   removeFromWishlist = () => {
     this.props.removeMovieFromWishlist(this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  removeFromWatched = () => {
+    this.props.removeFromWatched(this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  removeFromFavorite = () => {
+    this.props.removeMovieFromFavorite(this.props.match.params.id, this.props.user.data.uid);
   }
 
   render() {
@@ -90,27 +75,27 @@ class MovieDetailsPage extends React.Component{
               </div>
             </div>
             <div className="row binger-title-row">
-              {viewMovieDetails.userData.watched &&
+              {viewMovieDetails.userData.is_watched ?
                 <Button 
                   className="mr-4 binger-btn-green"
-                  onButtonClick={this.unWatchMovie}
+                  onButtonClick={this.removeFromWatched}
                   expandTextOnHover={true}
                   icon="eye"
-                  text="Watched" /> ||
+                  text="Watched" /> :
                 <Button 
                   className="mr-4 binger-btn-blue"
-                  onButtonClick={this.watchMovie}
+                  onButtonClick={this.addToWatched}
                   expandTextOnHover={true}
                   icon="eye-slash"
                   text="Not watched" />
               }
-              {viewMovieDetails.userData.favorite &&
+              {viewMovieDetails.userData.is_favorite ?
                 <Button 
                   className="mr-4 binger-btn-green"
                   onButtonClick={this.removeFromFavorite}
                   expandTextOnHover={true}
                   icon="heart"
-                  text="Added to Favorite" /> ||
+                  text="Added to Favorite" /> :
                 <Button 
                   className="mr-4 binger-btn-blue"
                   onButtonClick={this.addToFavorite}
@@ -118,13 +103,13 @@ class MovieDetailsPage extends React.Component{
                   icon="heart"
                   text="Add to Favorite" />
               }
-              {viewMovieDetails.userData.wishlist &&
+              {viewMovieDetails.userData.is_wishlist ?
                 <Button 
                   className="mr-4 binger-btn-green"
                   onButtonClick={this.removeFromWishlist}
                   expandTextOnHover={true}
                   icon="star"
-                  text="In Wishlist" /> ||
+                  text="In Wishlist" /> :
                 <Button
                   className="mr-4 binger-btn-blue"
                   onButtonClick={this.addToWishlist}
@@ -132,9 +117,9 @@ class MovieDetailsPage extends React.Component{
                   icon="star"
                   text="Add to Wishlist" />
               }
-              { viewMovieDetails.userData.watched &&
+              { viewMovieDetails.userData.is_watched &&
                 <div className="binger-flex-center">
-                  <span className="binger-text"> You have watched this movie on {moment(viewMovieDetails.userData.watched.timestamp).format('DD/MM/YYYY')}</span>
+                  <span className="binger-text"> You have watched this movie on {moment(viewMovieDetails.userData.watched_timestamp).format('DD/MM/YYYY')}</span>
                 </div>
               }
             </div>
@@ -192,8 +177,8 @@ const mapDispatchToProps = {
   getMovieCast: moviesActions.getMovieCast,
   addTagToMovie: userActions.addTagToMovie,
   deleteTagFromMovie: userActions.deleteTagFromMovie,
-  watchMovie: userActions.watchMovie,
-  unWatchMovie: userActions.unWatchMovie,
+  addToWatched: userActions.addToWatched,
+  removeFromWatched: userActions.removeFromWatched,
   addMovieToFavorite: userActions.addMovieToFavorite,
   removeMovieFromFavorite: userActions.removeMovieFromFavorite,
   addMovieToWishlist: userActions.addMovieToWishlist,
@@ -202,7 +187,6 @@ const mapDispatchToProps = {
 };
 
 function mapStateToProps(state) {
-  console.log(state);
   return {
     user: state.user,
     movies: state.movies,

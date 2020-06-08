@@ -2,7 +2,8 @@ import React from 'react';
 import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { ProgressBar} from 'components/LayoutComponents';
-//import CurrentlyWatching from 'components/BingerComponents/CurrentlyWatching';
+import CurrentlyWatching from 'components/BingerComponents/CurrentlyWatching';
+import WatchedMovies from 'components/BingerComponents/WatchedMovies';
 import Wishlist from 'components/BingerComponents/Wishlist';
 
 class MainPage extends React.Component{
@@ -13,7 +14,18 @@ class MainPage extends React.Component{
 	      <div className="row">
 					<div className="col-lg-4">
 						<Wishlist />
-					</div>					
+					</div>
+					<div className="col-lg-8">
+						<div className="row">
+							<div className="col-lg-12">
+								<CurrentlyWatching />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="row">			
+					<div className="col-lg-4">
+					</div>		
 					<div className="col-lg-8">
 						<span className="binger-text-strong">
 							Page under construction. Please use the search box above.
@@ -65,8 +77,8 @@ class MainPage extends React.Component{
 										<h1><strong>TV Series Details Page</strong></h1>
 									</div>
 									<div className="col-lg-5">
-										<h3><strong>60%</strong></h3>
-										<ProgressBar color="lime" value={60} />
+										<h3><strong>80%</strong></h3>
+										<ProgressBar color="lime" value={80} />
 									</div>
 								</div>
 
@@ -95,8 +107,8 @@ class MainPage extends React.Component{
 										<h1><strong>Wishlist Widget</strong></h1>
 									</div>
 									<div className="col-lg-5">
-										<h3><strong>0%</strong></h3>
-										<ProgressBar color="blue" value={0} />
+										<h3><strong>100%</strong></h3>
+										<ProgressBar color="green" value={100} />
 									</div>
 								</div>
 
@@ -105,8 +117,8 @@ class MainPage extends React.Component{
 										<h1><strong>Currently Watching Widget</strong></h1>
 									</div>
 									<div className="col-lg-5">
-										<h3><strong>0%</strong></h3>
-										<ProgressBar color="blue" value={0} />
+										<h3><strong>100%</strong></h3>
+										<ProgressBar color="green" value={100} />
 									</div>
 								</div>
 
@@ -122,26 +134,10 @@ class MainPage extends React.Component{
 							</div>
 						</div>
 					</div>
-	        {/* <div className="col-md-6 col-sm-12">
-	          <CurrentlyWatching />
-	        </div>
-	        <div className="col-md-6 col-sm-12">
-	          <CurrentlyWatching />
-	        </div>
-	        <div className="col-md-6 col-sm-12">
-	          <CurrentlyWatching />
-	        </div>
-	        <div className="col-md-6 col-sm-12">
-	          <CurrentlyWatching />
-	        </div> */}
 	      </div>
 			</div>
     )
   }
 }
 
-const mapDispatchToProps = {
-	goToRegister: () => dispatch => dispatch(push('/register'))
-};
-
-export default connect(null, mapDispatchToProps)(MainPage);
+export default connect(null, null)(MainPage);

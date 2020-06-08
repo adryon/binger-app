@@ -8,3 +8,5 @@ export {default as ProgressCircle} from './ProgressCircle';
 export {default as Checkbox} from './Checkbox';
 export {default as Tabs} from './Tabs';
 export {default as Tab} from './Tab';
+export {default as Table} from './Table';
+export {Card, CardHeader, CardBody, CardFooter} from './Card';

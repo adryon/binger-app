@@ -10,33 +10,16 @@ export default class ProgressCircle extends React.Component {
     const size = this.props.size || 90;
     const color = this.props.color || 'green';
     const colors = {
-      'green': {
-        regular: '#28A745',
-        darken: '#186429'
-      },
-      'red': {
-        regular: '#DC3545',
-        darken: '#6e1a22'
-      },
-      'blue': {
-        regular: '#2196F3',
-        darken: '#1976D2'
-      },
-      'orange': {
-        regular: '#f57c00',
-        darken: '#e65100'
-      },
-      'purple': {
-        regular: '#c2185b',
-        darken: '#880e4f'
-      },
-      'lime': {
-        regular: '#cddc39',
-        darken: '#99aa00'
-      },
+      'green': '#28A745',
+      'red': '#DC3545',
+      'blue': '#2196F3',
+      'orange': '#f57c00',
+      'yellow': '#FFEB3B',
+      'purple': '#c2185b',
+      'lime': '#cddc39',
     }
     const strokeWidth = this.props.strokeWidth || 5;
-    const percentage = this.props.percentage || 100;
+    const percentage = (this.props.percentage === undefined || this.props.percentage === 0) ? 0 : this.props.percentage
 
     // SVG centers the stroke width on the radius, subtract out so circle fits in square
     const radius = (size - strokeWidth) / 2;
@@ -53,12 +36,6 @@ export default class ProgressCircle extends React.Component {
           height={size}
           viewBox={viewBox}>
           <circle
-            className="circle-background"
-            cx={size / 2}
-            cy={size / 2}
-            r={radius}
-            strokeWidth={`${strokeWidth}px`} />
-          <circle
             className="circle-progress"
             cx={size / 2}
             cy={size / 2}
@@ -68,10 +45,10 @@ export default class ProgressCircle extends React.Component {
             style={{
               strokeDasharray: dashArray,
               strokeDashoffset: dashOffset,
-              stroke: colors[color].darken
+              stroke: colors[color]
             }} />
           <text
-            style={{fill: colors[color].darken}}
+            style={{fill: colors[color]}}
             className="circle-text"
             x="50%"
             y="60%"

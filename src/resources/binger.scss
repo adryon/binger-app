@@ -8,11 +8,34 @@
   background-color: $card-background;
 }
 
-.card-header {
+.binger-card {
   background-color: $card-background;
+  border-radius: 24px;
+  margin: 24px;
 }
 
-.card-title {
+.binger-card-header {
+  padding: 24px;
+
+  .binger-card-title {
+    display: block;
+    text-align: center;
+    flex: 1 1 auto;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}
+
+.binger-card-body {
+  padding: 24px;
+}
+
+.binger-card-footer {
+  padding: 24px;
+}
+
+.binger-card-title {
+  flex: 1 1 auto;
   text-transform: uppercase;
   font-weight: bold;
 }
@@ -29,6 +52,7 @@
 
 .nav-link {
   color: $primary-color !important;
+  cursor: pointer;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
@@ -264,13 +288,8 @@
 /////////////////////////////////////////////////////////////////////////////////////////
 /*  PROGRESS CIRCLE DESIGN */
 
-.circle-background,
 .circle-progress {
   fill: none;
-}
-
-.circle-background {
-  stroke: #9E9E9E;
 }
 
 .circle-progress {
@@ -361,6 +380,36 @@
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////
+/*  TABLE DESIGN */
+
+.binger-table {
+
+  th {
+    padding: 10px;
+    color: $white;
+  }
+
+  td {
+    padding: 10px;
+    color: $white;
+  }
+
+  .binger-numbered-column {
+    text-align: center;
+  }
+}
+
+.binger-table-stripped {
+  tbody tr:nth-child(odd) {
+    background-color: #343a40;
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: #454d55;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
 /*  INPUT DESIGN */
 
 .binger-input {
@@ -411,12 +460,24 @@
   color: $primary-color;
   font-size: 50px;
 
+  &:hover, &:active, &:focus {
+    color: $primary-color-darken !important;
+  }
+
   &.binger-checkbox-secondary {
     color: $secondary-color !important;
+
+    &:hover, &:active, &:focus {
+      color: $secondary-color-darken !important;
+    }
   }
 
   &.binger-checkbox-green {
     color: $green-color !important;
+
+    &:hover, &:active, &:focus {
+      color: $green-color-darken !important;
+    }
   }
 }
 
@@ -424,12 +485,24 @@
   color: $primary-color;
   font-size: 50px;
 
+  &:hover, &:active, &:focus {
+    color: $primary-color-darken !important;
+  }
+
   &.binger-checkbox-secondary {
     color: $secondary-color !important;
+
+    &:hover, &:active, &:focus {
+      color: $secondary-color-darken !important;
+    }
   }
 
   &.binger-checkbox-green {
     color: $green-color !important;
+
+    &:hover, &:active, &:focus {
+      color: $green-color-darken !important;
+    }
   }
 }
 
@@ -616,12 +689,20 @@ input#check {
   color: $primary-color;
 }
 
+.binger-cursor-pointer {
+  cursor: pointer;
+}
+
 .binger-text-strong {
   color: $primary-color;
   font-size: 40px;
   padding-right: 5px;
   padding-left: 5px;
   font-weight: bold;
+}
+
+.binger-capitalize {
+  text-transform: capitalize;
 }
 
 .binger-text-code {
@@ -765,7 +846,7 @@ body {
 
 .binger-main-container {
   width: 100%;
-  max-width: 1800px !important;
+  max-width: 2000px !important;
 }
 
 .main-page {
@@ -1088,4 +1169,75 @@ table {
 .dynamic-delete-button[disabled] {
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+.fadeOut{
+  opacity:0;
+  transition: width 0.3s 0.3s, height 0.3s 0.3s, opacity 0.3s;
+}
+
+.fadeIn{
+  opacity:1;
+  transition: width 0.3s, height 0.3s, opacity 0.3s 0.3s;
+}
+
+.binger-episode-hover-container {
+  position: relative;
+  border-radius: 24px;
+  //width: 50%;
+}
+
+.binger-episode-hover-image {
+  border-radius: 24px;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.binger-episode-hover-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  border-radius: 24px;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: $body-background;
+}
+
+.binger-episode-hover-container:hover .binger-episode-hover-overlay {
+  opacity: 1;
+}
+
+.binger-episode-hover-text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.binger-episode-name {
+  color: $secondary-color;
+  font-style: italic;
+  display: flex;
+  padding-top: 5px;
+  justify-content: center;
+  text-align: center;
+}
+
+.binger-tv-name {
+  color: $primary-color;
+  font-weight: bold;
+  display: flex;
+  padding-top: 5px;
+  justify-content: center;
+  text-align: center;
 }

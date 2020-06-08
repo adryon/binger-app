@@ -33,59 +33,47 @@ export function movieDetailsClear() {
 }
 
 export const getMovieDetails = (movie_id) => (dispatch) => {
-  const payload = {
-    api_key: config.THE_MOVIE_DB_TOKEN,
-    language: 'en-US',
-  }
 
-  return http.get(`movie/${movie_id}`, payload)
-    .then(result => {
-      firebase.database().ref(`users/${lockr.get('Authorization')}/moviesTags/${movie_id}`).on('value', tagsSnapshot => {
-        firebase.database().ref(`users/${lockr.get('Authorization')}/moviesWatched/${movie_id}`).on('value', watchedSnapshot => {
-          firebase.database().ref(`users/${lockr.get('Authorization')}/moviesWishlist/${movie_id}`).on('value', wishlistSnapshot => {
-            firebase.database().ref(`users/${lockr.get('Authorization')}/moviesFavorite/${movie_id}`).on('value', favoriteSnapshot => {
-              let tags = [];
-              let tagsSnap = tagsSnapshot.val();
-              let watchedSnap = watchedSnapshot.val();
-              let wishlistSnap = wishlistSnapshot.val();
-              let favoriteSnap = favoriteSnapshot.val();
-              if (tagsSnap !== null) {
-                _.keys(tagsSnap).map(item => {
-                  tagsSnap[item].uid = item;
-                  tags.push(tagsSnap[item]);
-                });
-              }
-
-              const userData = {
-                tags: tags,
-                watched: watchedSnap,
-                wishlist: wishlistSnap,
-                favorite: favoriteSnap,
-              }
-
-              const movieData = Object.assign({}, {userData}, result);
-              dispatch(getMovieDetailsSuccess(movieData));
-            });
-          });
+  return http.get(`movie/${movie_id}`, config.MOVIE_DB_PAYLOAD)
+  .then(result => {
+    firebase.database().ref(`users/${lockr.get('Authorization')}/movies/${movie_id}`).on('value', snapshot => {
+      let userData = snapshot.val();
+      console.log(userData);
+      if (userData) {
+        if (userData && userData.tags) {
+          userData.tags = Object.keys(userData.tags).map(item => ({
+            uid: item,
+            ...userData.tags[item]
+          }));
+        }
+      } else {
+        firebase.database().ref(`users/${lockr.get('Authorization')}/movies/${movie_id}/metadata`).update({
+          id: result.id,
+          poster_path: result.poster_path,
+          title: result.title,
         });
-      });
+        userData = {
+          is_watched: null,
+          is_favorite: null,
+          is_wishlist: null,
+        }
+      }
+      const movieData = Object.assign({}, {userData}, result);
+      dispatch(getMovieDetailsSuccess(movieData));
     })
-    .catch(error => {
-      notification({
-        type: 'error',
-        icon: 'exclamation-circle',
-        title: 'Cannot get movie data!',
-      })
-    });
+  })
+  .catch(error => {
+    notification({
+      type: 'error',
+      icon: 'exclamation-circle',
+      title: 'Cannot get movie data!',
+    })
+  });
 }
 
 export const getMovieCast = (movie_id) => (dispatch) => {
-  const payload = {
-    api_key: config.THE_MOVIE_DB_TOKEN,
-    language: 'en-US',
-  }
 
-  return http.get(`movie/${movie_id}/credits`, payload)
+  return http.get(`movie/${movie_id}/credits`, config.MOVIE_DB_PAYLOAD)
     .then(result => {
       dispatch(getMovieCastSuccess(result));
     })

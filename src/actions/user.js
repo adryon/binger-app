@@ -3,11 +3,16 @@ import {
   USER_LOG_OUT_SUCCESS,
   USER_SET_CURRENT_USER,
   USER_SET_TV_SERIES_WISHLIST,
-  USER_SET_MOVIES_WISHLIST
+  USER_SET_MOVIES_WISHLIST,
+  USER_SET_CURRENTLY_WATCHING,
+  USER_SET_FULL_WISHLIST,
+  USER_SET_FULL_FAVORITES
 } from './actions-types';
 import {notification} from 'components/LayoutComponents';
 import {push} from 'react-router-redux';
 import lockr from 'lockr';
+import _ from 'lodash';
+import http from './../lib/axios-wrapper';
 import firebase from 'firebase';
 import config from '../lib/config';
 
@@ -29,6 +34,18 @@ export function setTVSeriesWishlist(data) {
 
 export function setMoviesWishlist(data) {
   return {type: USER_SET_MOVIES_WISHLIST, data}
+}
+
+export function setCurrentlyWatching(data) {
+  return {type: USER_SET_CURRENTLY_WATCHING, data}
+}
+
+export function setFullWishlist(data) {
+  return {type: USER_SET_FULL_WISHLIST, data}
+}
+
+export function setFullFavorites(data) {
+  return {type: USER_SET_FULL_FAVORITES, data}
 }
 
 export const register = (payload) => (dispatch) => {
@@ -106,7 +123,8 @@ export const getCurrentUser = () => (dispatch) => {
 };
 
 export const addTagToMovie = (tag, movie_id, userId) => (dispatch) => {
-  firebase.database().ref(`users/${userId}/moviesTags/${movie_id}`).push({
+
+  firebase.database().ref(`users/${userId}/movies/${movie_id}/tags`).push({
     text: tag,
     color: config.colors[Math.floor(Math.random() * config.colors.length)],
   });
@@ -117,15 +135,17 @@ export const addTagToMovie = (tag, movie_id, userId) => (dispatch) => {
 }
 
 export const deleteTagFromMovie = (tag, movie_id, userId) => (dispatch) => {
-  firebase.database().ref(`users/${userId}/moviesTags/${movie_id}/${tag.uid}`).remove();
+
+  firebase.database().ref(`users/${userId}/movies/${movie_id}/tags/${tag.uid}`).remove();
   notification({
     type: 'success',
     title: 'Tag removed!',
   })
 }
 
-export const addTagToTVSeries = (tag, tv_id, userId) => (dispatch) => {
-  firebase.database().ref(`users/${userId}/tvSeriesTags/${tv_id}`).push({
+export const addTagToTVSeries = (tag, tv_id, user_id) => (dispatch) => {
+
+  firebase.database().ref(`users/${user_id}/tv/${tv_id}/tags`).push({
     text: tag,
     color: config.colors[Math.floor(Math.random() * config.colors.length)],
   });
@@ -135,48 +155,71 @@ export const addTagToTVSeries = (tag, tv_id, userId) => (dispatch) => {
   })
 }
 
-export const deleteTagFromTVSeries = (tag, tv_id, userId) => (dispatch) => {
-  firebase.database().ref(`users/${userId}/tvSeriesTags/${tv_id}/${tag.uid}`).remove();
+export const deleteTagFromTVSeries = (tag, tv_id, user_id) => (dispatch) => {
+  firebase.database().ref(`users/${user_id}/tv/${tv_id}/tags/${tag.uid}`).remove();
   notification({
     type: 'success',
     title: 'Tag removed!',
   })
 }
 
-export const watchMovie = (movie, movie_id, user_id) => (dispatch) => {
-  firebase.database().ref(`users/${user_id}/moviesWatched/${movie_id}/`).set(movie);
+export const addToWatched = (movie_id, user_id) => (dispatch) => {
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/is_watched`).set("1");
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/watched_timestamp`).set(Date());
   notification({
     type: 'success',
     title: 'Movie added to your watch list!',
   })
 }
 
-export const unWatchMovie = (movie_id, user_id) => (dispatch) => {
-  firebase.database().ref(`users/${user_id}/moviesWatched/${movie_id}/`).remove();
+export const removeFromWatched = (movie_id, user_id) => (dispatch) => {
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/is_watched`).remove();
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/watched_timestamp`).remove();
   notification({
     type: 'success',
     title: 'Movie removed from your watch list!',
   })
 }
 
-export const addMovieToFavorite = (movie, movie_id, user_id) => (dispatch) => {
-  firebase.database().ref(`users/${user_id}/moviesFavorite/${movie_id}/`).set(movie);
+export const addMovieToFavorite = (movie_id, user_id) => (dispatch) => {
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/is_favorite`).set("1");
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/favorite_timestamp`).set(Date());
   notification({
     type: 'success',
-    title: 'Movie added to your favorite list!',
+    title: 'Movie added to your favorites list!',
   })
 }
 
 export const removeMovieFromFavorite = (movie_id, user_id) => (dispatch) => {
-  firebase.database().ref(`users/${user_id}/moviesFavorite/${movie_id}/`).remove();
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/is_favorite`).remove();
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/favorite_timestamp`).remove();
   notification({
     type: 'success',
-    title: 'Movie removed from your favorite list!',
+    title: 'Movie removed from your favorites list!',
   })
 }
 
-export const addMovieToWishlist = (movie, movie_id, user_id) => (dispatch) => {
-  firebase.database().ref(`users/${user_id}/moviesWishlist/${movie_id}/`).set(movie);
+export const addTVSeriesToFavorites = (tv_id, user_id) => (dispatch) => {
+  firebase.database().ref(`users/${user_id}/tv/${tv_id}/is_favorite`).set("1");
+  firebase.database().ref(`users/${user_id}/tv/${tv_id}/favorite_timestamp`).set(Date());
+  notification({
+    type: 'success',
+    title: 'TV Series added to your favorites list!',
+  })
+}
+
+export const removeTVSeriesFromFavorites = (tv_id, user_id) => (dispatch) => {
+  firebase.database().ref(`users/${user_id}/tv/${tv_id}/is_favorite`).remove();
+  firebase.database().ref(`users/${user_id}/tv/${tv_id}/favorite_timestamp`).remove();
+  notification({
+    type: 'success',
+    title: 'TV Series removed from your favorites list!',
+  })
+}
+
+export const addMovieToWishlist = (movie_id, user_id) => (dispatch) => {
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/is_wishlist`).set("1");
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/wishlist_timestamp`).set(Date());
   notification({
     type: 'success',
     title: 'Movie added to your wishlist!',
@@ -184,38 +227,69 @@ export const addMovieToWishlist = (movie, movie_id, user_id) => (dispatch) => {
 }
 
 export const removeMovieFromWishlist = (movie_id, user_id) => (dispatch) => {
-  firebase.database().ref(`users/${user_id}/moviesWishlist/${movie_id}/`).remove();
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/is_wishlist`).remove();
+  firebase.database().ref(`users/${user_id}/movies/${movie_id}/wishlist_timestamp`).remove();
   notification({
     type: 'success',
     title: 'Movie removed from your wishlist!',
   })
 }
 
-export const addTVSeriesToWishlist = (tv, tvId, userId) => (dispatch) => {
-  firebase.database().ref(`users/${userId}/tvSeriesWishlist/${tvId}/`).set(tv);
+export const addTVSeriesToWishlist = (tv_id, user_id) => (dispatch) => {
+  firebase.database().ref(`users/${user_id}/tv/${tv_id}/is_wishlist`).set("1");
+  firebase.database().ref(`users/${user_id}/tv/${tv_id}/wishlist_timestamp`).set(Date());
   notification({
     type: 'success',
     title: 'TV series added to your wishlist!',
   })
 }
 
-export const removeTVSeriesFromWishlist = (tvId, userId) => (dispatch) => {
-  firebase.database().ref(`users/${userId}/tvSeriesWishlist/${tvId}/`).remove();
+export const removeTVSeriesFromWishlist = (tv_id, user_id) => (dispatch) => {
+  firebase.database().ref(`users/${user_id}/tv/${tv_id}/is_wishlist`).remove();
+  firebase.database().ref(`users/${user_id}/tv/${tv_id}/wishlist_timestamp`).remove();
   notification({
     type: 'success',
     title: 'TV Series removed from your wishlist!',
   })
 }
 
+export const setEpisodesSeen = (payload) => (dispatch) => {
+  let episodes_seen = 0;
+  firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/content`).once('value', tvSnapshot => {
+    let tv = tvSnapshot.val();
+    if (tv === null) {
+      firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/metadata/episodes_seen`).set(0);
+    } else {
+      Object.keys(tv).map(item => {
+        if (tv[item].metadata.season_number !== 0 ) {
+          episodes_seen += Object.keys(tv[item].content).length;
+        }
+      })
+      firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/metadata/episodes_seen`).set(episodes_seen);
+    }
+  })
+}
+
 export const watchEpisode = (payload) => (dispatch) => {
-  firebase.database().ref(`users/${payload.user_id}/tvSeriesWatched/${payload.tv_id}/content/${payload.season_id}/${payload.episode_id}`).set({
+  firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/content/${payload.season_id}/content/${payload.episode_id}`).update({
+    episode_name: payload.episode_name,
+    episode_id: payload.episode_id,
+    episode_number: payload.episode_number,
     timestamp: Date()
   });
-  firebase.database().ref(`users/${payload.user_id}/tvSeriesWatched/${payload.tv_id}/metadata`).set({
-    poster_path: payload.poster_path,
-    name: payload.name,
-    id: payload.tv_id
+  firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/content/${payload.season_id}/metadata`).update({
+    season_number: payload.season_number,
+    name: payload.season_name,
+    id: payload.season_id
   });
+  firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/metadata/last_episode_seen`).update({
+    episode_name: payload.episode_name,
+    episode_season: payload.episode_season,
+    episode_id: payload.episode_id,
+    episode_number: payload.episode_number,
+  });
+  dispatch(setEpisodesSeen(payload));
+  
   notification({
     type: 'success',
     title: 'You have succesfully watched this episode!',
@@ -223,13 +297,21 @@ export const watchEpisode = (payload) => (dispatch) => {
 }
 
 export const unWatchEpisode = (payload) => (dispatch) => {
-  firebase.database().ref(`users/${payload.user_id}/tvSeriesWatched/${payload.tv_id}/content/${payload.season_id}/${payload.episode_id}`).remove();
+  firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/content/${payload.season_id}/content/${payload.episode_id}`).remove();
 
-  firebase.database().ref(`users/${payload.user_id}/tvSeriesWatched/${payload.tv_id}/content`).once('value', contentSnapshot => {
-    let content = contentSnapshot.val();
-    if (content === null) {
-      firebase.database().ref(`users/${payload.user_id}/tvSeriesWatched/${payload.tv_id}`).remove();
+  firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/content`).once('value', tvSnapshot => {
+    let tv = tvSnapshot.val();
+    if (tv === null) {
+      firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}`).remove();
     }
+  })
+
+  firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/content/${payload.season_id}/content`).once('value', seasonSnapshot => {
+    let season = seasonSnapshot.val();
+    if (season === null) {
+      firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/content/${payload.season_id}`).remove();
+    }
+    dispatch(setEpisodesSeen(payload));
   })
 
   notification({
@@ -242,33 +324,35 @@ export const watchSeason = (payload) => (dispatch) => {
 
   const map = {}
   payload.episodes.map(episode => {
-     
     map[episode.id]= {
       timestamp: Date()
     }
   })
 
-  firebase.database().ref(`users/${payload.user_id}/tvSeriesWatched/${payload.tv_id}/content/${payload.season_id}`).set(map);
-  firebase.database().ref(`users/${payload.user_id}/tvSeriesWatched/${payload.tv_id}/metadata`).set({
-    poster_path: payload.poster_path,
-    name: payload.name,
-    id: payload.tv_id
+  firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/content/${payload.season_id}/content`).set(map);
+  firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/content/${payload.season_id}/metadata`).set({
+    season_number: payload.season_number,
+    name: payload.season_name,
+    id: payload.season_id,
   });
+  firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/metadata`).update({
+    last_episode_seen: {
+      episode_name: payload.episode_name,
+      episode_season: payload.episode_season,
+      episode_id: payload.episode_id,
+      episode_number: payload.episode_number,
+    }
+  });
+  dispatch(setEpisodesSeen(payload));
   notification({
     type: 'success',
     title: 'You have succesfully watched the whole season!',
   })
 }
 
-export const unWatchSeason = (payload) => (dispatch) => {
-
-  firebase.database().ref(`users/${payload.user_id}/tvSeriesWatched/${payload.tv_id}/content/${payload.season_id}`).remove();
-  firebase.database().ref(`users/${payload.user_id}/tvSeriesWatched/${payload.tv_id}/content`).once('value', contentSnapshot => {
-    let content = contentSnapshot.val();
-    if (content === null) {
-      firebase.database().ref(`users/${payload.user_id}/tvSeriesWatched/${payload.tv_id}`).remove();
-    }
-  })
+export const unWatchSeason = (payload) => (dispatch) => { 
+  firebase.database().ref(`users/${payload.user_id}/tv/${payload.tv_id}/content/${payload.season_id}`).remove();
+  dispatch(setEpisodesSeen(payload));
   notification({
     type: 'success',
     title: 'You have succesfully un-watched the whole season!',
@@ -276,17 +360,130 @@ export const unWatchSeason = (payload) => (dispatch) => {
 }
 
 export const getTVSeriesWishlist = (user_id) => (dispatch) => {
-  firebase.database().ref(`users/${user_id}/tvSeriesWishlist`).on('value', snapshot => {
+
+  firebase.database().ref(`users/${user_id}/tv`).orderByChild("is_wishlist").equalTo("1").on("value", snapshot => {
     let content = snapshot.val();
-    let tvSeriesArray = Object.keys(content).map(item => content[item]);
+    let tvSeriesArray = content ? Object.keys(content).map(item => content[item]) : [];
     dispatch(setTVSeriesWishlist(tvSeriesArray));
-  })
+  });
 }
 
 export const getMoviesWishlist = (user_id) => (dispatch) => {
-  firebase.database().ref(`users/${user_id}/moviesWishlist`).on('value', snapshot => {
+
+  firebase.database().ref(`users/${user_id}/movies`).orderByChild("is_wishlist").equalTo("1").on("value", snapshot => {
     let content = snapshot.val();
-    let moviesArray = Object.keys(content).map(item => content[item]);
+    let moviesArray = content ? Object.keys(content).map(item => content[item]) : [];
     dispatch(setMoviesWishlist(moviesArray));
+  });
+}
+
+export const getFullWishlist = (user_id) => (dispatch) => {
+  firebase.database().ref(`users/${user_id}/movies`).orderByChild("is_wishlist").equalTo("1").on('value', movieSnapshot => {
+    let movieContent = movieSnapshot.val();
+    movieContent = movieContent ? Object.keys(movieContent).map(item => movieContent[item]) : [];
+    movieContent = movieContent.map(item => ({...item, type: 'movie'}))
+    
+    firebase.database().ref(`users/${user_id}/tv`).orderByChild("is_wishlist").equalTo("1").on('value', tvSnapshot => {
+      let tvSeriesContent = tvSnapshot.val();
+      tvSeriesContent = tvSeriesContent ? Object.keys(tvSeriesContent).map(item => tvSeriesContent[item]) : [];
+      tvSeriesContent = tvSeriesContent.map(item => ({...item, type: 'tv'}))
+
+      var mergedArray = movieContent.concat(tvSeriesContent);
+      var mergedArray = _.orderBy(mergedArray, ['wishlist_timestamp'],['desc']);
+      dispatch(setFullWishlist(mergedArray));
+    })
+  })
+}
+
+export const getFullFavorites = (user_id) => (dispatch) => {
+  firebase.database().ref(`users/${user_id}/movies`).orderByChild("is_favorite").equalTo("1").on('value', movieSnapshot => {
+    let movieContent = movieSnapshot.val();
+    movieContent = movieContent ? Object.keys(movieContent).map(item => movieContent[item]) : [];
+    movieContent = movieContent.map(item => ({...item, type: 'movie'}))
+    
+    firebase.database().ref(`users/${user_id}/tv`).orderByChild("is_favorite").equalTo("1").on('value', tvSnapshot => {
+      let tvSeriesContent = tvSnapshot.val();
+      tvSeriesContent = tvSeriesContent ? Object.keys(tvSeriesContent).map(item => tvSeriesContent[item]) : [];
+      tvSeriesContent = tvSeriesContent.map(item => ({...item, type: 'tv'}))
+
+      var mergedArray = movieContent.concat(tvSeriesContent);
+      var mergedArray = _.orderBy(mergedArray, ['wishlist_timestamp'],['desc']);
+      dispatch(setFullFavorites(mergedArray));
+    })
+  })
+}
+
+export const getCurrentlyWatching = (user_id) => (dispatch) => {
+  return new Promise((resolve, reject) => {
+    firebase.database().ref(`users/${user_id}/tv`).orderByChild("content").startAt("").on("value", async snapshot => {
+      let content = snapshot.val();
+  
+      let results = content ? await Promise.all(
+        Object.keys(content).map(tv => {
+          let tv_metadata = content[tv].metadata;
+          let lastEpisodeSeen = content[tv].metadata.last_episode_seen;
+          if (tv_metadata.completed !== true) {
+            return http.get(`tv/${tv_metadata.id}/season/${lastEpisodeSeen.episode_season}/episode/${lastEpisodeSeen.episode_number+1}`, config.MOVIE_DB_PAYLOAD)
+            .then(result1 => {
+              return http.get(`tv/${tv_metadata.id}`, config.MOVIE_DB_PAYLOAD)
+              .then(tvResult => {
+                tvResult.seasons.map(season => {
+                  if (season.season_number === lastEpisodeSeen.episode_season) {
+                    result1.season_id = season.id;
+                    result1.season_name = season.name;
+                  }
+                });
+                result1.tv_name = tvResult.name;
+                result1.tv_poster_path = tvResult.poster_path;
+                result1.tv_id = tvResult.id;
+                return result1;
+              })
+            })
+            .catch(error => {
+              if (error.message === 'Request failed with status code 404') {
+                return http.get(`tv/${tv_metadata.id}/season/${lastEpisodeSeen.episode_season+1}/episode/${1}`, config.MOVIE_DB_PAYLOAD)
+                .then(result2 => {
+                  return http.get(`tv/${tv_metadata.id}`, config.MOVIE_DB_PAYLOAD)
+                  .then(tvResult => {
+                    tvResult.seasons.map(season => {
+                      if (season.season_number === lastEpisodeSeen.episode_season) {
+                        result2.season_id = season.id;
+                        result2.season_name = season.name;
+                      }
+                    });
+                    result2.tv_name = tvResult.name;
+                    result2.tv_poster_path = tvResult.poster_path;
+                    result2.tv_id = tvResult.id;
+                    return result2;
+                  })
+                })
+                .catch(error => {
+                  if (error.message === 'Request failed with status code 404') {
+                    firebase.database().ref(`users/${user_id}/tv/${tv_metadata.id}/metadata/completed`).set(true);
+                  } else {
+                    notification({
+                      type: 'error',
+                      icon: 'exclamation-circle',
+                      title: 'Cannot get tv series data!',
+                    })
+                  }
+                });
+              } else {
+                notification({
+                  type: 'error',
+                  icon: 'exclamation-circle',
+                  title: 'Cannot get tv series data!',
+                })
+              }
+            });
+          } else {
+            return undefined;
+          }
+        })
+      ) : null;
+      results = _.without(results, undefined);
+      resolve(results);
+      dispatch(setCurrentlyWatching(results));
+    })
   })
 }

@@ -4,7 +4,7 @@ export default class Button extends React.Component{
 
 	render() {
 
-		const {icon, text, className} = this.props;
+		const {icon, text, className, style} = this.props;
 		const type = this.props.type || 'button';
     const shape = this.props.shape || 'normal';
     const show = this.props.show === undefined ? true : this.props.show;
@@ -14,6 +14,7 @@ export default class Button extends React.Component{
 		return ( show &&
       <button
         className={`${className} binger-btn binger-btn-${shape}`}
+        style={style}
         type={type}
         onClick={(event) => onButtonClick(event)}>
         { icon && (

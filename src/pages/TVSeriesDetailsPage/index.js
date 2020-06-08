@@ -17,12 +17,12 @@ class TVSeriesDetailsPage extends React.Component{
     this.props.getTVSeriesCast(this.props.match.params.id);
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
-      this.props.getTVSeriesDetails(this.props.match.params.id);
-      this.props.getTVSeriesCast(this.props.match.params.id);
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.match.params.id !== this.props.match.params.id) {
+  //     this.props.getTVSeriesDetails(this.props.match.params.id);
+  //     this.props.getTVSeriesCast(this.props.match.params.id);
+  //   }
+  // }
 
   componentWillUnmount() {
     this.props.tvseriesDetailsClear();
@@ -37,28 +37,33 @@ class TVSeriesDetailsPage extends React.Component{
   }
 
   addToWishlist = () => {
-    const payload = {
-      backdrop_path: this.props.tvseries.viewTVSeriesDetails.backdrop_path,
-      id: this.props.tvseries.viewTVSeriesDetails.id,
-      title: this.props.tvseries.viewTVSeriesDetails.name,
-      date: Date(),
-    }
-    this.props.addTVSeriesToWishlist(payload, this.props.match.params.id, this.props.user.data.uid);
+    this.props.addTVSeriesToWishlist(this.props.match.params.id, this.props.user.data.uid);
   }
 
   removeFromWishlist = () => {
     this.props.removeTVSeriesFromWishlist(this.props.match.params.id, this.props.user.data.uid);
   }
 
-  handleEpisodeCheckbox = (id, status) => {
-    let slug = id.split('-');
+  addToFavorites = () => {
+    this.props.addTVSeriesToFavorites(this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  removeFromFavorites = () => {
+    this.props.removeTVSeriesFromFavorites(this.props.match.params.id, this.props.user.data.uid);
+  }
+
+  handleEpisodeCheckbox = (name, status, season, episode) => {
+    let slug = name.split('-');
     const payload = {
-      poster_path: this.props.tvseries.viewTVSeriesDetails.poster_path,
-      name: this.props.tvseries.viewTVSeriesDetails.original_name,
       user_id: this.props.user.data.uid,
       tv_id: this.props.tvseries.viewTVSeriesDetails.id,
       season_id: slug[0],
+      season_number: season.season_number,
+      season_name: season.name,
       episode_id: slug[1],
+      episode_season: season.season_number,
+      episode_number: episode.episode_number,
+      episode_name: episode.name,
     }
 
     status === true ? this.props.watchEpisode(payload) : this.props.unWatchEpisode(payload);
@@ -68,16 +73,30 @@ class TVSeriesDetailsPage extends React.Component{
     this.props.tvseries.viewTVSeriesDetails.seasons.map(season => {
       if (season.id === id) {
         const payload = {
-          poster_path: this.props.tvseries.viewTVSeriesDetails.poster_path,
-          name: this.props.tvseries.viewTVSeriesDetails.original_name,
           user_id: this.props.user.data.uid,
           tv_id: this.props.tvseries.viewTVSeriesDetails.id,
           season_id: season.id,
+          season_number: season.season_number,
+          season_name: season.name,
           episodes: season.episodes,
+          episode_id: season.episodes[season.episodes.length-1].id,
+          episode_season: season.season_number,
+          episode_number: season.episodes[season.episodes.length-1].episode_number,
+          episode_name: season.episodes[season.episodes.length-1].name,
         }
         status === true ? this.props.watchSeason(payload) : this.props.unWatchSeason(payload);
       }
     })
+  }
+
+  getPercentageColor = (percentage) => {
+    if (percentage <= 10) {
+      return 'red'
+    } else if (percentage > 10 && percentage <=50) {
+      return 'orange'
+    } else if (percentage > 50 && percentage <=80) {
+      return 'yellow'
+    } else return 'green'
   }
 
   render() {
@@ -100,25 +119,27 @@ class TVSeriesDetailsPage extends React.Component{
               </div>
             </div>
             <div className="row binger-title-row binger-flex-center">
-              {viewTVSeriesDetails.isFavourite &&
+              {viewTVSeriesDetails.userData.is_favorite ?
                 <Button 
                   className="mr-4 binger-btn-green"
+                  onButtonClick={this.removeFromFavorites}
                   expandTextOnHover={true}
                   icon="heart"
-                  text="Added to Favorite" /> ||
+                  text="Added to Favorite" /> :
                 <Button 
                   className="mr-4 binger-btn-blue"
+                  onButtonClick={this.addToFavorites}
                   expandTextOnHover={true}
                   icon="heart"
                   text="Add to Favorite" />
               }
-              {viewTVSeriesDetails.userData.wishlist &&
+              {viewTVSeriesDetails.userData.is_wishlist ?
                 <Button 
                   className="mr-4 binger-btn-green"
                   onButtonClick={this.removeFromWishlist}
                   expandTextOnHover={true}
                   icon="star"
-                  text="In Wishlist" /> ||
+                  text="In Wishlist" /> :
                 <Button
                   className="mr-4 binger-btn-blue"
                   onButtonClick={this.addToWishlist}
@@ -128,7 +149,8 @@ class TVSeriesDetailsPage extends React.Component{
               }
               <ProgressCircle
                 strokeWidth="10"
-                percentage={80}/>
+                color={this.getPercentageColor(viewTVSeriesDetails.userData.totalWatched)}
+                percentage={viewTVSeriesDetails.userData.totalWatched}/>
             </div>
             <div className="row binger-title-row">
               <div className="card">
@@ -193,9 +215,9 @@ class TVSeriesDetailsPage extends React.Component{
                             season.episodes.length === 
                             _.keys(viewTVSeriesDetails &&
                             viewTVSeriesDetails.userData &&
-                            viewTVSeriesDetails.userData.watched &&
-                            viewTVSeriesDetails.userData.watched.content &&
-                            viewTVSeriesDetails.userData.watched.content[season.id]).length}
+                            viewTVSeriesDetails.userData.content &&
+                            viewTVSeriesDetails.userData.content[season.id] &&
+                            viewTVSeriesDetails.userData.content[season.id].content).length}
                         />
                         <span className="binger-text-strong binger-green ml-5px">I have seen the whole season!</span>
                       </div>
@@ -203,15 +225,15 @@ class TVSeriesDetailsPage extends React.Component{
                         <div className="binger-flex-center" key={episode.id}>
                           <Checkbox
                             color="secondary"
-                            onCheckboxChange={this.handleEpisodeCheckbox}
+                            onCheckboxChange={(name, checked) => this.handleEpisodeCheckbox(name, checked, season, episode)}
                             name={`${season.id}-${episode.id}`}
                             checked={
                               viewTVSeriesDetails &&
                               viewTVSeriesDetails.userData &&
-                              viewTVSeriesDetails.userData.watched &&
-                              viewTVSeriesDetails.userData.watched.content &&
-                              viewTVSeriesDetails.userData.watched.content[season.id] &&
-                              viewTVSeriesDetails.userData.watched.content[season.id][episode.id]}
+                              viewTVSeriesDetails.userData.content &&
+                              viewTVSeriesDetails.userData.content[season.id] &&
+                              viewTVSeriesDetails.userData.content[season.id].content &&
+                              viewTVSeriesDetails.userData.content[season.id].content[episode.id]}
                           />
                           <span className="binger-text-strong ml-5px">{episode.name}</span>
                         </div>
@@ -235,6 +257,8 @@ const mapDispatchToProps = {
   deleteTagFromTVSeries: userActions.deleteTagFromTVSeries,
   addTVSeriesToWishlist: userActions.addTVSeriesToWishlist,
   removeTVSeriesFromWishlist: userActions.removeTVSeriesFromWishlist,
+  addTVSeriesToFavorites: userActions.addTVSeriesToFavorites,
+  removeFromFavorites: userActions.removeFromFavorites,
   tvseriesDetailsClear: tvseriesActions.tvseriesDetailsClear,
   watchEpisode: userActions.watchEpisode,
   unWatchEpisode: userActions.unWatchEpisode,
@@ -243,6 +267,7 @@ const mapDispatchToProps = {
 };
 
 function mapStateToProps(state) {
+  console.log(state);
   return {
     user: state.user,
     tvseries: state.tvseries,

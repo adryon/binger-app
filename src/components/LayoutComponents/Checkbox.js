@@ -13,7 +13,7 @@ export default class Input extends React.Component{
 		return (
 			<div>
         {checked ? 
-          <span onClick={this.onCheckboxChange} className={`binger-checkbox-is-not-checked binger-checkbox-${color}`}>
+          <span onClick={this.onCheckboxChange} className={`binger-checkbox-is-checked binger-checkbox-${color}`}>
             <i className="far fa-check-square"></i>
           </span> :
           <span onClick={this.onCheckboxChange} className={`binger-checkbox-is-not-checked binger-checkbox-${color}`}>
